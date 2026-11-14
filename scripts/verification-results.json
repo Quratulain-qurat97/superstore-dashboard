@@ -1,0 +1,1355 @@
+{
+  "dataset": {
+    "rows": 9994,
+    "distinctOrders": 5009,
+    "distinctCustomers": 793,
+    "distinctStates": 49,
+    "totalSales": 2297200.860299955,
+    "totalProfit": 286397.0217000013,
+    "overallMargin": 12.467217240315906,
+    "averageDiscount": 0.15620272163298934
+  },
+  "claims": [
+    {
+      "section": "Q1 Region",
+      "claim": "West revenue",
+      "readme": 720000,
+      "actual": 725457.8245000006,
+      "tol": 500,
+      "unit": "$",
+      "diff": 5457.82450000057,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "West profit",
+      "readme": 107000,
+      "actual": 108418.44890000018,
+      "tol": 500,
+      "unit": "$",
+      "diff": 1418.4489000001777,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "West margin",
+      "readme": 14.9,
+      "actual": 14.944831420727214,
+      "tol": 0.05,
+      "unit": "%",
+      "diff": 0.044831420727213356,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "East margin",
+      "readme": 13.5,
+      "actual": 13.483398568882155,
+      "tol": 0.05,
+      "unit": "%",
+      "diff": -0.016601431117845067,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "Central revenue",
+      "readme": 502000,
+      "actual": 501239.8908000005,
+      "tol": 500,
+      "unit": "$",
+      "diff": -760.1091999994824,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "Central margin",
+      "readme": 8,
+      "actual": 7.9216285911775515,
+      "tol": 0.05,
+      "unit": "%",
+      "diff": -0.07837140882244853,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q1 Region",
+      "claim": "South margin",
+      "readme": 11.93,
+      "actual": 11.934341609004488,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": 0.0043416090044878786,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q2 Sub-category",
+      "claim": "Tables revenue",
+      "readme": 206000,
+      "actual": 206965.5320000001,
+      "tol": 500,
+      "unit": "$",
+      "diff": 965.5320000000938,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q2 Sub-category",
+      "claim": "Tables profit",
+      "readme": -17725,
+      "actual": -17725.481100000008,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": -0.4811000000081549,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q2 Sub-category",
+      "claim": "Tables margin",
+      "readme": -8.56,
+      "actual": -8.564460433923848,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": -0.004460433923847873,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q2 Sub-category",
+      "claim": "Bookcases margin",
+      "readme": -3.02,
+      "actual": -3.0227682032054513,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": -0.002768203205451236,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q2 Sub-category",
+      "claim": "Supplies margin",
+      "readme": -2.93,
+      "actual": -2.547695227218468,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": 0.3823047727815321,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q3 Segment",
+      "claim": "Consumer revenue",
+      "readme": 1160000,
+      "actual": 1161401.3449999888,
+      "tol": 5000,
+      "unit": "$",
+      "diff": 1401.3449999887962,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q3 Segment",
+      "claim": "Consumer margin",
+      "readme": 11.61,
+      "actual": 11.548050101491919,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": -0.061949898508080636,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q3 Segment",
+      "claim": "Corporate margin",
+      "readme": 13,
+      "actual": 13.025505521867425,
+      "tol": 0.5,
+      "unit": "%",
+      "diff": 0.02550552186742472,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q3 Segment",
+      "claim": "Home Office margin",
+      "readme": 13.88,
+      "actual": 14.034268970334344,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": 0.15426897033434273,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q4 Discount",
+      "claim": "No-discount avg profit",
+      "readme": 68,
+      "actual": 66.90029245518961,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": -1.0997075448103857,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q4 Discount",
+      "claim": "With-discount avg profit",
+      "readme": -5.9,
+      "actual": -6.657155792917611,
+      "tol": 0.005,
+      "unit": "$",
+      "diff": -0.7571557929176107,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q4 Discount",
+      "claim": "No-discount avg sales",
+      "readme": 230,
+      "actual": 226.74207378074013,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": -3.257926219259872,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q4 Discount",
+      "claim": "With-discount avg sales",
+      "readme": 228,
+      "actual": 232.7352560238636,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": 4.735256023863599,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q4 Discount",
+      "claim": "Swing (\"nearly $74\")",
+      "readme": 74,
+      "actual": 73.55744824810722,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": -0.44255175189277907,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Sean Miller revenue",
+      "readme": 25043,
+      "actual": 25043.05,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": 0.049999999999272404,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Sean Miller profit",
+      "readme": -1980,
+      "actual": -1980.7392999999997,
+      "tol": 0.5,
+      "unit": "$",
+      "diff": -0.7392999999997301,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Sean Miller margin",
+      "readme": -7.91,
+      "actual": -7.909337321133009,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": 0.0006626788669912287,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Ken Lonsdale revenue",
+      "readme": 14000,
+      "actual": 14175.229,
+      "tol": 500,
+      "unit": "$",
+      "diff": 175.22899999999936,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Ken Lonsdale margin",
+      "readme": 5.49,
+      "actual": 5.692006809907622,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": 0.20200680990762176,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Tamara Chand margin (\"above 46%\")",
+      "readme": 46,
+      "actual": 47.140568620409454,
+      "tol": 99,
+      "unit": "%",
+      "status": "MATCH",
+      "diff": null
+    },
+    {
+      "section": "Q5 Customers",
+      "claim": "Raymond Buch margin (\"above 46%\")",
+      "readme": 46,
+      "actual": 46.146321783218596,
+      "tol": 99,
+      "unit": "%",
+      "status": "MATCH",
+      "diff": null
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "Lowest ship-mode margin",
+      "readme": 12.1,
+      "actual": 12.081201999438303,
+      "tol": 0.05,
+      "unit": "%",
+      "diff": -0.01879800056169678,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "Highest ship-mode margin (First Class)",
+      "readme": 13.8,
+      "actual": 13.934513177932256,
+      "tol": 0.05,
+      "unit": "%",
+      "diff": 0.1345131779322557,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "First Class avg discount",
+      "readme": 0.25,
+      "actual": 0.16460988296488774,
+      "tol": 0.005,
+      "unit": "",
+      "diff": -0.08539011703511226,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "Standard Class avg discount (\"0.45+\")",
+      "readme": 0.45,
+      "actual": 0.16002345844504628,
+      "tol": 0.005,
+      "unit": "",
+      "diff": -0.2899765415549537,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "Second Class avg discount (\"0.45+\")",
+      "readme": 0.45,
+      "actual": 0.13889460154241506,
+      "tol": 0.005,
+      "unit": "",
+      "diff": -0.31110539845758495,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q7 Ship mode",
+      "claim": "Same Day avg discount (\"0.45+\")",
+      "readme": 0.45,
+      "actual": 0.15239410681399693,
+      "tol": 0.005,
+      "unit": "",
+      "diff": -0.29760589318600306,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Loss-making state count",
+      "readme": 10,
+      "actual": 10,
+      "tol": 0,
+      "unit": "",
+      "diff": 0,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Texas revenue",
+      "readme": 172000,
+      "actual": 170188.04580000002,
+      "tol": 500,
+      "unit": "$",
+      "diff": -1811.9541999999783,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Texas profit",
+      "readme": -25000,
+      "actual": -25729.3563,
+      "tol": 500,
+      "unit": "$",
+      "diff": -729.3562999999995,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Texas margin",
+      "readme": -14.83,
+      "actual": -15.118192455324614,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": -0.288192455324614,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Ohio margin",
+      "readme": -21.15,
+      "actual": -21.686405359821034,
+      "tol": 0.005,
+      "unit": "%",
+      "diff": -0.5364053598210354,
+      "status": "MISMATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "Central loss-making states",
+      "readme": 2,
+      "actual": 2,
+      "tol": 0,
+      "unit": "",
+      "diff": 0,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "West loss-making states",
+      "readme": 3,
+      "actual": 3,
+      "tol": 0,
+      "unit": "",
+      "diff": 0,
+      "status": "MATCH"
+    },
+    {
+      "section": "Q8 States",
+      "claim": "South loss-making states",
+      "readme": 3,
+      "actual": 3,
+      "tol": 0,
+      "unit": "",
+      "diff": 0,
+      "status": "MATCH"
+    }
+  ],
+  "statements": [
+    {
+      "section": "Q1",
+      "statement": "West leads in both revenue and margin",
+      "pass": true
+    },
+    {
+      "section": "Q1",
+      "statement": "Central is 3rd in revenue",
+      "pass": true
+    },
+    {
+      "section": "Q1",
+      "statement": "Central has the lowest margin",
+      "pass": true
+    },
+    {
+      "section": "Q1",
+      "statement": "\"Likely due to excessive discounting\": Central avg discount is highest",
+      "pass": true
+    },
+    {
+      "section": "Q2",
+      "statement": "Exactly three loss-making sub-categories: Tables, Bookcases, Supplies",
+      "pass": true
+    },
+    {
+      "section": "Q2",
+      "statement": "Labels, Envelopes, Paper margins all above 37%",
+      "pass": true
+    },
+    {
+      "section": "Q2",
+      "statement": "Those three are the ONLY sub-categories above 37% (Copiers is also above 37%)",
+      "pass": false
+    },
+    {
+      "section": "Q3",
+      "statement": "Consumer has the highest revenue and the lowest margin",
+      "pass": true
+    },
+    {
+      "section": "Q3",
+      "statement": "\"Consumer is over-discounted\": Consumer avg discount is the highest segment",
+      "pass": false
+    },
+    {
+      "section": "Q3",
+      "statement": "Home Office has the smallest revenue and the highest margin",
+      "pass": true
+    },
+    {
+      "section": "Q5",
+      "statement": "Sean Miller is the #1 customer by revenue",
+      "pass": true
+    },
+    {
+      "section": "Q7",
+      "statement": "First Class has the best ship-mode margin",
+      "pass": true
+    },
+    {
+      "section": "Q7",
+      "statement": "\"First Class gets fewer discounts\": First Class avg discount is the lowest",
+      "pass": false
+    },
+    {
+      "section": "Q6",
+      "statement": "March is higher than both February and April in every year",
+      "pass": true
+    },
+    {
+      "section": "Q6",
+      "statement": "September is higher than both August and October in every year",
+      "pass": true
+    },
+    {
+      "section": "Q6",
+      "statement": "February is lower than both January and March in every year",
+      "pass": false
+    },
+    {
+      "section": "Q6",
+      "statement": "October is lower than both September and November in every year",
+      "pass": true
+    },
+    {
+      "section": "Q6",
+      "statement": "\"Swings of $50,000+ between consecutive months\" are typical (more than half of changes)",
+      "pass": false
+    }
+  ],
+  "seasonality": {
+    "monthlyRankByYear": {
+      "2014": {
+        "1": 11,
+        "2": 12,
+        "3": 4,
+        "4": 8,
+        "5": 10,
+        "6": 5,
+        "7": 6,
+        "8": 9,
+        "9": 1,
+        "10": 7,
+        "11": 2,
+        "12": 3
+      },
+      "2015": {
+        "1": 11,
+        "2": 12,
+        "3": 4,
+        "4": 6,
+        "5": 8,
+        "6": 10,
+        "7": 9,
+        "8": 5,
+        "9": 3,
+        "10": 7,
+        "11": 1,
+        "12": 2
+      },
+      "2016": {
+        "1": 12,
+        "2": 11,
+        "3": 6,
+        "4": 9,
+        "5": 5,
+        "6": 7,
+        "7": 8,
+        "8": 10,
+        "9": 3,
+        "10": 4,
+        "11": 2,
+        "12": 1
+      },
+      "2017": {
+        "1": 10,
+        "2": 12,
+        "3": 6,
+        "4": 11,
+        "5": 9,
+        "6": 7,
+        "7": 8,
+        "8": 5,
+        "9": 2,
+        "10": 4,
+        "11": 1,
+        "12": 3
+      }
+    },
+    "novDecShareOfAnnualSales": {
+      "2014": 30.59888544213007,
+      "2015": 32.06836548247936,
+      "2016": 28.957548876627364,
+      "2017": 27.587688931107223
+    },
+    "marSepShareOfAnnualSales": {
+      "2014": 28.388037179205412,
+      "2015": 21.95856142216095,
+      "2016": 20.539190761014638,
+      "2017": 20.01308671080143
+    },
+    "momChangesOver50k": 6,
+    "momChangesTotal": 47,
+    "top6Months": [
+      {
+        "month": "2017-11",
+        "sales": 118447.82500000003
+      },
+      {
+        "month": "2016-12",
+        "sales": 96999.04300000002
+      },
+      {
+        "month": "2017-09",
+        "sales": 87866.65200000005
+      },
+      {
+        "month": "2017-12",
+        "sales": 83829.3188
+      },
+      {
+        "month": "2014-09",
+        "sales": 81777.35079999997
+      },
+      {
+        "month": "2016-11",
+        "sales": 79411.96579999999
+      }
+    ]
+  },
+  "orderLevelDiscount": {
+    "no discount": {
+      "orders": 2055,
+      "avgProfitPerOrder": 123.93638890510964,
+      "shareLossMaking": 0
+    },
+    "mixed": {
+      "orders": 589,
+      "avgProfitPerOrder": 185.65494074702877,
+      "shareLossMaking": 5.942275042444821
+    },
+    "all lines discounted": {
+      "orders": 2365,
+      "avgProfitPerOrder": -32.83002858350954,
+      "shareLossMaking": 41.733615221987314
+    }
+  },
+  "anyDiscountOrderAvgProfit": 10.733832938388622,
+  "discountBands": {
+    "0%": {
+      "rows": 4798,
+      "avgProfitPerRow": 66.90029245518961
+    },
+    ">0 to 20%": {
+      "rows": 3803,
+      "avgProfitPerRow": 26.501570996581652
+    },
+    ">20 to 40%": {
+      "rows": 460,
+      "avgProfitPerRow": -77.86405543478263
+    },
+    ">40%": {
+      "rows": 933,
+      "avgProfitPerRow": -106.70802840300107
+    }
+  },
+  "lossStates": [
+    {
+      "state": "Texas",
+      "region": "Central",
+      "sales": 170188.04580000002,
+      "profit": -25729.3563,
+      "margin": -15.118192455324614
+    },
+    {
+      "state": "Pennsylvania",
+      "region": "East",
+      "sales": 116511.91400000003,
+      "profit": -15559.960300000013,
+      "margin": -13.354823353086456
+    },
+    {
+      "state": "Florida",
+      "region": "South",
+      "sales": 89473.708,
+      "profit": -3399.3017,
+      "margin": -3.7992185369136595
+    },
+    {
+      "state": "Illinois",
+      "region": "Central",
+      "sales": 80166.10099999986,
+      "profit": -12607.88699999998,
+      "margin": -15.72720494414466
+    },
+    {
+      "state": "Ohio",
+      "region": "East",
+      "sales": 78258.13599999993,
+      "profit": -16971.376600000018,
+      "margin": -21.686405359821034
+    },
+    {
+      "state": "North Carolina",
+      "region": "South",
+      "sales": 55603.16399999997,
+      "profit": -7490.912200000003,
+      "margin": -13.472097019514948
+    },
+    {
+      "state": "Arizona",
+      "region": "West",
+      "sales": 35282.001,
+      "profit": -3427.9246,
+      "margin": -9.715788512108483
+    },
+    {
+      "state": "Colorado",
+      "region": "West",
+      "sales": 32108.117999999995,
+      "profit": -6527.857900000001,
+      "margin": -20.33086430042397
+    },
+    {
+      "state": "Tennessee",
+      "region": "South",
+      "sales": 30661.87299999998,
+      "profit": -5341.6936,
+      "margin": -17.421289299580632
+    },
+    {
+      "state": "Oregon",
+      "region": "West",
+      "sales": 17431.14999999999,
+      "profit": -1190.4704999999992,
+      "margin": -6.829558003918272
+    }
+  ],
+  "extra": {
+    "rowLevelDiscount": {
+      "noDiscount": {
+        "rows": 4798,
+        "avgSales": 226.74207378074013,
+        "avgProfit": 66.90029245518961
+      },
+      "withDiscount": {
+        "rows": 5196,
+        "avgSales": 232.7352560238636,
+        "avgProfit": -6.657155792917611
+      }
+    },
+    "shipModes": [
+      {
+        "mode": "First Class",
+        "avgDiscount": 0.16460988296488774,
+        "margin": 13.934513177932256,
+        "rows": 1538,
+        "sales": 351428.4229000002,
+        "profit": 48969.83990000002
+      },
+      {
+        "mode": "Second Class",
+        "avgDiscount": 0.13889460154241506,
+        "margin": 12.51033098635549,
+        "rows": 1945,
+        "sales": 459193.5693999998,
+        "profit": 57446.63539999997
+      },
+      {
+        "mode": "Same Day",
+        "avgDiscount": 0.15239410681399693,
+        "margin": 12.380314751607974,
+        "rows": 543,
+        "sales": 128363.125,
+        "profit": 15891.758899999984
+      },
+      {
+        "mode": "Standard Class",
+        "avgDiscount": 0.16002345844504628,
+        "margin": 12.081201999438303,
+        "rows": 5968,
+        "sales": 1358215.7429999826,
+        "profit": 164088.7874999997
+      }
+    ],
+    "regions": [
+      {
+        "region": "South",
+        "sales": 391721.9050000003,
+        "profit": 46749.430300000065,
+        "margin": 11.934341609004488,
+        "avgDiscount": 0.14725308641975116
+      },
+      {
+        "region": "West",
+        "sales": 725457.8245000006,
+        "profit": 108418.44890000018,
+        "margin": 14.944831420727214,
+        "avgDiscount": 0.10933499843896052
+      },
+      {
+        "region": "Central",
+        "sales": 501239.8908000005,
+        "profit": 39706.36249999998,
+        "margin": 7.9216285911775515,
+        "avgDiscount": 0.2403529918209213
+      },
+      {
+        "region": "East",
+        "sales": 678781.2399999979,
+        "profit": 91522.78000000026,
+        "margin": 13.483398568882155,
+        "avgDiscount": 0.14536516853932327
+      }
+    ],
+    "segments": [
+      {
+        "segment": "Consumer",
+        "sales": 1161401.3449999888,
+        "profit": 134119.20919999972,
+        "margin": 11.548050101491919,
+        "avgDiscount": 0.15814101329224042
+      },
+      {
+        "segment": "Corporate",
+        "sales": 706146.3668000001,
+        "profit": 91979.13400000021,
+        "margin": 13.025505521867425,
+        "avgDiscount": 0.15822847682118915
+      },
+      {
+        "segment": "Home Office",
+        "sales": 429653.1485000003,
+        "profit": 60298.678500000075,
+        "margin": 14.034268970334344,
+        "avgDiscount": 0.14712843522153524
+      }
+    ],
+    "subCategories": [
+      {
+        "sub": "Labels",
+        "category": "Office Supplies",
+        "sales": 12486.312,
+        "profit": 5546.253999999998,
+        "margin": 44.41867222283087
+      },
+      {
+        "sub": "Paper",
+        "category": "Office Supplies",
+        "sales": 78479.20600000002,
+        "profit": 34053.56929999997,
+        "margin": 43.39183719570246
+      },
+      {
+        "sub": "Envelopes",
+        "category": "Office Supplies",
+        "sales": 16476.402,
+        "profit": 6964.176700000003,
+        "margin": 42.26758184220076
+      },
+      {
+        "sub": "Copiers",
+        "category": "Technology",
+        "sales": 149528.02999999994,
+        "profit": 55617.82490000001,
+        "margin": 37.195584600425775
+      },
+      {
+        "sub": "Fasteners",
+        "category": "Office Supplies",
+        "sales": 3024.2799999999997,
+        "profit": 949.5181999999998,
+        "margin": 31.39650429193064
+      },
+      {
+        "sub": "Accessories",
+        "category": "Technology",
+        "sales": 167380.3180000001,
+        "profit": 41936.63569999993,
+        "margin": 25.054699501765743
+      },
+      {
+        "sub": "Art",
+        "category": "Office Supplies",
+        "sales": 27118.791999999954,
+        "profit": 6527.786999999998,
+        "margin": 24.07108325474088
+      },
+      {
+        "sub": "Appliances",
+        "category": "Office Supplies",
+        "sales": 107532.161,
+        "profit": 18138.005399999995,
+        "margin": 16.867516872463852
+      },
+      {
+        "sub": "Binders",
+        "category": "Office Supplies",
+        "sales": 203412.7330000001,
+        "profit": 30221.763299999995,
+        "margin": 14.857360625502231
+      },
+      {
+        "sub": "Furnishings",
+        "category": "Furniture",
+        "sales": 91705.16400000005,
+        "profit": 13059.143599999983,
+        "margin": 14.24035793665881
+      },
+      {
+        "sub": "Phones",
+        "category": "Technology",
+        "sales": 330007.0540000001,
+        "profit": 44515.7306,
+        "margin": 13.489326988749758
+      },
+      {
+        "sub": "Storage",
+        "category": "Office Supplies",
+        "sales": 223843.60800000012,
+        "profit": 21278.826399999998,
+        "margin": 9.506113035847772
+      },
+      {
+        "sub": "Chairs",
+        "category": "Furniture",
+        "sales": 328449.10300000076,
+        "profit": 26590.166300000026,
+        "margin": 8.095673289142752
+      },
+      {
+        "sub": "Machines",
+        "category": "Technology",
+        "sales": 189238.63099999996,
+        "profit": 3384.7569,
+        "margin": 1.788618360909618
+      },
+      {
+        "sub": "Supplies",
+        "category": "Office Supplies",
+        "sales": 46673.538000000015,
+        "profit": -1189.0994999999984,
+        "margin": -2.547695227218468
+      },
+      {
+        "sub": "Bookcases",
+        "category": "Furniture",
+        "sales": 114879.99629999997,
+        "profit": -3472.5559999999978,
+        "margin": -3.0227682032054513
+      },
+      {
+        "sub": "Tables",
+        "category": "Furniture",
+        "sales": 206965.5320000001,
+        "profit": -17725.481100000008,
+        "margin": -8.564460433923848
+      }
+    ],
+    "top10Customers": [
+      {
+        "name": "Sean Miller",
+        "sales": 25043.05,
+        "profit": -1980.7392999999997,
+        "margin": -7.909337321133009
+      },
+      {
+        "name": "Tamara Chand",
+        "sales": 19052.217999999997,
+        "profit": 8981.323900000001,
+        "margin": 47.140568620409454
+      },
+      {
+        "name": "Raymond Buch",
+        "sales": 15117.339,
+        "profit": 6976.0959,
+        "margin": 46.146321783218596
+      },
+      {
+        "name": "Tom Ashbrook",
+        "sales": 14595.62,
+        "profit": 4703.788299999999,
+        "margin": 32.2273963010821
+      },
+      {
+        "name": "Adrian Barton",
+        "sales": 14473.570999999998,
+        "profit": 5444.8055,
+        "margin": 37.618950430408646
+      },
+      {
+        "name": "Ken Lonsdale",
+        "sales": 14175.229,
+        "profit": 806.855,
+        "margin": 5.692006809907622
+      },
+      {
+        "name": "Sanjit Chand",
+        "sales": 14142.333999999999,
+        "profit": 5757.411899999999,
+        "margin": 40.71047890680562
+      },
+      {
+        "name": "Hunter Lopez",
+        "sales": 12873.297999999999,
+        "profit": 5622.4292000000005,
+        "margin": 43.675126607027984
+      },
+      {
+        "name": "Sanjit Engle",
+        "sales": 12209.438000000002,
+        "profit": 2650.6768999999995,
+        "margin": 21.71006478758481
+      },
+      {
+        "name": "Christopher Conant",
+        "sales": 12129.072,
+        "profit": 2177.0493,
+        "margin": 17.949017863856362
+      }
+    ]
+  },
+  "contractChecks": [
+    {
+      "name": "[All filters] KPI Total Sales = kpis.totalSales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] KPI Total Profit = kpis.totalProfit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] KPI Profit Margin = kpis.profitMargin (null when no sales)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] KPI Loss-Making States = lossStates.count / stateCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] No NaN/Infinity anywhere in the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Monthly trend zero-filled to full period (48 or 12 months)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Monthly trend sums to Total Sales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Regions chart sums to the slice that ignores the Region filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Segments chart sums to the slice that ignores the Segment filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Sub-categories chart sums to the slice that ignores the Category filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Categories chips sum to the same slice as sub-categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Discount tiers row counts add up to kpis.rowCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] KPI Total Sales = kpis.totalSales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] KPI Total Profit = kpis.totalProfit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] KPI Profit Margin = kpis.profitMargin (null when no sales)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] KPI Loss-Making States = lossStates.count / stateCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] No NaN/Infinity anywhere in the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Monthly trend zero-filled to full period (48 or 12 months)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Monthly trend sums to Total Sales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Regions chart sums to the slice that ignores the Region filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Segments chart sums to the slice that ignores the Segment filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Sub-categories chart sums to the slice that ignores the Category filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Categories chips sum to the same slice as sub-categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Regions chart still shows all 4 regions when a region is selected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Region = Central] Discount tiers row counts add up to kpis.rowCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] KPI Total Sales = kpis.totalSales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] KPI Total Profit = kpis.totalProfit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] KPI Profit Margin = kpis.profitMargin (null when no sales)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] KPI Loss-Making States = lossStates.count / stateCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] No NaN/Infinity anywhere in the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Monthly trend zero-filled to full period (48 or 12 months)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Monthly trend sums to Total Sales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Regions chart sums to the slice that ignores the Region filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Segments chart sums to the slice that ignores the Segment filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Sub-categories chart sums to the slice that ignores the Category filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Categories chips sum to the same slice as sub-categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Sub-category chart still shows all 17 when a category is selected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Category = Furniture, Year = 2016] Discount tiers row counts add up to kpis.rowCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] KPI Total Sales = kpis.totalSales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] KPI Total Profit = kpis.totalProfit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] KPI Profit Margin = kpis.profitMargin (null when no sales)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] KPI Loss-Making States = lossStates.count / stateCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] No NaN/Infinity anywhere in the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Monthly trend zero-filled to full period (48 or 12 months)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Monthly trend sums to Total Sales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Regions chart sums to the slice that ignores the Region filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Segments chart sums to the slice that ignores the Segment filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Sub-categories chart sums to the slice that ignores the Category filter",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Categories chips sum to the same slice as sub-categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Regions chart still shows all 4 regions when a region is selected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Sub-category chart still shows all 17 when a category is selected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Segment = Corporate, Region = West, Category = Technology, Year = 2017] Discount tiers row counts add up to kpis.rowCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] KPI Total Sales = kpis.totalSales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] KPI Total Profit = kpis.totalProfit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] KPI Profit Margin = kpis.profitMargin (null when no sales)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] KPI Loss-Making States = lossStates.count / stateCount",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] No NaN/Infinity anywhere in the contract",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] Monthly trend zero-filled to full period (48 or 12 months)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] Monthly trend sums to Total Sales",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[Empty selection (category that does not exist)] Empty selection: zero KPIs, null margin, no loss states, null discount difference, no region/segment bars",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Every valid filter combination returns rows (400 combinations tested)",
+      "pass": true,
+      "detail": "0 empty"
+    },
+    {
+      "name": "[All filters] 4 regions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] 3 segments",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] 3 categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] 17 sub-categories",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] 10 loss-making states",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "[All filters] Region=Central gives exactly 2 loss-making states (Texas, Illinois)",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

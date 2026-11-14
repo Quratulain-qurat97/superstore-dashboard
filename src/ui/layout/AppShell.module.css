@@ -1,0 +1,14 @@
+/* The 1440 x 1024 Figma canvas. Everything inside is positioned in Figma pixels. */
+.frame {
+  position: relative;
+  width: var(--canvas-w);
+  height: var(--frame-height);
+  background: #ffffff;
+
+  /* The main column starts at --content-left and stops 9px before the right edge.
+     At the design width (1460) these resolve to the exact Figma sizes: 1340 / 320 / 660 / bar 1342. */
+  --content-w: calc(var(--canvas-w) - var(--content-left) - 9px);
+  --bar-w: calc(var(--canvas-w) - var(--content-left) - 7px);
+  --kpi-w: calc((var(--content-w) - 60px) / 4);
+  --chart-w: calc((var(--content-w) - 20px) / 2);
+}

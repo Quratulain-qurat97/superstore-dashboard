@@ -1,0 +1,44 @@
+/* Profile box: x=1035, y=8, 396 x 76, radius 13, white, shadow 0 4 12 @ 0.2.
+   It is not interactive (no menu exists), so it has no hover or pointer styling. */
+.badge {
+  position: absolute;
+  left: calc(var(--canvas-w) - 405px); /* 1035 at 1440: 9px from the right edge */
+  top: 8px;
+  width: 396px;
+  height: 76px;
+  border-radius: var(--radius-profile);
+  background: #ffffff;
+  box-shadow: var(--shadow-profile);
+}
+
+/* 60 x 60 avatar at (+8, +8) */
+.avatar {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-blue-tint);
+  color: var(--color-blue);
+  font: 600 22px/60px var(--font-inter);
+  text-align: center;
+  user-select: none;
+}
+
+/* Inter SemiBold 14: glyph origin x=1123.53, baseline y=46 (frame coordinates) */
+.name {
+  position: absolute;
+  left: 88.53px; /* 1123.53 - 1035 */
+  top: 22.91px; /* baseline 46 - 8 - 15.09 (line box 20px) */
+  font: 600 14px/20px var(--font-inter);
+  color: #000000;
+  white-space: nowrap;
+}
+
+/* chevron box 25 x 24 at frame (1393, 34) */
+.chevron {
+  position: absolute;
+  left: 358px; /* 1393 - 1035 */
+  top: 26px; /* 34 - 8 */
+}

@@ -1,0 +1,104 @@
+/* One dropdown. All numbers are Figma pixels measured from the filter bar's top-left corner.
+   Per-slot offsets arrive as CSS variables (see FilterSelect.jsx). */
+.field {
+  position: absolute;
+  top: 0;
+  height: 100px;
+}
+
+.icon {
+  position: absolute;
+  left: var(--icon-left);
+  top: var(--icon-top);
+  display: block;
+}
+
+/* Inter Bold 15, #8e8e93 */
+.label {
+  position: absolute;
+  left: var(--label-left);
+  top: var(--label-top);
+  font: 700 15px/20px var(--font-inter);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* The box: 38px tall at y=39, white, radius 10, 2px #ccc border (drawn by an overlay) */
+.box {
+  position: absolute;
+  left: 0;
+  top: 39px;
+  width: 100%;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-dropdown);
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-dropdown-border);
+  border-radius: var(--radius-dropdown);
+  pointer-events: none;
+}
+
+/* Inter Regular 15, black */
+.value {
+  position: absolute;
+  left: var(--value-left);
+  top: 8.56px;
+  max-width: calc(100% - var(--value-left) - var(--chevron-right) - 28px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 600 17px/20px var(--font-inter);
+  color: #000000;
+}
+
+.chevron {
+  position: absolute;
+  right: var(--chevron-right);
+  top: 7px;
+  display: block;
+  transition: none;
+}
+
+/* Open state: Figma has none, so this is the smallest addition that works:
+   same radius, border colour and shadow as the existing cards. */
+.list {
+  position: absolute;
+  left: 0;
+  top: 83px;
+  z-index: 20;
+  width: 100%;
+  max-height: 280px;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  list-style: none;
+  background: #ffffff;
+  border: 2px solid var(--color-dropdown-border);
+  border-radius: var(--radius-dropdown);
+  box-shadow: var(--shadow-card);
+}
+
+.option {
+  padding: 0 14px 0 var(--value-left);
+  font: 400 17px/36px var(--font-inter);
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.optionActive {
+  background: var(--color-blue-tint);
+}
+
+.optionSelected {
+  font-weight: 600;
+}

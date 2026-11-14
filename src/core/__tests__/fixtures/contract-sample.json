@@ -1,0 +1,593 @@
+{
+  "query": {
+    "region": null,
+    "segment": null,
+    "category": null,
+    "year": null
+  },
+  "kpis": {
+    "totalSales": 2297200.860299955,
+    "totalProfit": 286397.0217000013,
+    "profitMargin": 12.467217240315906,
+    "orderCount": 5009,
+    "customerCount": 793,
+    "rowCount": 9994
+  },
+  "lossStates": {
+    "count": 10,
+    "stateCount": 49,
+    "totalProfit": -98246.74070000023,
+    "states": [
+      {
+        "state": "Texas",
+        "region": "Central",
+        "sales": 170188.04580000002,
+        "profit": -25729.3563,
+        "margin": -15.118192455324614
+      },
+      {
+        "state": "Pennsylvania",
+        "region": "East",
+        "sales": 116511.91400000003,
+        "profit": -15559.960300000013,
+        "margin": -13.354823353086456
+      },
+      {
+        "state": "Florida",
+        "region": "South",
+        "sales": 89473.708,
+        "profit": -3399.3017,
+        "margin": -3.7992185369136595
+      },
+      {
+        "state": "Illinois",
+        "region": "Central",
+        "sales": 80166.10099999986,
+        "profit": -12607.88699999998,
+        "margin": -15.72720494414466
+      },
+      {
+        "state": "Ohio",
+        "region": "East",
+        "sales": 78258.13599999993,
+        "profit": -16971.376600000018,
+        "margin": -21.686405359821034
+      },
+      {
+        "state": "North Carolina",
+        "region": "South",
+        "sales": 55603.16399999997,
+        "profit": -7490.912200000003,
+        "margin": -13.472097019514948
+      },
+      {
+        "state": "Arizona",
+        "region": "West",
+        "sales": 35282.001,
+        "profit": -3427.9246,
+        "margin": -9.715788512108483
+      },
+      {
+        "state": "Colorado",
+        "region": "West",
+        "sales": 32108.117999999995,
+        "profit": -6527.857900000001,
+        "margin": -20.33086430042397
+      },
+      {
+        "state": "Tennessee",
+        "region": "South",
+        "sales": 30661.87299999998,
+        "profit": -5341.6936,
+        "margin": -17.421289299580632
+      },
+      {
+        "state": "Oregon",
+        "region": "West",
+        "sales": 17431.14999999999,
+        "profit": -1190.4704999999992,
+        "margin": -6.829558003918272
+      }
+    ]
+  },
+  "monthlyTrend": [
+    {
+      "month": "2014-01",
+      "sales": 14236.894999999997,
+      "prevSales": null,
+      "momChange": null
+    },
+    {
+      "month": "2014-02",
+      "sales": 4519.892,
+      "prevSales": 14236.894999999997,
+      "momChange": -9717.002999999997
+    },
+    {
+      "month": "2014-03",
+      "sales": 55691.00900000003,
+      "prevSales": 4519.892,
+      "momChange": 51171.11700000003
+    },
+    {
+      "month": "2014-04",
+      "sales": 28295.344999999994,
+      "prevSales": 55691.00900000003,
+      "momChange": -27395.664000000033
+    },
+    {
+      "month": "2014-05",
+      "sales": 23648.287,
+      "prevSales": 28295.344999999994,
+      "momChange": -4647.057999999994
+    },
+    {
+      "month": "2014-06",
+      "sales": 34595.12760000003,
+      "prevSales": 23648.287,
+      "momChange": 10946.840600000029
+    },
+    {
+      "month": "2014-07",
+      "sales": 33946.393,
+      "prevSales": 34595.12760000003,
+      "momChange": -648.7346000000325
+    },
+    {
+      "month": "2014-08",
+      "sales": 27909.46849999999,
+      "prevSales": 33946.393,
+      "momChange": -6036.924500000005
+    },
+    {
+      "month": "2014-09",
+      "sales": 81777.35079999997,
+      "prevSales": 27909.46849999999,
+      "momChange": 53867.88229999998
+    },
+    {
+      "month": "2014-10",
+      "sales": 31453.39299999999,
+      "prevSales": 81777.35079999997,
+      "momChange": -50323.95779999998
+    },
+    {
+      "month": "2014-11",
+      "sales": 78628.71669999999,
+      "prevSales": 31453.39299999999,
+      "momChange": 47175.3237
+    },
+    {
+      "month": "2014-12",
+      "sales": 69545.62049999999,
+      "prevSales": 78628.71669999999,
+      "momChange": -9083.0962
+    },
+    {
+      "month": "2015-01",
+      "sales": 18174.075599999993,
+      "prevSales": 69545.62049999999,
+      "momChange": -51371.54489999999
+    },
+    {
+      "month": "2015-02",
+      "sales": 11951.411,
+      "prevSales": 18174.075599999993,
+      "momChange": -6222.664599999993
+    },
+    {
+      "month": "2015-03",
+      "sales": 38726.25199999999,
+      "prevSales": 11951.411,
+      "momChange": 26774.840999999993
+    },
+    {
+      "month": "2015-04",
+      "sales": 34195.20849999999,
+      "prevSales": 38726.25199999999,
+      "momChange": -4531.0435
+    },
+    {
+      "month": "2015-05",
+      "sales": 30131.686499999996,
+      "prevSales": 34195.20849999999,
+      "momChange": -4063.521999999997
+    },
+    {
+      "month": "2015-06",
+      "sales": 24797.292,
+      "prevSales": 30131.686499999996,
+      "momChange": -5334.394499999995
+    },
+    {
+      "month": "2015-07",
+      "sales": 28765.324999999993,
+      "prevSales": 24797.292,
+      "momChange": 3968.032999999992
+    },
+    {
+      "month": "2015-08",
+      "sales": 36898.33219999999,
+      "prevSales": 28765.324999999993,
+      "momChange": 8133.007199999996
+    },
+    {
+      "month": "2015-09",
+      "sales": 64595.918000000034,
+      "prevSales": 36898.33219999999,
+      "momChange": 27697.585800000044
+    },
+    {
+      "month": "2015-10",
+      "sales": 31404.92350000001,
+      "prevSales": 64595.918000000034,
+      "momChange": -33190.99450000002
+    },
+    {
+      "month": "2015-11",
+      "sales": 75972.56350000005,
+      "prevSales": 31404.92350000001,
+      "momChange": 44567.640000000036
+    },
+    {
+      "month": "2015-12",
+      "sales": 74919.52120000008,
+      "prevSales": 75972.56350000005,
+      "momChange": -1053.0422999999719
+    },
+    {
+      "month": "2016-01",
+      "sales": 18542.490999999995,
+      "prevSales": 74919.52120000008,
+      "momChange": -56377.03020000008
+    },
+    {
+      "month": "2016-02",
+      "sales": 22978.815000000002,
+      "prevSales": 18542.490999999995,
+      "momChange": 4436.324000000008
+    },
+    {
+      "month": "2016-03",
+      "sales": 51715.87500000002,
+      "prevSales": 22978.815000000002,
+      "momChange": 28737.06000000002
+    },
+    {
+      "month": "2016-04",
+      "sales": 38750.038999999975,
+      "prevSales": 51715.87500000002,
+      "momChange": -12965.836000000047
+    },
+    {
+      "month": "2016-05",
+      "sales": 56987.72799999999,
+      "prevSales": 38750.038999999975,
+      "momChange": 18237.689000000013
+    },
+    {
+      "month": "2016-06",
+      "sales": 40344.533999999985,
+      "prevSales": 56987.72799999999,
+      "momChange": -16643.194000000003
+    },
+    {
+      "month": "2016-07",
+      "sales": 39261.96299999997,
+      "prevSales": 40344.533999999985,
+      "momChange": -1082.571000000018
+    },
+    {
+      "month": "2016-08",
+      "sales": 31115.3743,
+      "prevSales": 39261.96299999997,
+      "momChange": -8146.5886999999675
+    },
+    {
+      "month": "2016-09",
+      "sales": 73410.02489999997,
+      "prevSales": 31115.3743,
+      "momChange": 42294.65059999998
+    },
+    {
+      "month": "2016-10",
+      "sales": 59687.74500000001,
+      "prevSales": 73410.02489999997,
+      "momChange": -13722.279899999965
+    },
+    {
+      "month": "2016-11",
+      "sales": 79411.96579999999,
+      "prevSales": 59687.74500000001,
+      "momChange": 19724.22079999998
+    },
+    {
+      "month": "2016-12",
+      "sales": 96999.04300000002,
+      "prevSales": 79411.96579999999,
+      "momChange": 17587.07720000003
+    },
+    {
+      "month": "2017-01",
+      "sales": 43971.373999999996,
+      "prevSales": 96999.04300000002,
+      "momChange": -53027.66900000002
+    },
+    {
+      "month": "2017-02",
+      "sales": 20301.133399999995,
+      "prevSales": 43971.373999999996,
+      "momChange": -23670.2406
+    },
+    {
+      "month": "2017-03",
+      "sales": 58872.352799999986,
+      "prevSales": 20301.133399999995,
+      "momChange": 38571.21939999999
+    },
+    {
+      "month": "2017-04",
+      "sales": 36521.536100000005,
+      "prevSales": 58872.352799999986,
+      "momChange": -22350.81669999998
+    },
+    {
+      "month": "2017-05",
+      "sales": 44261.110199999996,
+      "prevSales": 36521.536100000005,
+      "momChange": 7739.574099999991
+    },
+    {
+      "month": "2017-06",
+      "sales": 52981.725699999995,
+      "prevSales": 44261.110199999996,
+      "momChange": 8720.6155
+    },
+    {
+      "month": "2017-07",
+      "sales": 45264.416000000005,
+      "prevSales": 52981.725699999995,
+      "momChange": -7717.309699999991
+    },
+    {
+      "month": "2017-08",
+      "sales": 63120.88799999998,
+      "prevSales": 45264.416000000005,
+      "momChange": 17856.471999999972
+    },
+    {
+      "month": "2017-09",
+      "sales": 87866.65200000005,
+      "prevSales": 63120.88799999998,
+      "momChange": 24745.76400000007
+    },
+    {
+      "month": "2017-10",
+      "sales": 77776.92319999998,
+      "prevSales": 87866.65200000005,
+      "momChange": -10089.72880000007
+    },
+    {
+      "month": "2017-11",
+      "sales": 118447.82500000003,
+      "prevSales": 77776.92319999998,
+      "momChange": 40670.90180000005
+    },
+    {
+      "month": "2017-12",
+      "sales": 83829.3188,
+      "prevSales": 118447.82500000003,
+      "momChange": -34618.50620000003
+    }
+  ],
+  "regions": [
+    {
+      "region": "West",
+      "sales": 725457.8245000006,
+      "profit": 108418.44890000018,
+      "margin": 14.944831420727214,
+      "orderCount": 1611
+    },
+    {
+      "region": "East",
+      "sales": 678781.2399999979,
+      "profit": 91522.78000000026,
+      "margin": 13.483398568882155,
+      "orderCount": 1401
+    },
+    {
+      "region": "Central",
+      "sales": 501239.8908000005,
+      "profit": 39706.36249999998,
+      "margin": 7.9216285911775515,
+      "orderCount": 1175
+    },
+    {
+      "region": "South",
+      "sales": 391721.9050000003,
+      "profit": 46749.430300000065,
+      "margin": 11.934341609004488,
+      "orderCount": 822
+    }
+  ],
+  "segments": [
+    {
+      "segment": "Home Office",
+      "sales": 429653.1485000003,
+      "profit": 60298.678500000075,
+      "margin": 14.034268970334344,
+      "orderCount": 909,
+      "customerCount": 148
+    },
+    {
+      "segment": "Corporate",
+      "sales": 706146.3668000001,
+      "profit": 91979.13400000021,
+      "margin": 13.025505521867425,
+      "orderCount": 1514,
+      "customerCount": 236
+    },
+    {
+      "segment": "Consumer",
+      "sales": 1161401.3449999888,
+      "profit": 134119.20919999972,
+      "margin": 11.548050101491919,
+      "orderCount": 2586,
+      "customerCount": 409
+    }
+  ],
+  "categories": [
+    {
+      "category": "Furniture",
+      "sales": 741999.7952999998,
+      "profit": 18451.2728,
+      "margin": 2.486695133458887
+    },
+    {
+      "category": "Office Supplies",
+      "sales": 719047.0320000029,
+      "profit": 122490.80080000011,
+      "margin": 17.0351583900286
+    },
+    {
+      "category": "Technology",
+      "sales": 836154.0329999966,
+      "profit": 145454.9480999999,
+      "margin": 17.395712076891996
+    }
+  ],
+  "subCategories": [
+    {
+      "category": "Office Supplies",
+      "subCategory": "Labels",
+      "sales": 12486.312,
+      "profit": 5546.253999999998,
+      "margin": 44.41867222283087
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Paper",
+      "sales": 78479.20600000002,
+      "profit": 34053.56929999997,
+      "margin": 43.39183719570246
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Envelopes",
+      "sales": 16476.402,
+      "profit": 6964.176700000003,
+      "margin": 42.26758184220076
+    },
+    {
+      "category": "Technology",
+      "subCategory": "Copiers",
+      "sales": 149528.02999999994,
+      "profit": 55617.82490000001,
+      "margin": 37.195584600425775
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Fasteners",
+      "sales": 3024.2799999999997,
+      "profit": 949.5181999999998,
+      "margin": 31.39650429193064
+    },
+    {
+      "category": "Technology",
+      "subCategory": "Accessories",
+      "sales": 167380.3180000001,
+      "profit": 41936.63569999993,
+      "margin": 25.054699501765743
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Art",
+      "sales": 27118.791999999954,
+      "profit": 6527.786999999998,
+      "margin": 24.07108325474088
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Appliances",
+      "sales": 107532.161,
+      "profit": 18138.005399999995,
+      "margin": 16.867516872463852
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Binders",
+      "sales": 203412.7330000001,
+      "profit": 30221.763299999995,
+      "margin": 14.857360625502231
+    },
+    {
+      "category": "Furniture",
+      "subCategory": "Furnishings",
+      "sales": 91705.16400000005,
+      "profit": 13059.143599999983,
+      "margin": 14.24035793665881
+    },
+    {
+      "category": "Technology",
+      "subCategory": "Phones",
+      "sales": 330007.0540000001,
+      "profit": 44515.7306,
+      "margin": 13.489326988749758
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Storage",
+      "sales": 223843.60800000012,
+      "profit": 21278.826399999998,
+      "margin": 9.506113035847772
+    },
+    {
+      "category": "Furniture",
+      "subCategory": "Chairs",
+      "sales": 328449.10300000076,
+      "profit": 26590.166300000026,
+      "margin": 8.095673289142752
+    },
+    {
+      "category": "Technology",
+      "subCategory": "Machines",
+      "sales": 189238.63099999996,
+      "profit": 3384.7569,
+      "margin": 1.788618360909618
+    },
+    {
+      "category": "Office Supplies",
+      "subCategory": "Supplies",
+      "sales": 46673.538000000015,
+      "profit": -1189.0994999999984,
+      "margin": -2.547695227218468
+    },
+    {
+      "category": "Furniture",
+      "subCategory": "Bookcases",
+      "sales": 114879.99629999997,
+      "profit": -3472.5559999999978,
+      "margin": -3.0227682032054513
+    },
+    {
+      "category": "Furniture",
+      "subCategory": "Tables",
+      "sales": 206965.5320000001,
+      "profit": -17725.481100000008,
+      "margin": -8.564460433923848
+    }
+  ],
+  "discountImpact": {
+    "noDiscount": {
+      "rowCount": 4798,
+      "avgSales": 226.74207378074013,
+      "avgProfit": 66.90029245518961
+    },
+    "withDiscount": {
+      "rowCount": 5196,
+      "avgSales": 232.7352560238636,
+      "avgProfit": -6.657155792917611
+    },
+    "profitDifferencePerRow": 73.55744824810722
+  }
+}

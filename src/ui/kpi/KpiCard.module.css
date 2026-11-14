@@ -1,0 +1,48 @@
+/* KPI card: 320 x 126 at y=204. White, shadow 0 4 12 @ 0.08, 1px border (drawn by an overlay so
+   child positions are measured from the card's outer edge, like the Figma coordinates).
+   Left, radius and tile position arrive as inline values from KpiRow (they differ per card in Figma). */
+.card {
+  position: absolute;
+  top: 204px;
+  width: var(--kpi-w); /* 320 at 1440 */
+  height: 126px;
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-card-border);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Poppins Medium 20 / 22, #8e8e93. Glyph origin x=13, baseline y=43 from the card's top. */
+.label {
+  position: absolute;
+  left: 13px;
+  top: 25px;
+  font: 500 20px/22px var(--font-poppins);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* Poppins Bold 32 / 45, #111827. Glyph origin x=13, baseline y=88 from the card's top. */
+.value {
+  position: absolute;
+  left: 13px;
+  top: 54.3px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: 700 32px/45px var(--font-poppins);
+  color: var(--color-text-strong);
+  white-space: nowrap;
+}
+
+.tile {
+  position: absolute;
+  display: block;
+}

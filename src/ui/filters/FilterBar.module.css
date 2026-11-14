@@ -1,0 +1,23 @@
+/* Filter bar: x=91, y=89, 1342 x 100, radius 25, white, shadow 0 4 12 @ 0.08.
+   The 1px border is drawn by an overlay so child positions are measured from the outer edge,
+   exactly like the Figma coordinates. */
+.bar {
+  position: absolute;
+  left: var(--content-left);
+  top: 89px;
+  width: var(--bar-w); /* 1342 at the design width */
+  --field-w: calc((var(--bar-w) - 170px) / 4); /* 293 at the design width */
+  height: 100px;
+  border-radius: var(--radius-card-lg);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card-lg);
+  pointer-events: none;
+}

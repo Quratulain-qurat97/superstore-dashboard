@@ -1,0 +1,43 @@
+/* tokens.css: design values taken from the Figma export (Desktop - 1.svg + design context).
+   Only values that exist in the Figma design are defined here. */
+:root {
+  /* canvas */
+  /* Design canvas. The Figma frame is 1440 wide with the main column starting at x=91. The gap between
+     the sidebar (ends at x=76) and the main column was widened by 20px (15 -> 35), and the canvas is
+     20px wider to match, so every component keeps its exact Figma width. */
+  --frame-width: 1460px;
+  --content-left: 111px; /* Figma: 91 */
+  --frame-height: 1024px;
+  --canvas-w: var(--frame-width); /* the real value is set by ScaleToFit on the canvas element */
+
+  /* colours */
+  --color-card: #ffffff;
+  --color-card-border: rgba(229, 231, 235, 0.5);
+  --color-text: #000000;
+  --color-text-strong: #111827;
+  --color-muted: #8e8e93;
+  --color-dropdown-border: #cccccc;
+  --color-blue: #2563eb;
+  --color-blue-tint: #eaf2ff;
+  --color-purple: #9333ea;
+  --color-purple-tint: #f3e8ff;
+  --color-green: #16a34a;
+  --color-green-tint: #dcfce7;
+  --color-pink: #ec4899;
+  --color-pink-tint: #fce7f3;
+
+  /* shadows: every shadow in the SVG is dy=4, blur=12 (stdDeviation 6); only the opacity differs */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-profile: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* radii */
+  --radius-card: 20px;
+  --radius-card-lg: 25px;
+  --radius-profile: 13px;
+  --radius-dropdown: 10px;
+
+  /* fonts */
+  --font-inter: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-poppins: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
