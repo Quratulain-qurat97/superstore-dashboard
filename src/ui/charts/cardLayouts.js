@@ -47,3 +47,19 @@ export const SEGMENT_CARD_LAYOUT = {
   body: { left: 0, top: 57, right: 0, height: 267 },
 };
 
+
+
+/**
+ * Sales Analysis — Category & Sub-Category Profitability.
+ * Uses the existing 324px card height and a dedicated chart body.
+ */
+export const SALES_CATEGORY_CARD_LAYOUT = {
+  titleLeft: 16.11,
+  titleTop: 14.78,
+  body: {
+    left: 5,
+    top: 50,
+    right: 14,
+    height: 274,
+  },
+};

@@ -27,14 +27,21 @@ export function groupBy(rows, keyFn) {
  * A criterion of null/undefined means "no restriction".
  * `year` is a number (2016); `month` is 'YYYY-MM'. Both match against orderDate ('YYYY-MM-DD').
  */
-export function filterRows(rows, { region, category, segment, year, month } = {}) {
+
+export function filterRows(
+  rows,
+  { region, category, segment, year, month, subCategory } = {},
+) {
   const yearPrefix = year ? String(year) : null;
+
   return rows.filter(
     (row) =>
       (!region || row.region === region) &&
       (!category || row.category === category) &&
       (!segment || row.segment === segment) &&
+      (!subCategory || row.subCategory === subCategory) &&
       (!yearPrefix || row.orderDate.startsWith(yearPrefix)) &&
       (!month || row.orderDate.startsWith(month)),
   );
 }
+

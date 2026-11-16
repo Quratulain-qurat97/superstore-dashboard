@@ -258,9 +258,10 @@ export default function CategoryRevenueChart({
               const labelWidth = label.length * 7 + 10;
               const labelHeight = 20;
               const centerX = x + barWidth / 2;
+              const labelY = Math.max(y - 12, labelHeight / 2 + 2);
 
               return (
-                <g transform={`translate(${centerX}, ${y - 12})`}>
+                <g transform={`translate(${centerX}, ${labelY})`}>
                   <rect
                     x={-labelWidth / 2}
                     y={-labelHeight / 2}

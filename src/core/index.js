@@ -12,3 +12,8 @@ export * from './categorySeries.js';
 export * from './regionSeries.js';
 export * from './segmentSeries.js';
 export * from './donutLabel.js';
+export * from './salesData.js';
+export * from './salesKpiCards.js';
+export * from './salesTrendSeries.js';
+export * from './salesRegionalSeries.js';
+export * from './salesCategorySeries.js';

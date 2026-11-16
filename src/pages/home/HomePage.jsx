@@ -94,7 +94,7 @@ export default function HomePage() {
 
       {/* Sales by Category */}
       <ChartCard
-        title="Revenue by Category"
+        title="Sales by Category"
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={342}
         layout={CATEGORY_CARD_LAYOUT}

@@ -12,7 +12,7 @@
   position: absolute;
   left: var(--content-left);
   top: 50.06px; /* baseline y=73.02 with a 35px line box */
-  font: 400 15px/35px var(--font-inter);
+  font: 400 17px/35px var(--font-inter);
   color: #000000;
   white-space: nowrap;
 }
