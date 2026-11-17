@@ -39,6 +39,7 @@ import {
 import styles from './MonthlyTrendChart.module.css';
 
 const DESIGN_WIDTH = 641;
+
 const TEXT_STYLE = {
   font: '600 12px var(--font-inter)',
   fill: '#000000',
@@ -157,6 +158,7 @@ export default function MonthlyTrendChart({
     return (
       <text
         key={payload.value}
+        data-testid="y-axis-tick"
         x={Y_LABEL.anchorX}
         y={
           y +
@@ -360,39 +362,42 @@ export default function MonthlyTrendChart({
           activeDot={renderActiveDot}
         >
           <LabelList
-  dataKey="salesLabel"
-  position="top"
-  content={({ x, y, value }) => {
-    if (value == null || x == null || y == null) return null;
+            dataKey="salesLabel"
+            position="top"
+            content={({ x, y, value }) => {
+              if (value == null || x == null || y == null) {
+                return null;
+              }
 
-    const label = formatCompactCurrency(value);
-    const width = label.length * 7 + 10;
-    const height = 20;
+              const label = formatCompactCurrency(value);
+              const labelWidth = label.length * 7 + 10;
+              const labelHeight = 20;
 
-    return (
-      <g transform={`translate(${x}, ${y - 14})`}>
-        <rect
-  x={-width / 2}
-  y={-height / 2}
-  width={width}
-  height={height}
-  rx={4}
-  fill="#E5E7EB"
-  fillOpacity={0.45}
-/>
-        <text
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fill="#000000"
-          fontSize={14}
-          fontWeight={700}
-        >
-          {label}
-        </text>
-      </g>
-    );
-  }}
-/>
+              return (
+                <g transform={`translate(${x}, ${y - 14})`}>
+                  <rect
+                    x={-labelWidth / 2}
+                    y={-labelHeight / 2}
+                    width={labelWidth}
+                    height={labelHeight}
+                    rx={4}
+                    fill="#E5E7EB"
+                    fillOpacity={0.45}
+                  />
+
+                  <text
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#000000"
+                    fontSize={14}
+                    fontWeight={700}
+                  >
+                    {label}
+                  </text>
+                </g>
+              );
+            }}
+          />
         </Area>
       </AreaChart>
 

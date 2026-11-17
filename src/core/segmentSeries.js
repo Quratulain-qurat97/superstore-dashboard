@@ -1,52 +1,57 @@
 
-// segmentSeries.js
-// Shapes the segment sales data for the Sales by Segment donut chart.
-// Pure calculations only: no React or drawing.
-
 import { SEGMENTS } from './constants.js';
 
 /**
- * @param {Array<{segment:string, sales:number}>} segments
- *        Segment data from buildHomeData(), already filtered by
- *        Region, Category, Year and Month, but NOT by Segment.
+ * Shapes segment sales data for the Revenue by Segment donut chart.
  *
+ * @param {Array<{segment:string, sales:number}>} segments
  * @returns {{
- *   slices: Array<{segment:string, sales:number|null, share:number|null, hasData:boolean}>,
+ *   segments: Array<{segment:string, sales:number|null, share:number|null, hasData:boolean}>,
+ *   slices: Array<{segment:string, sales:number, share:number}>,
  *   total:number,
  *   hasAnyData:boolean
  * }}
- *
- * Segments always follow the fixed order:
- * Consumer, Corporate, Home Office.
- * Missing segments receive null values rather than fabricated zeros.
  */
 export function buildSegmentSeries(segments, order = SEGMENTS) {
   const byName = new Map(segments.map((item) => [item.segment, item]));
 
-  const raw = order.map((segment) => {
+  // Always preserve all three segments for calculations and testing.
+  const values = order.map((segment) => {
     const found = byName.get(segment);
+
     return {
       segment,
       sales: found ? found.sales : null,
+      hasData: found !== undefined,
     };
   });
 
-  const values = raw
-    .filter((item) => item.sales !== null)
-    .map((item) => item.sales);
+  const total = values.reduce(
+    (sum, item) => sum + (item.sales ?? 0),
+    0,
+  );
 
-  const total = values.reduce((sum, value) => sum + value, 0);
+  const allSegments = values.map((item) => ({
+    ...item,
+    share:
+      item.sales !== null && total > 0
+        ? (item.sales / total) * 100
+        : null,
+  }));
+
+  // Only segments with actual transactions become donut slices.
+  const slices = allSegments
+    .filter((item) => item.hasData)
+    .map(({ segment, sales, share }) => ({
+      segment,
+      sales,
+      share,
+    }));
 
   return {
-    slices: raw.map((item) => ({
-      ...item,
-      hasData: item.sales !== null,
-      share:
-        item.sales !== null && total > 0
-          ? (item.sales / total) * 100
-          : null,
-    })),
+    segments: allSegments,
+    slices,
     total,
-    hasAnyData: values.length > 0,
+    hasAnyData: slices.length > 0,
   };
 }

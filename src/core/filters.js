@@ -1,5 +1,10 @@
 
-import { ALL, DIMENSION_VALUES, SELECTABLE_DIMENSIONS, CATEGORIES } from './constants.js';
+import {
+  ALL,
+  DIMENSION_VALUES,
+  SELECTABLE_DIMENSIONS,
+  CATEGORIES,
+} from './constants.js';
 
 export const ACTIONS = {
   SET_DROPDOWN: 'SET_DROPDOWN',
@@ -12,8 +17,17 @@ export const ACTIONS = {
 };
 
 export const initialFilterState = () => ({
-  dropdowns: { region: ALL, category: ALL, segment: ALL, year: ALL },
-  selections: { region: null, category: null, segment: null },
+  dropdowns: {
+    region: ALL,
+    category: ALL,
+    segment: ALL,
+    year: ALL,
+  },
+  selections: {
+    region: null,
+    category: null,
+    segment: null,
+  },
   subCategorySelection: null,
   month: null,
 });
@@ -26,8 +40,14 @@ const MONTH_PATTERN = /^\d{4}-(0[1-9]|1[0-2])$/;
 function withDropdown(state, dimension, value, selection) {
   return {
     ...state,
-    dropdowns: { ...state.dropdowns, [dimension]: value },
-    selections: { ...state.selections, [dimension]: selection },
+    dropdowns: {
+      ...state.dropdowns,
+      [dimension]: value,
+    },
+    selections: {
+      ...state.selections,
+      [dimension]: selection,
+    },
   };
 }
 
@@ -36,27 +56,43 @@ export function filterReducer(state, action) {
     case ACTIONS.SET_DROPDOWN: {
       const { dimension, value } = action;
 
-      if (!(dimension in state.dropdowns) || !isValidValue(dimension, value)) {
+      if (
+        !(dimension in state.dropdowns) ||
+        !isValidValue(dimension, value)
+      ) {
         return state;
       }
 
       let next =
         dimension === 'year'
-          ? { ...state, dropdowns: { ...state.dropdowns, year: value } }
+          ? {
+              ...state,
+              dropdowns: {
+                ...state.dropdowns,
+                year: value,
+              },
+            }
           : withDropdown(state, dimension, value, null);
 
       // A manual Category change replaces any sub-category chart selection.
       if (dimension === 'category') {
-        next = { ...next, subCategorySelection: null };
+        next = {
+          ...next,
+          subCategorySelection: null,
+        };
       }
 
+      // Clear the selected month if the Year dropdown moves away from it.
       if (
         dimension === 'year' &&
         next.month &&
         value !== ALL &&
         !next.month.startsWith(String(value))
       ) {
-        return { ...next, month: null };
+        return {
+          ...next,
+          month: null,
+        };
       }
 
       return next;
@@ -76,7 +112,10 @@ export function filterReducer(state, action) {
       // A Category chart selection replaces a sub-category selection.
       const baseState =
         dimension === 'category'
-          ? { ...state, subCategorySelection: null }
+          ? {
+              ...state,
+              subCategorySelection: null,
+            }
           : state;
 
       const current = baseState.dropdowns[dimension];
@@ -192,18 +231,26 @@ export function filterReducer(state, action) {
       );
     }
 
-   case ACTIONS.SELECT_MONTH: {
-  const { month } = action;
+    case ACTIONS.SELECT_MONTH: {
+      const { month } = action;
 
-  if (typeof month !== 'string' || !MONTH_PATTERN.test(month)) {
-    return state;
-  }
+      if (typeof month !== 'string' || !MONTH_PATTERN.test(month)) {
+        return state;
+      }
 
-  return {
-    ...state,
-    month: state.month === month ? null : month,
-  };
-}
+      // Do not allow a month that belongs to a different selected year.
+      if (
+        state.dropdowns.year !== ALL &&
+        !month.startsWith(String(state.dropdowns.year))
+      ) {
+        return state;
+      }
+
+      return {
+        ...state,
+        month: state.month === month ? null : month,
+      };
+    }
 
     case ACTIONS.CLEAR_MONTH:
       return state.month ? { ...state, month: null } : state;
@@ -230,7 +277,9 @@ export const hasActiveSelections = (state) =>
   Boolean(
     state.month ||
     state.subCategorySelection ||
-    SELECTABLE_DIMENSIONS.some((dimension) => state.selections[dimension]),
+    SELECTABLE_DIMENSIONS.some(
+      (dimension) => state.selections[dimension],
+    ),
   );
 
 export function getEffectiveFilters(state) {
@@ -257,7 +306,9 @@ export const VISUAL_FILTER_KEYS = {
 export function filtersForVisual(visual, effective) {
   const keys = VISUAL_FILTER_KEYS[visual];
 
-  if (!keys) throw new Error(`Unknown visual: ${visual}`);
+  if (!keys) {
+    throw new Error(`Unknown visual: ${visual}`);
+  }
 
   return {
     region: keys.includes('region') ? effective.region : null,
@@ -265,6 +316,8 @@ export function filtersForVisual(visual, effective) {
     segment: keys.includes('segment') ? effective.segment : null,
     year: keys.includes('year') ? effective.year : null,
     month: keys.includes('month') ? effective.month : null,
-    subCategory: keys.includes('subCategory') ? effective.subCategory : null,
+    subCategory: keys.includes('subCategory')
+      ? effective.subCategory
+      : null,
   };
 }

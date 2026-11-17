@@ -1,28 +1,37 @@
 
 import { useMemo, useRef } from 'react';
 import { Pie, PieChart, Sector, Tooltip } from 'recharts';
+
 import {
   formatCompactCurrency,
   formatCurrency,
   formatPercent,
 } from '../../core/index.js';
+
 import { useElementWidth } from '../hooks/useElementWidth.js';
+
 import {
   DIM_OPACITY,
   DONUT_GEOMETRY,
   SEGMENT_BOX,
   SEGMENT_COLORS,
 } from './segmentGeometry.js';
+
 import styles from './SalesBySegmentChart.module.css';
 
 const DESIGN_WIDTH = 660;
 const RADIAN = Math.PI / 180;
 
 function SegmentTooltip({ active, payload }) {
-  if (!active || !payload || !payload.length) return null;
+  if (!active || !payload || !payload.length) {
+    return null;
+  }
 
   const slice = payload[0].payload;
-  if (!slice.hasData) return null;
+
+  if (slice.sales == null) {
+    return null;
+  }
 
   return (
     <div className={styles.tooltip}>
@@ -51,6 +60,7 @@ function renderSegmentLabel({
   midAngle,
   outerRadius,
   value,
+  payload,
 }) {
   if (
     value == null ||
@@ -65,7 +75,7 @@ function renderSegmentLabel({
   const label = formatCompactCurrency(value);
   const labelWidth = label.length * 7 + 10;
   const labelHeight = 20;
-  const labelRadius = outerRadius + 22;
+  const labelRadius = outerRadius + 20;
 
   const centerX =
     cx + labelRadius * Math.cos(-midAngle * RADIAN);
@@ -74,7 +84,10 @@ function renderSegmentLabel({
     cy + labelRadius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <g transform={`translate(${centerX}, ${centerY})`}>
+    <g
+   data-label={payload?.segment}
+   transform={`translate(${centerX}, ${centerY})`}
+   >
       <rect
         x={-labelWidth / 2}
         y={-labelHeight / 2}
@@ -106,13 +119,25 @@ export default function SalesBySegmentChart({
   fallbackWidth = DESIGN_WIDTH,
 }) {
   const wrapRef = useRef(null);
-  const width = useElementWidth(wrapRef, fallbackWidth);
-  const { slices, hasAnyData } = series;
 
+  const width = useElementWidth(wrapRef, fallbackWidth);
+
+  const { slices } = series;
+
+  // buildSegmentSeries now returns only data-bearing slices.
+  // Do not check slice.hasData because that property no longer exists.
   const chartData = useMemo(
-    () => slices.filter((slice) => slice.hasData && slice.sales > 0),
+    () =>
+      slices.filter(
+        (slice) =>
+          slice.sales != null &&
+          Number.isFinite(slice.sales) &&
+          slice.sales > 0,
+      ),
     [slices],
   );
+
+  const hasChartData = chartData.length > 0;
 
   const handlePieClick = (entry, index, event) => {
     event?.stopPropagation();
@@ -127,9 +152,14 @@ export default function SalesBySegmentChart({
     }
   };
 
-  const summary = `Sales by segment: ${chartData
-    .map((slice) => `${slice.segment}, ${formatCurrency(slice.sales)}`)
-    .join('; ') || 'no data'}`;
+  const summary = `Sales by segment: ${
+    chartData
+      .map(
+        (slice) =>
+          `${slice.segment}, ${formatCurrency(slice.sales)}`,
+      )
+      .join('; ') || 'no data'
+  }`;
 
   return (
     <div
@@ -138,7 +168,11 @@ export default function SalesBySegmentChart({
       role="img"
       aria-label={summary}
     >
-      <PieChart width={width} height={SEGMENT_BOX.height}>
+      <PieChart
+        width={width}
+        height={SEGMENT_BOX.height}
+        onClick={() => onClearSegment?.()}
+      >
         <Pie
           data={chartData}
           dataKey="sales"
@@ -156,44 +190,58 @@ export default function SalesBySegmentChart({
           label={renderSegmentLabel}
           labelLine={false}
           shape={(props) => {
-            const selected = selectedSegment === props.payload.segment;
+  const selected =
+    selectedSegment === props.payload.segment;
 
-            return (
-              <Sector
-                {...props}
-                fill={SEGMENT_COLORS[props.payload.segment]}
-                opacity={
-                  selectedSegment && !selected ? DIM_OPACITY : 1
-                }
-                style={{ cursor: 'pointer', outline: 'none' }}
-              />
-            );
-          }}
+  return (
+    <Sector
+      {...props}
+      data-segment={props.payload.segment}
+      fill={SEGMENT_COLORS[props.payload.segment]}
+      opacity={
+        selectedSegment && !selected
+          ? DIM_OPACITY
+          : 1
+      }
+      style={{
+        cursor: 'pointer',
+        outline: 'none',
+      }}
+    />
+  );
+}}
         />
 
         <Tooltip
           content={<SegmentTooltip />}
           cursor={false}
           isAnimationActive={false}
-          wrapperStyle={{ outline: 'none', zIndex: 10 }}
+          wrapperStyle={{
+            outline: 'none',
+            zIndex: 10,
+          }}
         />
       </PieChart>
 
-      {/* Segment color legend */}
+      {/* Segment colour legend */}
       <div className={styles.legend}>
-        {Object.entries(SEGMENT_COLORS).map(([segment, color]) => (
-          <div key={segment} className={styles.legendItem}>
-            <span
-              className={styles.legendSwatch}
-              style={{ backgroundColor: color }}
-            />
-            <span>{segment}</span>
-          </div>
-        ))}
+        {Object.entries(SEGMENT_COLORS).map(
+          ([segment, color]) => (
+            <div key={segment} className={styles.legendItem}>
+              <span
+                className={styles.legendSwatch}
+                style={{ backgroundColor: color }}
+              />
+              <span>{segment}</span>
+            </div>
+          ),
+        )}
       </div>
 
-      {!hasAnyData && (
-        <div className={styles.empty}>No data for this selection</div>
+      {!hasChartData && (
+        <div className={styles.empty}>
+          No data for this selection
+        </div>
       )}
     </div>
   );
