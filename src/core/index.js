@@ -17,3 +17,5 @@ export * from './salesKpiCards.js';
 export * from './salesTrendSeries.js';
 export * from './salesRegionalSeries.js';
 export * from './salesCategorySeries.js';
+export * from './regionalData.js';
+export * from './regionalKpiCards.js';

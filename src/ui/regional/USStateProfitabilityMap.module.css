@@ -1,0 +1,138 @@
+
+.mapContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: visible;
+}
+
+.state {
+  stroke: #ffffff;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  cursor: pointer;
+  transition:
+    fill 160ms ease,
+    opacity 160ms ease,
+    stroke 160ms ease,
+    stroke-width 160ms ease;
+  outline: none;
+}
+
+.state:focus-visible {
+  stroke: #263B53;
+  stroke-width: 2.5;
+}
+
+/* Strong positive profitability: 10% or higher */
+.strong-profit {
+  fill: #315C85;
+}
+
+/* Lower positive profitability: 0% to below 10% */
+.low-profit {
+  fill: #91B6D2;
+}
+
+/* Mild loss: above -10% to below 0% */
+.mild-loss {
+  fill: #E4A5B2;
+}
+
+/* Severe loss: -10% or lower */
+.severe-loss {
+  fill: #B95770;
+}
+
+/* States without matching data */
+.no-data {
+  fill: #D9DEE7;
+  cursor: default;
+}
+
+/* Hover and selection */
+.hovered {
+  stroke: #263B53;
+  stroke-width: 2;
+}
+
+.selected {
+  stroke: #172F49;
+  stroke-width: 3;
+}
+
+/* Dim unselected states */
+.dimmed {
+  opacity: 0.3;
+}
+
+/* Tooltip — original colors preserved */
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  transform: none;
+  min-width: 190px;
+  max-width: 230px;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.14);
+  pointer-events: none;
+  font-size: 12px;
+  color: #374151;
+}
+
+.tooltipTitle {
+  margin-bottom: 9px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.tooltipRow span {
+  color: #6b7280;
+}
+
+.tooltipRow strong {
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+}
+
+.negativeValue {
+  color: #dc2626 !important;
+}
+
+.positiveValue {
+  color: #15803d !important;
+}
+
+.noDataMessage {
+  color: #6b7280;
+  line-height: 1.5;
+}

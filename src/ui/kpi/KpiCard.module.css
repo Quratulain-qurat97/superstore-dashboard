@@ -1,10 +1,9 @@
-/* KPI card: 320 x 126 at y=204. White, shadow 0 4 12 @ 0.08, 1px border (drawn by an overlay so
-   child positions are measured from the card's outer edge, like the Figma coordinates).
-   Left, radius and tile position arrive as inline values from KpiRow (they differ per card in Figma). */
+
+/* KPI card: 320 x 126 at y=204. */
 .card {
   position: absolute;
   top: 204px;
-  width: var(--kpi-w); /* 320 at 1440 */
+  width: var(--kpi-w);
   height: 126px;
   background: #ffffff;
   box-shadow: var(--shadow-card);
@@ -19,7 +18,7 @@
   pointer-events: none;
 }
 
-/* Poppins Medium 20 / 22, #8e8e93. Glyph origin x=13, baseline y=43 from the card's top. */
+/* KPI label */
 .label {
   position: absolute;
   left: 13px;
@@ -29,7 +28,7 @@
   white-space: nowrap;
 }
 
-/* Poppins Bold 32 / 45, #111827. Glyph origin x=13, baseline y=88 from the card's top. */
+/* Main KPI value */
 .value {
   position: absolute;
   left: 13px;
@@ -39,6 +38,24 @@
   text-overflow: ellipsis;
   font: 700 32px/45px var(--font-poppins);
   color: var(--color-text-strong);
+  white-space: nowrap;
+}
+
+/* Slightly higher value when a supporting label is present. */
+.valueWithSupportingText {
+  top: 48px;
+}
+
+/* Optional supporting information, e.g. Texas. */
+.supportingText {
+  position: absolute;
+  left: 13px;
+  top: 94px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: 500 13px/18px var(--font-poppins);
+  color: var(--color-muted);
   white-space: nowrap;
 }
 
