@@ -63,3 +63,19 @@ export const SALES_CATEGORY_CARD_LAYOUT = {
     height: 274,
   },
 };
+
+
+/**
+ * Product Analysis — shared layout for the four chart cards.
+ * Matches the 324px Sales Analysis card dimensions.
+ */
+export const PRODUCT_CARD_LAYOUT = {
+  titleLeft: 16.11,
+  titleTop: 14.78,
+  body: {
+    left: 5,
+    top: 50,
+    right: 14,
+    height: 274,
+  },
+};

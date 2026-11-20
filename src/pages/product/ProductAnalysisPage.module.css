@@ -1,0 +1,8 @@
+
+.status {
+  position: absolute;
+  left: var(--content-left);
+  top: 1000px;
+  color: #6B7280;
+  font: 500 13px/18px var(--font-inter);
+}

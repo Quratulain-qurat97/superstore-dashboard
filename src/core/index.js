@@ -19,3 +19,4 @@ export * from './salesRegionalSeries.js';
 export * from './salesCategorySeries.js';
 export * from './regionalData.js';
 export * from './regionalKpiCards.js';
+export * from './productData.js';

@@ -41,6 +41,7 @@ test('initial state is all "All" with no selections', () => {
     segment: null,
     year: null,
     subCategory: null,
+    discountGroup: null,
     month: null,
   });
 
@@ -62,6 +63,7 @@ test('all four dropdowns combine', () => {
     segment: 'Corporate',
     year: 2016,
     subCategory: null,
+    discountGroup: null,
     month: null,
   });
 });
@@ -188,6 +190,7 @@ test('Escape (clear all) restores every dimension and the month', () => {
     segment: null,
     year: null,
     subCategory: null,
+    discountGroup: null,
     month: null,
   });
 });
@@ -265,3 +268,4 @@ test('each visual applies the right filters (own dimension is highlighted, not f
 
   assert.throws(() => filtersForVisual('nope', all));
 });
+

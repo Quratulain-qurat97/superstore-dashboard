@@ -6,6 +6,7 @@ import ScaleToFit from './ScaleToFit.jsx';
 import { DESIGN_HEIGHT, DESIGN_WIDTH } from './designCanvas.js';
 import styles from './AppShell.module.css';
 
+
 export default function AppShell() {
   const [activePanel, setActivePanel] = useState(null);
   const [navExpanded, setNavExpanded] = useState(false);

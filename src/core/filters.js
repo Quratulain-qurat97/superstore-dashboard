@@ -1,4 +1,3 @@
-
 import {
   ALL,
   DIMENSION_VALUES,
@@ -10,6 +9,8 @@ export const ACTIONS = {
   SET_DROPDOWN: 'SET_DROPDOWN',
   SELECT_ITEM: 'SELECT_ITEM',
   SELECT_SUBCATEGORY: 'SELECT_SUBCATEGORY',
+  SELECT_DISCOUNT_GROUP: 'SELECT_DISCOUNT_GROUP',
+  CLEAR_DISCOUNT_GROUP: 'CLEAR_DISCOUNT_GROUP',
   CLEAR_SELECTION: 'CLEAR_SELECTION',
   SELECT_MONTH: 'SELECT_MONTH',
   CLEAR_MONTH: 'CLEAR_MONTH',
@@ -29,6 +30,7 @@ export const initialFilterState = () => ({
     segment: null,
   },
   subCategorySelection: null,
+  discountGroupSelection: null,
   month: null,
 });
 
@@ -201,8 +203,36 @@ export function filterReducer(state, action) {
       };
     }
 
+    // Clicking a discount group selects it; clicking it again clears it.
+    case ACTIONS.SELECT_DISCOUNT_GROUP: {
+      const { discountGroup } = action;
+
+      if (!['low', 'high'].includes(discountGroup)) {
+        return state;
+      }
+
+      return {
+        ...state,
+        discountGroupSelection:
+          state.discountGroupSelection === discountGroup
+            ? null
+            : discountGroup,
+      };
+    }
+
+    case ACTIONS.CLEAR_DISCOUNT_GROUP:
+      return state.discountGroupSelection
+        ? { ...state, discountGroupSelection: null }
+        : state;
+
     case ACTIONS.CLEAR_SELECTION: {
       const { dimension } = action;
+
+      if (dimension === 'discountGroup') {
+        return state.discountGroupSelection
+          ? { ...state, discountGroupSelection: null }
+          : state;
+      }
 
       if (dimension === 'category' && state.subCategorySelection) {
         return {
@@ -265,6 +295,10 @@ export function filterReducer(state, action) {
         });
       }
 
+      next = filterReducer(next, {
+        type: ACTIONS.CLEAR_DISCOUNT_GROUP,
+      });
+
       return next.month ? { ...next, month: null } : next;
     }
 
@@ -277,6 +311,7 @@ export const hasActiveSelections = (state) =>
   Boolean(
     state.month ||
     state.subCategorySelection ||
+    state.discountGroupSelection ||
     SELECTABLE_DIMENSIONS.some(
       (dimension) => state.selections[dimension],
     ),
@@ -291,12 +326,20 @@ export function getEffectiveFilters(state) {
     segment: orNull(state.dropdowns.segment),
     year: orNull(state.dropdowns.year),
     subCategory: state.subCategorySelection?.value ?? null,
+    discountGroup: state.discountGroupSelection ?? null,
     month: state.month ?? null,
   };
 }
 
 export const VISUAL_FILTER_KEYS = {
-  kpis: ['region', 'category', 'segment', 'year', 'month', 'subCategory'],
+  kpis: [
+    'region',
+    'category',
+    'segment',
+    'year',
+    'month',
+    'subCategory',
+  ],
   monthlyTrend: ['region', 'category', 'segment', 'year', 'subCategory'],
   categories: ['region', 'segment', 'year', 'month'],
   regions: ['category', 'segment', 'year', 'month', 'subCategory'],

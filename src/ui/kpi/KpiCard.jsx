@@ -12,20 +12,32 @@ export default function KpiCard({
   numericValue,
   title,
   supportingText,
+  supportingTextColor,
   Tile,
   left,
   radius,
   tileRight,
   tileTop,
+  width,
+  labelMaxWidth,
+  labelFontSize,
 }) {
   return (
     <article
       className={styles.card}
-      style={{ left, borderRadius: radius }}
+      style={{ left, width, borderRadius: radius }}
       title={title}
       aria-label={label}
     >
-      <p className={styles.label}>{label}</p>
+      <p
+        className={styles.label}
+        style={{
+          maxWidth: labelMaxWidth,
+          fontSize: labelFontSize,
+        }}
+      >
+        {label}
+      </p>
 
       <p
         className={`${styles.value} ${
@@ -36,7 +48,10 @@ export default function KpiCard({
       </p>
 
       {supportingText && (
-        <p className={styles.supportingText}>
+        <p
+          className={styles.supportingText}
+          style={{ color: supportingTextColor }}
+        >
           {supportingText}
         </p>
       )}

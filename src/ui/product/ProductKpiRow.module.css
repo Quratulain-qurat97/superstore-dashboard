@@ -1,0 +1,21 @@
+
+.row {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --product-kpi-w: calc((var(--content-w) - 80px) / 5);
+}
+
+.row :global(article) {
+  min-width: 0;
+  pointer-events: auto;
+}
+
+.row :global(article) p:nth-of-type(2) {
+  max-width: calc(100% - 65px);
+}
+
+.row :global(article) p:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1279,34 +1279,39 @@ test('existing checkpoints: header, navigation, dropdowns and KPI cards remain i
     'Overview',
   );
 
-const navItems = app.q(
-  'nav[aria-label="Pages"] li',
-);
+  const navItems = app.q(
+    'nav[aria-label="Pages"] li',
+  );
 
-assert.equal(
-  navItems.length,
-  6,
-  'sidebar contains six navigation items',
-);
+  assert.equal(
+    navItems.length,
+    6,
+    'sidebar contains six navigation items',
+  );
 
-assert.ok(
-  navItems.every((item) =>
-    item.querySelector('a, button'),
-  ),
-  'every navigation item contains a link or button',
-);
+  assert.ok(
+    navItems.every((item) =>
+      item.querySelector('a, button'),
+    ),
+    'every navigation item contains a link or button',
+  );
 
+  assert.equal(
+    app.q('nav[aria-label="Pages"] a').length,
+    4,
+    'sidebar contains four active navigation links',
+  );
 
-assert.equal(
-  app.q('nav[aria-label="Pages"] a').length,
-  3,
-);
+  assert.equal(
+    app.q('nav[aria-label="Pages"] button[aria-disabled="true"]').length,
+    2,
+    'sidebar contains two disabled navigation items',
+  );
 
-assert.equal(
-  app.q('nav[aria-label="Pages"] button[aria-disabled="true"]').length,
-  3,
-);
-  assert.equal(app.q('[role="combobox"]').length, 4);
+  assert.equal(
+    app.q('[role="combobox"]').length,
+    4,
+  );
 
   assert.equal(
     app.cards().join(' | '),
