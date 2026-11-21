@@ -1,4 +1,3 @@
-// The public face of the core layer. UI and state code import from here.
 export * from './constants.js';
 export * from './aggregations.js';
 export * from './filters.js';
@@ -20,3 +19,5 @@ export * from './salesCategorySeries.js';
 export * from './regionalData.js';
 export * from './regionalKpiCards.js';
 export * from './productData.js';
+export * from './customerData.js';
+export * from './customerKpiCards.js';

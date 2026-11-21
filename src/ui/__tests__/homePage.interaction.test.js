@@ -1298,14 +1298,14 @@ test('existing checkpoints: header, navigation, dropdowns and KPI cards remain i
 
   assert.equal(
     app.q('nav[aria-label="Pages"] a').length,
-    4,
-    'sidebar contains four active navigation links',
+    5,
+    'sidebar contains five active navigation links',
   );
 
   assert.equal(
     app.q('nav[aria-label="Pages"] button[aria-disabled="true"]').length,
-    2,
-    'sidebar contains two disabled navigation items',
+    1,
+    'sidebar contains one disabled navigation item',
   );
 
   assert.equal(

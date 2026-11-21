@@ -8,6 +8,6 @@ export const NAV_ITEMS = [
   { id: 'sales', label: 'Sales Analysis', path: '/sales', enabled: true, glyph: 'book-open' },
   { id: 'regional', label: 'Regional Analysis', path: '/regional', enabled: true, glyph: 'globe' },
   { id: 'product', label: 'Product Analysis', path: '/product', enabled: true, glyph: 'clipboard-list' },
-  { id: 'customer', label: 'Customer Analysis', path: '/customers', enabled: false, glyph: 'users' },
+  { id: 'customer', label: 'Customer Analysis', path: '/customers', enabled: true, glyph: 'users' },
   { id: 'profitability', label: 'Profitability Analysis', path: '/profitability', enabled: false, glyph: 'trending-up' },
 ];

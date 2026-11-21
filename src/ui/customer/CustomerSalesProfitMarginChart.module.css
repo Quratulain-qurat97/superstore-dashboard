@@ -1,0 +1,194 @@
+
+.wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-family: var(--font-inter);
+}
+
+.wrap :global(.recharts-wrapper) {
+  outline: none;
+}
+
+.wrap :global(.recharts-surface),
+.wrap :global(.recharts-surface *) {
+  outline: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.wrap :global(.recharts-cartesian-grid line) {
+  stroke: #E5E7EB;
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 30px;
+  flex-shrink: 0;
+}
+
+.legend {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #374151;
+  font: 600 12px/16px var(--font-inter);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.positiveSwatch,
+.negativeSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.positiveSwatch {
+  background: #16A34A;
+}
+
+.negativeSwatch {
+  background: #EF4444;
+}
+
+.zoomControls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.zoomButton,
+.resetButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 27px;
+  border: 1px solid #E5E7EB;
+  border-radius: 5px;
+  background: #FFFFFF;
+  color: #374151;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.zoomButton {
+  width: 28px;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.resetButton {
+  padding: 0 9px;
+  font-size: 14px;
+}
+
+.zoomButton:hover:not(:disabled),
+.resetButton:hover:not(:disabled) {
+  background: #F3F4F6;
+  border-color: #D1D5DB;
+}
+
+.zoomButton:disabled,
+.resetButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.plot {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.tooltip {
+  width: min(220px, calc(100% - 16px));
+  max-width: 220px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 11px;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  font-family: var(--font-inter);
+  overflow-wrap: anywhere;
+}
+
+.tooltipTitle {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.tooltipNote {
+  margin: 0 0 8px;
+  color: #6B7280;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 7px;
+  font-size: 12px;
+}
+
+.tooltipLabel {
+  color: #6B7280;
+}
+
+.tooltipRow strong {
+  color: #111827;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tooltipRow .positiveValue {
+  color: #16A34A;
+}
+
+.tooltipRow .negativeValue {
+  color: #EF4444;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  color: #6B7280;
+  font: 500 14px/20px var(--font-inter);
+  text-align: center;
+}

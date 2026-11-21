@@ -1,3 +1,4 @@
+
 // cardLayouts.js
 // Per-card offsets measured from the Figma SVG. Figma's chart cards are not identical (title heights
 // and callout positions differ), and those differences are kept. All values are pixels from the
@@ -29,8 +30,6 @@ export const REGIONAL_CARD_LAYOUT = {
   legend: { right: 24, top: 22.3 },
 };
 
-
-
 /**
  * Sales by Segment card layout.
  *
@@ -40,14 +39,11 @@ export const REGIONAL_CARD_LAYOUT = {
  * Card body starts 57px below the card top and uses a
  * 267px chart area.
  */
-
 export const SEGMENT_CARD_LAYOUT = {
   titleLeft: 16.11,
   titleTop: 14.78,
   body: { left: 0, top: 57, right: 0, height: 267 },
 };
-
-
 
 /**
  * Sales Analysis — Category & Sub-Category Profitability.
@@ -64,12 +60,27 @@ export const SALES_CATEGORY_CARD_LAYOUT = {
   },
 };
 
-
 /**
  * Product Analysis — shared layout for the four chart cards.
  * Matches the 324px Sales Analysis card dimensions.
  */
 export const PRODUCT_CARD_LAYOUT = {
+  titleLeft: 16.11,
+  titleTop: 14.78,
+  body: {
+    left: 5,
+    top: 50,
+    right: 14,
+    height: 274,
+  },
+};
+
+/**
+ * Customer Analysis — shared layout for the four chart cards.
+ * Uses the same dimensions and title/body positioning as Product Analysis,
+ * while keeping the Customer page layout independently configurable.
+ */
+export const CUSTOMER_CARD_LAYOUT = {
   titleLeft: 16.11,
   titleTop: 14.78,
   body: {
