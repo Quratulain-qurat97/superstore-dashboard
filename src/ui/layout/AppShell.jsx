@@ -1,15 +1,19 @@
 
 import { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
+
 import SideNav from './SideNav.jsx';
 import ScaleToFit from './ScaleToFit.jsx';
-import { DESIGN_HEIGHT, DESIGN_WIDTH } from './designCanvas.js';
-import styles from './AppShell.module.css';
+import ExecutiveSummaryPanel from './ExecutiveSummaryPanel.jsx';
 
+import { DESIGN_HEIGHT, DESIGN_WIDTH } from './designCanvas.js';
+
+import styles from './AppShell.module.css';
 
 export default function AppShell() {
   const [activePanel, setActivePanel] = useState(null);
   const [navExpanded, setNavExpanded] = useState(false);
+  const [summaryContent, setSummaryContent] = useState(null);
 
   const toggleNavigation = useCallback(() => {
     if (activePanel === 'navigation' && navExpanded) {
@@ -36,6 +40,10 @@ export default function AppShell() {
     );
   }, []);
 
+  const updateSummaryContent = useCallback((content) => {
+    setSummaryContent(content);
+  }, []);
+
   return (
     <>
       <ScaleToFit
@@ -48,6 +56,7 @@ export default function AppShell() {
               activePanel,
               toggleExecutiveSummary,
               closeExecutiveSummary,
+              updateSummaryContent,
             }}
           />
         </div>
@@ -57,6 +66,13 @@ export default function AppShell() {
         isExpanded={activePanel === 'navigation' && navExpanded}
         onToggle={toggleNavigation}
       />
+
+      <ExecutiveSummaryPanel
+        isOpen={activePanel === 'executiveSummary'}
+        onClose={closeExecutiveSummary}
+      >
+        {summaryContent}
+      </ExecutiveSummaryPanel>
     </>
   );
 }

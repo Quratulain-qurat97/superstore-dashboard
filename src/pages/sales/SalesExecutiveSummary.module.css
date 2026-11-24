@@ -1,0 +1,60 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.description {
+  margin: 0;
+  font: 400 13px/20px var(--font-inter);
+  color: #666666;
+}
+
+.insight {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.insight:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.insightTitle {
+  margin: 0 0 9px;
+  font: 600 14px/20px var(--font-inter);
+  color: #111111;
+}
+
+.insightText {
+  margin: 0 0 8px;
+  font: 400 13px/21px var(--font-inter);
+  color: #555555;
+}
+
+.insightText:last-child {
+  margin-bottom: 0;
+}
+
+.insightText strong {
+  font-weight: 600;
+}
+
+.negative {
+  color: #dc2626 !important;
+}
+
+.positive {
+  color: #16a34a !important;
+}
+
+.neutral {
+  color: #111111 !important;
+}
+
+.empty {
+  margin: 0;
+  font: 400 13px/21px var(--font-inter);
+  color: #777777;
+}

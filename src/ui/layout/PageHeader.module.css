@@ -1,17 +1,55 @@
-/* Text positions are measured from the Figma outlines and matched with the real Inter metrics. */
-.title {
+
+.titleRow {
   position: absolute;
-  left: calc(var(--content-left) + 0.14px);
-  top: 8.82px; /* baseline y=37.96 with a 35px line box */
+  left: var(--content-left);
+  top: 8.82px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.title {
+  position: relative;
+  left: 0.14px;
+  margin: 0;
   font: 700 32px/35px var(--font-inter);
   color: #000000;
   white-space: nowrap;
 }
 
+.summaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-dropdown);
+  background: #ffffff;
+  color: #111111;
+  font: 600 13px/18px var(--font-inter);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.summaryButton:hover {
+  background: #f8f8f8;
+  border-color: #c7c7c7;
+}
+
+.summaryButton:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
 .subtitle {
   position: absolute;
   left: var(--content-left);
-  top: 50.06px; /* baseline y=73.02 with a 35px line box */
+  top: 50.06px;
   font: 400 17px/35px var(--font-inter);
   color: #000000;
   white-space: nowrap;

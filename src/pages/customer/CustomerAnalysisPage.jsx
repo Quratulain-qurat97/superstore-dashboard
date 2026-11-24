@@ -1,16 +1,21 @@
 
 import { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
 import CustomerKpiRow from '../../ui/customer/CustomerKpiRow.jsx';
 import CustomerAnalysisCharts from '../../ui/customer/CustomerAnalysisCharts.jsx';
 
+import CustomerExecutiveSummary from './CustomerExecutiveSummary.jsx';
+
 import { ACTIONS, ALL } from '../../core/index.js';
 import { useFilterState } from '../../state/useFilterState.js';
 import { useCustomerData } from '../../state/useCustomerData.js';
 
 export default function CustomerAnalysisPage() {
+  const { updateSummaryContent } = useOutletContext();
+
   const { state, dispatch, effective } = useFilterState();
 
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
@@ -24,6 +29,16 @@ export default function CustomerAnalysisPage() {
   useEffect(() => {
     setSelectedCustomerId(null);
   }, [effective]);
+
+  // Update the Executive Summary when data, filters, or
+  // customer selection changes.
+  useEffect(() => {
+    updateSummaryContent(
+      <CustomerExecutiveSummary data={data} />,
+    );
+
+    return () => updateSummaryContent(null);
+  }, [data, updateSummaryContent]);
 
   // Toggle customer selection across all Customer Analysis charts.
   const handleSelectCustomer = (customerId) => {

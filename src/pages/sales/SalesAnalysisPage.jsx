@@ -1,5 +1,6 @@
 
 import { useEffect, useMemo } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
@@ -9,6 +10,8 @@ import SalesKpiRow from '../../ui/sales/SalesKpiRow.jsx';
 import MonthlySalesTrendChart from '../../ui/sales/MonthlySalesTrendChart.jsx';
 import SalesRegionalChart from '../../ui/sales/SalesRegionalChart.jsx';
 import SalesCategoryProfitabilityChart from '../../ui/sales/SalesCategoryProfitabilityChart.jsx';
+
+import SalesExecutiveSummary from './SalesExecutiveSummary.jsx';
 
 import {
   TREND_CARD_LAYOUT,
@@ -26,6 +29,8 @@ import { useFilterState } from '../../state/useFilterState.js';
 import { useSalesData } from '../../state/useSalesData.js';
 
 export default function SalesAnalysisPage() {
+  const { updateSummaryContent } = useOutletContext();
+
   const { state, dispatch, effective } = useFilterState();
   const { data } = useSalesData(effective);
 
@@ -35,6 +40,15 @@ export default function SalesAnalysisPage() {
   );
 
   const categorySeries = data?.categorySeries ?? null;
+
+  // Keep the Executive Summary synchronized with Sales Analysis filters.
+  useEffect(() => {
+    updateSummaryContent(
+      data ? <SalesExecutiveSummary data={data} /> : null,
+    );
+
+    return () => updateSummaryContent(null);
+  }, [data, updateSummaryContent]);
 
   const clearRegion = () =>
     dispatch({

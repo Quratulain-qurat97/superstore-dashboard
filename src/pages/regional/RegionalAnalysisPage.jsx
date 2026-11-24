@@ -1,5 +1,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
@@ -13,6 +14,7 @@ import RegionalKpiRow from '../../ui/regional/RegionalKpiRow.jsx';
 import RegionalLossImpactChart from '../../ui/regional/RegionalLossImpactChart.jsx';
 import RegionalLossMakingStatesChart from '../../ui/regional/RegionalLossMakingStatesChart.jsx';
 import USStateProfitabilityMap from '../../ui/regional/USStateProfitabilityMap.jsx';
+import RegionalExecutiveSummary from './RegionalExecutiveSummary.jsx';
 
 import {
   ACTIONS,
@@ -32,6 +34,8 @@ const REGIONAL_MAP_CARD_LAYOUT = {
 };
 
 export default function RegionalAnalysisPage() {
+  const { updateSummaryContent } = useOutletContext();
+
   const { state, dispatch, effective } = useFilterState();
 
   const {
@@ -89,6 +93,35 @@ export default function RegionalAnalysisPage() {
       ? effective.region
       : null
   );
+
+  // Update the shared Executive Summary whenever filters,
+  // calculated data, or local chart selections change.
+  useEffect(() => {
+    if (!data) {
+      updateSummaryContent(null);
+      return undefined;
+    }
+
+    updateSummaryContent(
+      <RegionalExecutiveSummary
+        comparisonRegions={comparisonRegions}
+        comparisonAllStates={comparisonAllStates}
+        selectedRegion={selectedRegion}
+        selectedState={selectedState}
+        effective={effective}
+      />,
+    );
+
+    return () => updateSummaryContent(null);
+  }, [
+    data,
+    comparisonRegions,
+    comparisonAllStates,
+    selectedRegion,
+    selectedState,
+    effective,
+    updateSummaryContent,
+  ]);
 
   // Handle region selection from the Loss Impact chart.
   function handleRegionSelect(region) {
@@ -198,11 +231,11 @@ export default function RegionalAnalysisPage() {
       >
         {data && (
           <USStateProfitabilityMap
-  states={comparisonAllStates}
-  selectedRegion={highlightedRegion}
-  selectedState={selectedState}
-  onStateSelect={handleStateSelect}
-/>
+            states={comparisonAllStates}
+            selectedRegion={highlightedRegion}
+            selectedState={selectedState}
+            onStateSelect={handleStateSelect}
+          />
         )}
       </ChartCard>
 

@@ -1,5 +1,6 @@
 
 import { useEffect, useMemo } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
@@ -10,6 +11,8 @@ import CategoryRevenueChart from '../../ui/charts/CategoryRevenueChart.jsx';
 import RegionalPerformanceChart from '../../ui/charts/RegionalPerformanceChart.jsx';
 import RegionalLegend from '../../ui/charts/RegionalLegend.jsx';
 import SalesBySegmentChart from '../../ui/charts/SalesBySegmentChart.jsx';
+
+import OverviewExecutiveSummary from './OverviewExecutiveSummary.jsx';
 
 import {
   CATEGORY_CARD_LAYOUT,
@@ -24,7 +27,6 @@ import {
   buildRegionSeries,
   buildSegmentSeries,
   buildTrendSeries,
-  formatCompactCurrency,
   hasActiveSelections,
 } from '../../core/index.js';
 
@@ -36,10 +38,34 @@ export default function HomePage() {
   const { state, dispatch, effective } = useFilterState();
   const { data } = useHomeData(effective);
 
+  const { updateSummaryContent } = useOutletContext();
+
+  // Supply Overview-specific insights to the shared Executive Summary panel.
+  useEffect(() => {
+    updateSummaryContent(
+      <OverviewExecutiveSummary data={data} />,
+    );
+
+    return () => {
+      updateSummaryContent(null);
+    };
+  }, [data, updateSummaryContent]);
+
   // Prepare chart data from the filtered dashboard data.
-  const trend = useMemo(() => (data ? buildTrendSeries(data.monthlyTrend) : null), [data]);
-  const categories = useMemo(() => (data ? buildCategorySeries(data.categories) : null), [data]);
-  const regions = useMemo(() => (data ? buildRegionSeries(data.regions) : null), [data]);
+  const trend = useMemo(
+    () => (data ? buildTrendSeries(data.monthlyTrend) : null),
+    [data],
+  );
+
+  const categories = useMemo(
+    () => (data ? buildCategorySeries(data.categories) : null),
+    [data],
+  );
+
+  const regions = useMemo(
+    () => (data ? buildRegionSeries(data.regions) : null),
+    [data],
+  );
 
   // Prepare segment sales data for the donut chart.
   const segments = useMemo(
@@ -48,9 +74,23 @@ export default function HomePage() {
   );
 
   // Clear individual chart selections and restore their previous dropdown values.
-  const clearCategory = () => dispatch({ type: ACTIONS.CLEAR_SELECTION, dimension: 'category' });
-  const clearRegion = () => dispatch({ type: ACTIONS.CLEAR_SELECTION, dimension: 'region' });
-  const clearSegment = () => dispatch({ type: ACTIONS.CLEAR_SELECTION, dimension: 'segment' });
+  const clearCategory = () =>
+    dispatch({
+      type: ACTIONS.CLEAR_SELECTION,
+      dimension: 'category',
+    });
+
+  const clearRegion = () =>
+    dispatch({
+      type: ACTIONS.CLEAR_SELECTION,
+      dimension: 'region',
+    });
+
+  const clearSegment = () =>
+    dispatch({
+      type: ACTIONS.CLEAR_SELECTION,
+      dimension: 'segment',
+    });
 
   // Escape clears every chart selection.
   const anySelection = hasActiveSelections(state);
@@ -65,13 +105,19 @@ export default function HomePage() {
     };
 
     document.addEventListener('keydown', onKeyDown);
+
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [anySelection, dispatch]);
 
   return (
     <>
-      <PageHeader title="Overview" subtitle="Key metrics, trends, and insights at a glance." />
+      <PageHeader
+        title="Overview"
+        subtitle="Key metrics, trends, and insights at a glance."
+      />
+
       <FilterBar state={state} dispatch={dispatch} />
+
       <KpiRow kpis={data ? data.kpis : null} />
 
       {/* Monthly Sales Trend */}
@@ -80,14 +126,20 @@ export default function HomePage() {
         left="var(--content-left)"
         top={342}
         layout={TREND_CARD_LAYOUT}
-        onBackgroundClick={() => dispatch({ type: ACTIONS.CLEAR_MONTH })}
+        onBackgroundClick={() =>
+          dispatch({ type: ACTIONS.CLEAR_MONTH })
+        }
       >
         {trend && (
           <MonthlyTrendChart
             series={trend}
             selectedMonth={state.month}
-            onSelectMonth={(month) => dispatch({ type: ACTIONS.SELECT_MONTH, month })}
-            onClearMonth={() => dispatch({ type: ACTIONS.CLEAR_MONTH })}
+            onSelectMonth={(month) =>
+              dispatch({ type: ACTIONS.SELECT_MONTH, month })
+            }
+            onClearMonth={() =>
+              dispatch({ type: ACTIONS.CLEAR_MONTH })
+            }
           />
         )}
       </ChartCard>
@@ -105,7 +157,11 @@ export default function HomePage() {
             series={categories}
             selectedCategory={effective.category}
             onSelectCategory={(category) =>
-              dispatch({ type: ACTIONS.SELECT_ITEM, dimension: 'category', value: category })
+              dispatch({
+                type: ACTIONS.SELECT_ITEM,
+                dimension: 'category',
+                value: category,
+              })
             }
             onClearCategory={clearCategory}
           />
@@ -126,14 +182,18 @@ export default function HomePage() {
             series={regions}
             selectedRegion={effective.region}
             onSelectRegion={(region) =>
-              dispatch({ type: ACTIONS.SELECT_ITEM, dimension: 'region', value: region })
+              dispatch({
+                type: ACTIONS.SELECT_ITEM,
+                dimension: 'region',
+                value: region,
+              })
             }
             onClearRegion={clearRegion}
           />
         )}
       </ChartCard>
 
-      {/* Sales by Segment - Checkpoint 5C */}
+      {/* Sales by Segment */}
       <ChartCard
         title="Sales by Segment"
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
@@ -146,7 +206,11 @@ export default function HomePage() {
             series={segments}
             selectedSegment={effective.segment}
             onSelectSegment={(segment) =>
-              dispatch({ type: ACTIONS.SELECT_ITEM, dimension: 'segment', value: segment })
+              dispatch({
+                type: ACTIONS.SELECT_ITEM,
+                dimension: 'segment',
+                value: segment,
+              })
             }
             onClearSegment={clearSegment}
           />

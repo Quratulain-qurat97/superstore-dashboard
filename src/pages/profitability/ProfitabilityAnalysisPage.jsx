@@ -1,14 +1,19 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
 import ProfitabilityKpiRow from '../../ui/profitability/ProfitabilityKpiRow.jsx';
 import ProfitabilityAnalysisCharts from '../../ui/profitability/ProfitabilityAnalysisCharts.jsx';
+import ProfitabilityExecutiveSummary from './ProfitabilityExecutiveSummary.jsx';
+
 import { useFilterState } from '../../state/useFilterState.js';
 import { useProfitabilityData } from '../../state/useProfitabilityData.js';
 
 export default function ProfitabilityAnalysisPage() {
+  const { updateSummaryContent } = useOutletContext();
+
   const { state, dispatch, effective } = useFilterState();
 
   // Product selection belongs only to this page.
@@ -18,6 +23,17 @@ export default function ProfitabilityAnalysisPage() {
     effective,
     selectedProductId,
   );
+
+  useEffect(() => {
+    updateSummaryContent(
+      <ProfitabilityExecutiveSummary
+        data={data}
+        selectedProductId={selectedProductId}
+      />,
+    );
+
+    return () => updateSummaryContent(null);
+  }, [data, selectedProductId, updateSummaryContent]);
 
   const handleProductSelect = (productId) => {
     setSelectedProductId((currentId) =>

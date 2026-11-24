@@ -1,15 +1,20 @@
+
 import { useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 
 import PageHeader from '../../ui/layout/PageHeader.jsx';
 import FilterBar from '../../ui/filters/FilterBar.jsx';
 
 import ProductKpiRow from '../../ui/product/ProductKpiRow.jsx';
 import ProductAnalysisCharts from '../../ui/product/ProductAnalysisCharts.jsx';
+import ProductExecutiveSummary from './ProductExecutiveSummary.jsx';
 
 import { useFilterState } from '../../state/useFilterState.js';
 import { useProductData } from '../../state/useProductData.js';
 
 export default function ProductAnalysisPage() {
+  const { updateSummaryContent } = useOutletContext();
+
   const { state, dispatch, effective } = useFilterState();
   const { data } = useProductData(effective);
 
@@ -25,6 +30,17 @@ export default function ProductAnalysisPage() {
     marginSeries.find(
       (item) => item.subCategory === selectedSubCategory,
     ) ?? null;
+
+  useEffect(() => {
+    updateSummaryContent(
+      <ProductExecutiveSummary
+        data={data}
+        effective={effective}
+      />,
+    );
+
+    return () => updateSummaryContent(null);
+  }, [data, effective, updateSummaryContent]);
 
   // Clear the selection if Region, Segment, Year, Month,
   // or Discount Group filters remove the selected sub-category.
