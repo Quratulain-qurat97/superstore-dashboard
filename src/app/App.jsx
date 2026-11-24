@@ -7,6 +7,7 @@ import SalesAnalysisPage from '../pages/sales/SalesAnalysisPage.jsx';
 import RegionalAnalysisPage from '../pages/regional/RegionalAnalysisPage.jsx';
 import ProductAnalysisPage from '../pages/product/ProductAnalysisPage.jsx';
 import CustomerAnalysisPage from '../pages/customer/CustomerAnalysisPage.jsx';
+import ProfitabilityAnalysisPage from '../pages/profitability/ProfitabilityAnalysisPage.jsx';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="regional" element={<RegionalAnalysisPage />} />
           <Route path="product" element={<ProductAnalysisPage />} />
           <Route path="customers" element={<CustomerAnalysisPage />} />
+          <Route path="profitability" element={<ProfitabilityAnalysisPage />} />
         </Route>
       </Routes>
     </HashRouter>

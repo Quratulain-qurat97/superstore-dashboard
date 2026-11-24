@@ -22,7 +22,7 @@ export const CUSTOMER_TOP10_X_AXIS_HEIGHT =
 export const CUSTOMER_TOP10_BAR_SIZE = 13;
 
 export const CUSTOMER_TOP10_COLORS = {
-  positive: '#10B981',
+  positive: '#3B82F6',
   negative: '#EF4444',
 };
 

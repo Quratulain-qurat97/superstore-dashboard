@@ -15,7 +15,7 @@ function KpiTileReceipt(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="672 234 64 64"
+      viewBox="0 0 64 64"
       width="64"
       height="64"
       fill="none"
@@ -23,29 +23,24 @@ function KpiTileReceipt(props) {
       focusable="false"
       {...props}
     >
-      <rect
-        x="672"
-        y="234"
-        width="64"
-        height="64"
-        rx="15"
-        fill="#F3E8FF"
+      <rect width="64" height="64" rx="15" fill="#F3E8FF" />
+
+      {/* Receipt / order document */}
+      <path
+        d="M19 13H43V51L39.5 48L36 51L32.5 48L29 51L25.5 48L22 51L19 48.5V13Z"
+        stroke="#9333EA"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
+      {/* Document lines */}
       <path
-  d="M695 249H713L716 253V278L712 275L708 278L704 275L700 278L695 275V249Z"
-  stroke="#9333EA"
-  strokeWidth="3.5"
-  strokeLinecap="round"
-  strokeLinejoin="round"
-/>
-
-<path
-  d="M700 258H712M700 265H712M700 272H708"
-  stroke="#9333EA"
-  strokeWidth="3.5"
-  strokeLinecap="round"
-/>
+        d="M25 23H37M25 30H37M25 37H33"
+        stroke="#9333EA"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

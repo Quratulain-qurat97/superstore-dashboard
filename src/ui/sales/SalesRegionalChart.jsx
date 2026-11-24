@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 
 import {
@@ -37,36 +36,40 @@ function CustomTooltip({ active, payload }) {
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Sales</span>
-        <strong>{formatCurrency(item.sales)}</strong>
+        <span className={styles.tooltipValue}>
+          {formatCurrency(item.sales)}
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Profit</span>
-        <strong
-          className={
+        <span
+          className={`${styles.tooltipValue} ${
             item.profit < 0 ? styles.negativeValue : ''
-          }
+          }`}
         >
           {formatCurrency(item.profit)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Sales Contribution</span>
-        <strong>{formatPercent(item.salesContribution)}</strong>
+        <span className={styles.tooltipValue}>
+          {formatPercent(item.salesContribution)}
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Profit Margin</span>
-        <strong
-          className={
+        <span
+          className={`${styles.tooltipValue} ${
             item.isNegativeMargin
               ? styles.negativeValue
               : styles.positiveValue
-          }
+          }`}
         >
           {formatPercent(item.margin)}
-        </strong>
+        </span>
       </div>
     </div>
   );
@@ -246,6 +249,11 @@ export default function SalesRegionalChart({
               cursor={{
                 fill: '#F3F4F6',
                 fillOpacity: 0.7,
+              }}
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
               }}
             />
 

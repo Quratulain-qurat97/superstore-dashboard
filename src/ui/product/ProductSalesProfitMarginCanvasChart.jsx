@@ -1,5 +1,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { formatCurrency } from '../../core/index.js';
 
@@ -111,7 +112,6 @@ function drawChart(canvas, chartData, domains, dimensions) {
   ) {
     return [];
   }
-
 
   const { width, height } = dimensions;
   const pixelRatio = window.devicePixelRatio || 1;
@@ -277,8 +277,6 @@ function drawChart(canvas, chartData, domains, dimensions) {
     });
   });
 
-
-
   return positions;
 }
 
@@ -349,6 +347,10 @@ export default function ProductSalesProfitMarginCanvasChart({
   const dragRef = useRef(null);
   const suppressClickRef = useRef(false);
   const tooltipRef = useRef(null);
+
+  const previousSelectedSubCategoryRef = useRef(
+    selectedSubCategory,
+  );
 
   const [dimensions, setDimensions] = useState({
     width: 0,
@@ -446,8 +448,21 @@ export default function ProductSalesProfitMarginCanvasChart({
     return () => observer.disconnect();
   }, [chartData.length]);
 
-  // Reset the view only when the underlying dataset changes.
+  // Preserve the view when selecting, switching, or clearing a subcategory.
+  // Reset only when the underlying dataset changes independently.
   useEffect(() => {
+    const selectionChanged =
+      previousSelectedSubCategoryRef.current !==
+      selectedSubCategory;
+
+    previousSelectedSubCategoryRef.current =
+      selectedSubCategory;
+
+    if (selectionChanged) {
+      setHoveredItem(null);
+      return;
+    }
+
     setView({
       zoom: MIN_ZOOM,
       centerX: null,
@@ -455,7 +470,7 @@ export default function ProductSalesProfitMarginCanvasChart({
     });
 
     setHoveredItem(null);
-  }, [series]);
+  }, [series, selectedSubCategory]);
 
   // Redraw when data, zoom, or chart dimensions change.
   useEffect(() => {
@@ -732,36 +747,37 @@ export default function ProductSalesProfitMarginCanvasChart({
 
     setHoveredItem(nearest.item);
 
-    // 3. GET CHART COORDINATES
-    const canvas = canvasRef.current;
+    // 3. POSITION TOOLTIP NEAR THE CURSOR
+    const tooltipWidth = tooltipRef.current?.offsetWidth || 220;
+    const tooltipHeight = tooltipRef.current?.offsetHeight || 150;
 
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
-
-    const mouseY = event.clientY - rect.top;
-
-    const tooltipHeight =
-      tooltipRef.current?.offsetHeight || 150;
-
+    const gap = 16;
     const padding = 8;
-    const gap = 18;
 
-    // 4. FIX TOOLTIP TO THE FAR LEFT
-    const x = padding;
+    let x = event.clientX + gap;
+    let y = event.clientY + gap;
 
-    // 5. KEEP VERTICAL POSITION NEAR THE HOVERED PRODUCT
-    let y = mouseY - tooltipHeight / 2;
+    // Move left if there isn't enough room on the right.
+    if (x + tooltipWidth > window.innerWidth - padding) {
+      x = event.clientX - tooltipWidth - gap;
+    }
+
+    // Move above if there isn't enough room below.
+    if (y + tooltipHeight > window.innerHeight - padding) {
+      y = event.clientY - tooltipHeight - gap;
+    }
+
+    // Keep the tooltip inside the visible browser window.
+    x = Math.max(
+      padding,
+      Math.min(x, window.innerWidth - tooltipWidth - padding),
+    );
 
     y = Math.max(
       padding,
-      Math.min(
-        y,
-        rect.height - tooltipHeight - padding,
-      ),
+      Math.min(y, window.innerHeight - tooltipHeight - padding),
     );
 
-    // 6. UPDATE TOOLTIP POSITION
     setTooltipPosition({ x, y });
   }
 
@@ -917,23 +933,26 @@ export default function ProductSalesProfitMarginCanvasChart({
           aria-label="Scatter chart showing product sales against profit margin"
           role="img"
         />
+      </div>
 
-        {hoveredItem && (
+      {hoveredItem &&
+        createPortal(
           <div
             ref={tooltipRef}
             className={styles.tooltip}
             style={{
-              position: 'absolute',
+              position: 'fixed',
               left: tooltipPosition.x,
               top: tooltipPosition.y,
+              zIndex: 99999,
               pointerEvents: 'none',
-              zIndex: 9999,
+              transform: 'none',
             }}
           >
             <CustomTooltip item={hoveredItem} />
-          </div>
+          </div>,
+          document.body,
         )}
-      </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 
 import {
@@ -39,29 +38,31 @@ function CustomTooltip({ active, payload }) {
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Sales</span>
-        <strong>{formatCurrency(item.sales)}</strong>
+        <span className={styles.tooltipValue}>
+          {formatCurrency(item.sales)}
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Profit</span>
-        <strong
-          className={
+        <span
+          className={`${styles.tooltipValue} ${
             item.isNegative ? styles.negativeValue : styles.positiveValue
-          }
+          }`}
         >
           {formatCurrency(item.profit)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Profit Margin</span>
-        <strong
-          className={
+        <span
+          className={`${styles.tooltipValue} ${
             item.margin < 0 ? styles.negativeValue : styles.positiveValue
-          }
+          }`}
         >
           {formatPercent(item.margin)}
-        </strong>
+        </span>
       </div>
     </div>
   );
@@ -204,6 +205,11 @@ export default function SalesCategoryProfitabilityChart({
               cursor={{
                 fill: '#F3F4F6',
                 fillOpacity: 0.7,
+              }}
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
               }}
             />
 

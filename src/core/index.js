@@ -21,3 +21,8 @@ export * from './regionalKpiCards.js';
 export * from './productData.js';
 export * from './customerData.js';
 export * from './customerKpiCards.js';
+export * from './profitabilityData.js';
+export * from './profitabilityKpiCards.js';
+export * from './profitabilityCategorySeries.js';
+export * from './profitabilityDiscountHeatmap.js';
+export * from './profitabilityProducts.js';

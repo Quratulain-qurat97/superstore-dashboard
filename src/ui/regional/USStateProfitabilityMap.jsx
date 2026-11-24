@@ -202,55 +202,61 @@ export default function USStateProfitabilityMap({
       </svg>
 
       {hoveredState && (
-        <div
-          ref={tooltipRef}
-          className={styles.tooltip}
-          style={{
-            left: tooltipPosition.x,
-            top: tooltipPosition.y,
-          }}
-        >
-          <div className={styles.tooltipTitle}>
-            {hoveredState}
-          </div>
+  <div
+    ref={tooltipRef}
+    className={styles.tooltip}
+    style={{
+      left: tooltipPosition.x,
+      top: tooltipPosition.y,
+    }}
+  >
+    <p className={styles.tooltipTitle}>
+      {hoveredState}
+    </p>
 
-          {hoveredData ? (
-            <>
-              <div className={styles.tooltipRow}>
-                <span>Region</span>
-                <strong>{hoveredData.region}</strong>
-              </div>
-
-              <div className={styles.tooltipRow}>
-                <span>Sales</span>
-                <strong>{formatCurrency(hoveredData.sales)}</strong>
-              </div>
-
-              <div className={styles.tooltipRow}>
-                <span>Profit</span>
-                <strong
-                  className={
-                    hoveredData.profit < 0
-                      ? styles.negativeValue
-                      : styles.positiveValue
-                  }
-                >
-                  {formatCurrency(hoveredData.profit)}
-                </strong>
-              </div>
-
-              <div className={styles.tooltipRow}>
-                <span>Profit Margin</span>
-                <strong>{formatPercent(hoveredData.margin)}</strong>
-              </div>
-            </>
-          ) : (
-            <div className={styles.noDataMessage}>
-              No matching data for current filters
-            </div>
-          )}
+    {hoveredData ? (
+      <>
+        <div className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>Region</span>
+          <span className={styles.tooltipValue}>
+            {hoveredData.region}
+          </span>
         </div>
-      )}
+
+        <div className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>Sales</span>
+          <span className={styles.tooltipValue}>
+            {formatCurrency(hoveredData.sales)}
+          </span>
+        </div>
+
+        <div className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>Profit</span>
+          <span
+            className={`${styles.tooltipValue} ${
+              hoveredData.profit < 0
+                ? styles.negativeValue
+                : styles.positiveValue
+            }`}
+          >
+            {formatCurrency(hoveredData.profit)}
+          </span>
+        </div>
+
+        <div className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>Profit Margin</span>
+          <span className={styles.tooltipValue}>
+            {formatPercent(hoveredData.margin)}
+          </span>
+        </div>
+      </>
+    ) : (
+      <div className={styles.noDataMessage}>
+        No matching data for current filters
+      </div>
+    )}
+  </div>
+)}
     </div>
   );
 }

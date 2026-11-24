@@ -1,5 +1,4 @@
-
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import {
   Area,
@@ -25,6 +24,8 @@ const PREVIOUS_COLOR = '#9333EA';
 const CURRENT_COLOR = '#2563EB';
 const HIT_RADIUS = 12;
 
+// ---- Hover tooltip ---------------------------------------------------------------------------
+
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
 
@@ -49,14 +50,19 @@ function CustomTooltip({ active, payload, label }) {
       <p className={styles.tooltipTitle}>{label}</p>
 
       {entries.map((item) => (
-        <p key={item.dataKey} className={styles.tooltipRow}>
-          <span
-            className={styles.tooltipDot}
-            style={{ backgroundColor: item.color }}
-          />
-          <span>{item.name}:</span>
-          <strong>{formatCurrency(item.value)}</strong>
-        </p>
+        <div key={item.dataKey} className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>
+            <span
+              className={styles.tooltipDot}
+              style={{ backgroundColor: item.color }}
+            />
+            {item.name}
+          </span>
+
+          <span className={styles.tooltipValue}>
+            {formatCurrency(item.value)}
+          </span>
+        </div>
       ))}
     </div>
   );
@@ -273,7 +279,6 @@ export default function MonthlySalesTrendChart({
   // Each line has its own handler.
   // The selected legend year controls which line can respond.
   const handleLineClick = (yearType) => (...args) => {
-
     if (activeYear && activeYear !== yearType) {
       return;
     }
@@ -284,15 +289,12 @@ export default function MonthlySalesTrendChart({
         typeof arg?.nativeEvent?.clientX === 'number'
     );
 
-
-
     if (!event) {
       return;
     }
 
     const svg = plotRef.current?.querySelector('svg');
     const coordinates = getSvgCoordinates(event, svg);
-
 
     if (!coordinates) return;
 
@@ -301,8 +303,6 @@ export default function MonthlySalesTrendChart({
       coordinates.x,
       coordinates.y
     );
-
-    
 
     if (nearest) {
       onSelectMonth?.(nearest.key);
@@ -358,7 +358,10 @@ export default function MonthlySalesTrendChart({
         </button>
       </div>
 
-      <div className={styles.plot} ref={plotRef}>
+      <div
+        className={styles.plot}
+        ref={plotRef}
+      >
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={series}
@@ -409,7 +412,16 @@ export default function MonthlySalesTrendChart({
               width={72}
             />
 
-            <Tooltip content={<CustomTooltip />} filterNull />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={false}
+              filterNull
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
+              }}
+            />
 
             <Area
               type="monotone"

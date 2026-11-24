@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 
 import {
@@ -36,25 +35,25 @@ function CustomTooltip({ active, payload }) {
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>Loss Impact</span>
-        <strong className={styles.negativeValue}>
+        <span className={`${styles.tooltipValue} ${styles.negativeValue}`}>
           {formatPercent(item.lossImpact, 2)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>State Losses</span>
-        <strong className={styles.negativeValue}>
+        <span className={`${styles.tooltipValue} ${styles.negativeValue}`}>
           {formatCurrency(item.lossAmount)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>
           Profitable-State Profit
         </span>
-        <strong className={styles.positiveValue}>
+        <span className={`${styles.tooltipValue} ${styles.positiveValue}`}>
           {formatCurrency(item.profitableStateProfit)}
-        </strong>
+        </span>
       </div>
     </div>
   );
@@ -174,6 +173,11 @@ export default function RegionalLossImpactChart({
               cursor={{
                 fill: '#F3F4F6',
                 fillOpacity: 0.7,
+              }}
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
               }}
             />
 

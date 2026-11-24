@@ -38,7 +38,6 @@ function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
 
   const item = payload[0]?.payload;
-
   if (!item) return null;
 
   return (
@@ -51,42 +50,42 @@ function CustomTooltip({ active, payload }) {
         <span className={styles.tooltipLabel}>
           Total Profit
         </span>
-
-        <strong
-          className={
+        <span
+          className={`${styles.tooltipValue} ${
             item.profit < 0
               ? styles.negativeValue
               : styles.positiveValue
-          }
+          }`}
         >
           {formatCurrency(item.profit)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>
           Total Sales
         </span>
-
-        <strong>{formatCurrency(item.sales)}</strong>
+        <span className={styles.tooltipValue}>
+          {formatCurrency(item.sales)}
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>
           Average Discount
         </span>
-
-        <strong>{item.averageDiscount.toFixed(1)}%</strong>
+        <span className={styles.tooltipValue}>
+          {item.averageDiscount.toFixed(1)}%
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>
           Transaction Lines
         </span>
-
-        <strong>
+        <span className={styles.tooltipValue}>
           {item.transactionCount.toLocaleString('en-US')}
-        </strong>
+        </span>
       </div>
     </div>
   );
@@ -110,7 +109,6 @@ function DiscountProfitLabel({
   const barHeight = height ?? 24;
   const centerY = y + barHeight / 2;
 
-  // Position the label outside the bar.
   const labelX = isNegative
     ? x - 10
     : x + width + 10;
@@ -144,7 +142,6 @@ function DiscountProfitLabel({
     </g>
   );
 }
-
 
 export default function ProductDiscountProfitChart({
   series,
@@ -265,86 +262,88 @@ export default function ProductDiscountProfitChart({
             />
 
             <Tooltip
-              content={<CustomTooltip />}
-              offset={24}
-              cursor={{
-                fill: '#F3F4F6',
-                fillOpacity: 0.7,
-              }}
-            />
+  content={<CustomTooltip />}
+  cursor={{
+    fill: '#F3F4F6',
+    fillOpacity: 0.7,
+  }}
+  isAnimationActive={false}
+  wrapperStyle={{
+    outline: 'none',
+    zIndex: 10,
+  }}
+/>
 
             <Bar
-  dataKey="chartValue"
-  name="Total Profit"
-  radius={[4, 4, 4, 4]}
-  barSize={24}
-  cursor="pointer"
-  isAnimationActive={false}
- 
-shape={(props) => {
-  const {
-    x,
-    y,
-    width,
-    height,
-    payload,
-  } = props;
+              dataKey="chartValue"
+              name="Total Profit"
+              radius={[4, 4, 4, 4]}
+              barSize={24}
+              cursor="pointer"
+              isAnimationActive={false}
+              shape={(props) => {
+                const {
+                  x,
+                  y,
+                  width,
+                  height,
+                  payload,
+                } = props;
 
-  const isNegative = payload?.profit < 0;
+                const isNegative = payload?.profit < 0;
 
-  const isMuted =
-    selectedDiscountGroup != null &&
-    payload?.discountGroupKey !== selectedDiscountGroup;
+                const isMuted =
+                  selectedDiscountGroup != null &&
+                  payload?.discountGroupKey !== selectedDiscountGroup;
 
-  const label = labelCurrencyFormatter.format(
-    payload?.profit ?? 0,
-  );
+                const label = labelCurrencyFormatter.format(
+                  payload?.profit ?? 0,
+                );
 
-  const labelWidth = label.length * 7 + 12;
-  const centerY = y + height / 2;
+                const labelWidth = label.length * 7 + 12;
+                const centerY = y + height / 2;
 
-  return (
-    <g>
-      <Rectangle
-        {...props}
-        fill={isNegative ? NEGATIVE_COLOR : POSITIVE_COLOR}
-        fillOpacity={isMuted ? 0.35 : 1}
-      />
+                return (
+                  <g>
+                    <Rectangle
+                      {...props}
+                      fill={isNegative ? NEGATIVE_COLOR : POSITIVE_COLOR}
+                      fillOpacity={isMuted ? 0.35 : 1}
+                    />
 
-      <g
-        transform={`translate(${
-          isNegative ? x - 8 : x + width + 8
-        }, ${centerY})`}
-        pointerEvents="none"
-      >
-        <rect
-          x={isNegative ? -labelWidth : 0}
-          y={-10}
-          width={labelWidth}
-          height={20}
-          rx={4}
-          fill="#E5E7EB"
-          fillOpacity={0.9}
-        />
+                    <g
+                      transform={`translate(${
+                        isNegative ? x - 8 : x + width + 8
+                      }, ${centerY})`}
+                      pointerEvents="none"
+                    >
+                      <rect
+                        x={isNegative ? -labelWidth : 0}
+                        y={-10}
+                        width={labelWidth}
+                        height={20}
+                        rx={4}
+                        fill="#E5E7EB"
+                        fillOpacity={0.9}
+                      />
 
-        <text
-          x={isNegative ? -labelWidth / 2 : labelWidth / 2}
-          y={0}
-          fill="#111827"
-          fontSize={11}
-          fontWeight={700}
-          textAnchor="middle"
-          dominantBaseline="middle"
-        >
-          {label}
-        </text>
-      </g>
-    </g>
-  );
-}}
-
-  onClick={handleBarClick}
-/>
+                      <text
+                        x={isNegative ? -labelWidth / 2 : labelWidth / 2}
+                        y={0}
+                        fill="#111827"
+                        fontSize={11}
+                        fontWeight={700}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        {label}
+                      </text>
+                    </g>
+                  </g>
+                );
+              }}
+              onClick={handleBarClick}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

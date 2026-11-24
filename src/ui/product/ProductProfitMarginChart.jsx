@@ -37,43 +37,51 @@ function CustomTooltip({ active, payload }) {
       </p>
 
       <div className={styles.tooltipRow}>
-        <span className={styles.tooltipLabel}>Profit Margin</span>
-        <strong
-          className={
+        <span className={styles.tooltipLabel}>
+          Profit Margin
+        </span>
+        <span
+          className={`${styles.tooltipValue} ${
             item.profitMargin < 0
               ? styles.negativeValue
               : styles.positiveValue
-          }
+          }`}
         >
           {formatMargin(item.profitMargin)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
-        <span className={styles.tooltipLabel}>Total Sales</span>
-        <strong>{formatCurrency(item.sales)}</strong>
+        <span className={styles.tooltipLabel}>
+          Total Sales
+        </span>
+        <span className={styles.tooltipValue}>
+          {formatCurrency(item.sales)}
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
-        <span className={styles.tooltipLabel}>Total Profit</span>
-        <strong
-          className={
+        <span className={styles.tooltipLabel}>
+          Total Profit
+        </span>
+        <span
+          className={`${styles.tooltipValue} ${
             item.profit < 0
               ? styles.negativeValue
               : styles.positiveValue
-          }
+          }`}
         >
           {formatCurrency(item.profit)}
-        </strong>
+        </span>
       </div>
 
       <div className={styles.tooltipRow}>
         <span className={styles.tooltipLabel}>
           Transaction Lines
         </span>
-        <strong>
+        <span className={styles.tooltipValue}>
           {item.transactionCount.toLocaleString('en-US')}
-        </strong>
+        </span>
       </div>
     </div>
   );
@@ -223,10 +231,15 @@ export default function ProductProfitMarginChart({
 
             <Tooltip
               content={<CustomTooltip />}
-              offset={24}
               cursor={{
                 fill: '#F3F4F6',
                 fillOpacity: 0.7,
+              }}
+              filterNull
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
               }}
             />
 
@@ -237,7 +250,6 @@ export default function ProductProfitMarginChart({
               barSize={9}
               cursor="pointer"
               isAnimationActive={false}
-              
               label={<MarginLabel />}
               shape={(props) => {
                 const item = props.payload;

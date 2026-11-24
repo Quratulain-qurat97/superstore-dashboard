@@ -156,7 +156,7 @@
   border-radius: 9px;
   background: transparent;
 
-  color: #999999;
+  color: #555555;
   text-decoration: none;
   text-align: left;
   font: inherit;
@@ -234,7 +234,13 @@
 }
 
 .lucideGlyph {
-  color: currentColor;
+  color: #555555;
+  opacity: 1;
+}
+
+.navItem:hover .lucideGlyph,
+.navItem.active .lucideGlyph {
+  color: #111111;
 }
 
 .navItem:hover .figmaGlyph,
@@ -247,6 +253,7 @@
 .navItem .navLabel {
   position: relative;
   z-index: 1;
+  transform: translateY(-3px);
 
   flex: 1;
   min-width: 0;

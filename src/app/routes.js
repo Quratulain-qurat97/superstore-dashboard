@@ -9,5 +9,5 @@ export const NAV_ITEMS = [
   { id: 'regional', label: 'Regional Analysis', path: '/regional', enabled: true, glyph: 'globe' },
   { id: 'product', label: 'Product Analysis', path: '/product', enabled: true, glyph: 'clipboard-list' },
   { id: 'customer', label: 'Customer Analysis', path: '/customers', enabled: true, glyph: 'users' },
-  { id: 'profitability', label: 'Profitability Analysis', path: '/profitability', enabled: false, glyph: 'trending-up' },
+  { id: 'profitability', label: 'Profitability Analysis', path: '/profitability', enabled: true, glyph: 'trending-up' },
 ];

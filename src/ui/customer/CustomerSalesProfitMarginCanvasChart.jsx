@@ -1,4 +1,5 @@
 
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { formatCurrency } from '../../core/index.js';
@@ -735,30 +736,33 @@ export default function CustomerSalesProfitMarginCanvasChart({
 
     setHoveredItem(nearest.item);
 
-    const canvas = canvasRef.current;
+    // Position tooltip relative to the cursor, keeping it
+    // inside the browser viewport.
+    const tooltipWidth = tooltipRef.current?.offsetWidth || 220;
+    const tooltipHeight = tooltipRef.current?.offsetHeight || 150;
 
-    if (!canvas) return;
-
-    const rect = canvas.getBoundingClientRect();
-
-    const mouseY = event.clientY - rect.top;
-
-    const tooltipHeight =
-      tooltipRef.current?.offsetHeight || 150;
-
+    const gap = 16;
     const padding = 8;
 
-    // Keep the tooltip at the far left, like the Product chart.
-    const x = padding;
+    let x = event.clientX + gap;
+    let y = event.clientY + gap;
 
-    let y = mouseY - tooltipHeight / 2;
+    if (x + tooltipWidth > window.innerWidth - padding) {
+      x = event.clientX - tooltipWidth - gap;
+    }
+
+    if (y + tooltipHeight > window.innerHeight - padding) {
+      y = event.clientY - tooltipHeight - gap;
+    }
+
+    x = Math.max(
+      padding,
+      Math.min(x, window.innerWidth - tooltipWidth - padding),
+    );
 
     y = Math.max(
       padding,
-      Math.min(
-        y,
-        rect.height - tooltipHeight - padding,
-      ),
+      Math.min(y, window.innerHeight - tooltipHeight - padding),
     );
 
     setTooltipPosition({ x, y });
@@ -915,23 +919,26 @@ export default function CustomerSalesProfitMarginCanvasChart({
           aria-label="Scatter chart showing customer sales against profit margin"
           role="img"
         />
+      </div>
 
-        {hoveredItem && (
+      {hoveredItem &&
+        createPortal(
           <div
             ref={tooltipRef}
             className={styles.tooltip}
             style={{
-              position: 'absolute',
+              position: 'fixed',
               left: tooltipPosition.x,
               top: tooltipPosition.y,
+              zIndex: 99999,
               pointerEvents: 'none',
-              zIndex: 9999,
+              transform: 'none',
             }}
           >
             <CustomTooltip item={hoveredItem} />
-          </div>
+          </div>,
+          document.body,
         )}
-      </div>
     </div>
   );
 }

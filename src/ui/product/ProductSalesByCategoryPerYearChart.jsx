@@ -167,9 +167,14 @@ return (
           />
 
           <Tooltip
-            content={<CustomTooltip />}
-            cursor={{ fill: 'rgba(156, 163, 175, 0.10)' }}
-          />
+  content={<CustomTooltip />}
+  cursor={{ fill: 'rgba(156, 163, 175, 0.10)' }}
+  offset={22}
+  wrapperStyle={{
+    zIndex: 9999,
+    pointerEvents: 'none',
+  }}
+/>
 
           {CATEGORY_ORDER.map((category) => (
             <Bar

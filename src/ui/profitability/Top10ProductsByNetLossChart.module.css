@@ -1,0 +1,85 @@
+
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+   overflow: visible;
+}
+
+.wrap :global(.recharts-wrapper) {
+  outline: none;
+  overflow: visible !important;
+}
+
+.wrap :global(.recharts-surface),
+.wrap :global(.recharts-surface *) {
+  outline: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font: 500 14px/20px var(--font-inter);
+  text-align: center;
+}
+
+.tooltip {
+  min-width: 176px;
+  padding: 9px 11px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+  font-family: var(--font-inter);
+}
+
+.tooltipTitle {
+  margin: 0 0 7px;
+  color: #111827;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.tooltipLabel {
+  color: #6B7280;
+}
+
+.tooltipRow strong {
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tooltipRow .negativeValue {
+  color: #EF4444;
+}
+
+.plot {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}

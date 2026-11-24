@@ -198,17 +198,18 @@ export default function RegionalLossMakingStatesChart({
             />
 
             <Tooltip
-            content={<CustomTooltip />}
-            cursor={{
-                fill: '#F3F4F6',
-                fillOpacity: 0.7,
-            }}
-            offset={8}
-            wrapperStyle={{
-                marginLeft: '-228px',
-                pointerEvents: 'none',
-                }}
-                />
+  content={<CustomTooltip />}
+  cursor={{
+    fill: '#F3F4F6',
+    fillOpacity: 0.7,
+  }}
+  offset={8}
+  wrapperStyle={{
+    zIndex: 9999,
+    marginLeft: '-228px',
+    pointerEvents: 'none',
+  }}
+/>
 
             <Bar
               dataKey="profit"
