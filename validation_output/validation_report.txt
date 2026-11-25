@@ -1,0 +1,60 @@
+SUPERSTORE DASHBOARD — INDEPENDENT DATA VALIDATION
+==========================================================
+
+1. SOURCE DATA
+CSV rows: 9,994
+CSV columns: 21
+JSON transactions: 9,994
+CSV duplicate Row IDs: 0
+JSON duplicate Row IDs: 0
+Rows missing from JSON: 0
+Extra JSON rows: 0
+Field mismatches (up to 100 shown): 0
+CSV and JSON match: PASS
+
+2. INDEPENDENT BASELINE KPIs (ALL FILTERS CLEARED)
+Rows: 9994
+Sales: 2297200.86
+Profit: 286397.02
+Quantity: 37873
+Distinct orders: 5009
+Distinct customers: 793
+Profit margin (%): 12.4672
+Average order value: 458.61
+First order date: 2014-01-03
+Last order date: 2017-12-30
+
+3. YEARLY REFERENCE TOTALS
+2014: Sales $484,247.50 | Profit $49,543.97 | Orders 969 | Quantity 7,581 | Margin 10.2311%
+2015: Sales $470,532.51 | Profit $61,618.60 | Orders 1,038 | Quantity 7,979 | Margin 13.0955%
+2016: Sales $609,205.60 | Profit $81,795.17 | Orders 1,315 | Quantity 9,837 | Margin 13.4265%
+2017: Sales $733,215.26 | Profit $93,439.27 | Orders 1,687 | Quantity 12,476 | Margin 12.7438%
+
+4. PROFITABILITY KPI REFERENCE
+profitMarginPercent: 12.4672
+discountedSalesProfit: -34590.58
+lossMakingCustomers: 155
+lossMakingOrders: 1022
+totalOrders: 5009
+lossMakingOrdersPercent: 20.4033
+
+5. CUSTOMER REFERENCE
+Customers: 793
+Loss-making customers: 155
+
+6. PRODUCT LOSS REFERENCE
+Cubify CubeX 3D Printer Double Head Print: Profit $-8,879.97, Sales $11,099.96, Margin -80.0%
+Lexmark MX611dhe Monochrome Laser Printer: Profit $-4,589.97, Sales $16,829.90, Margin -27.2727%
+Cubify CubeX 3D Printer Triple Head Print: Profit $-3,839.99, Sales $7,999.98, Margin -48.0%
+Chromcraft Bull-Nose Wood Oval Conference Tables & Bases: Profit $-2,876.12, Sales $9,917.64, Margin -29.0%
+Bush Advantage Collection Racetrack Conference Table: Profit $-1,934.40, Sales $9,544.73, Margin -20.2667%
+GBC DocuBind P400 Electric Binding System: Profit $-1,878.17, Sales $17,965.07, Margin -10.4545%
+Cisco TelePresence System EX90 Videoconferencing Unit: Profit $-1,811.08, Sales $22,638.48, Margin -8.0%
+Martin Yale Chadless Opener Electric Letter Opener: Profit $-1,299.18, Sales $16,656.20, Margin -7.8%
+Balt Solid Wood Round Tables: Profit $-1,201.06, Sales $6,518.75, Margin -18.4247%
+BoxOffice By Design Rectangular and Half-Moon Meeting Room Tables: Profit $-1,148.44, Sales $1,706.25, Margin -67.3077%
+
+7. INTERPRETATION
+PASS: The dashboard JSON matches the cleaned CSV for all mapped fields.
+The aggregation files are independent reference outputs. Compare them with the dashboard while filters are cleared, then repeat with selected filters using equivalent source-data subsets.
+This script does not execute React components or verify browser interactions. It also does not automatically reproduce every chart-specific filter exclusion; those must be compared against each chart's documented filter contract.

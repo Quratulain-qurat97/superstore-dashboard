@@ -151,15 +151,13 @@ function drawChart(
   const logMin = Math.log10(domains.x[0]);
   const logMax = Math.log10(domains.x[1]);
 
-  const xToPixel = (value) => {
-    const safeValue = Math.max(value, domains.x[0]);
+ const xToPixel = (value) => {
+  const ratio =
+    (Math.log10(value) - logMin) /
+    (logMax - logMin);
 
-    const ratio =
-      (Math.log10(safeValue) - logMin) /
-      (logMax - logMin);
-
-    return plotLeft + ratio * plotWidth;
-  };
+  return plotLeft + ratio * plotWidth;
+};
 
   const yToPixel = (value) => {
     const ratio =

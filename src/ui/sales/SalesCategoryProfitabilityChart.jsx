@@ -240,8 +240,7 @@ export default function SalesCategoryProfitabilityChart({
                 );
               }}
               onClick={(entry, index) => {
-                const clickedItem =
-                  chartData[index] ?? entry?.payload ?? entry;
+                const clickedItem = entry?.payload ?? entry ?? chartData[index];
 
                 if (clickedItem?.category && clickedItem?.subCategory) {
                   onSelectSubCategory?.(

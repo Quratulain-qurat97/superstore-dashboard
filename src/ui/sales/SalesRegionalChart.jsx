@@ -1,3 +1,4 @@
+
 import { useMemo } from 'react';
 
 import {
@@ -22,6 +23,8 @@ import styles from './SalesRegionalChart.module.css';
 const BAR_COLOR = '#3B82F6';
 const POSITIVE_COLOR = '#10B981';
 const NEGATIVE_COLOR = '#EF4444';
+
+const MARGIN_AXIS_WIDTH = 85;
 
 function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null;
@@ -53,7 +56,9 @@ function CustomTooltip({ active, payload }) {
       </div>
 
       <div className={styles.tooltipRow}>
-        <span className={styles.tooltipLabel}>Sales Contribution</span>
+        <span className={styles.tooltipLabel}>
+          Sales Contribution
+        </span>
         <span className={styles.tooltipValue}>
           {formatPercent(item.salesContribution)}
         </span>
@@ -120,7 +125,9 @@ export default function SalesRegionalChart({
 
   const maxContribution = Math.max(
     0,
-    ...chartData.map((item) => item.salesContribution ?? 0),
+    ...chartData.map(
+      (item) => item.salesContribution ?? 0,
+    ),
   );
 
   const xAxisMax = Math.max(
@@ -143,7 +150,9 @@ export default function SalesRegionalChart({
       : POSITIVE_COLOR;
 
     return (
-      <g transform={`translate(${x + 8}, ${y})`}>
+      <g
+        transform={`translate(${x + MARGIN_AXIS_WIDTH - labelWidth - 8}, ${y})`}
+      >
         <rect
           x={0}
           y={-10}
@@ -182,7 +191,6 @@ export default function SalesRegionalChart({
       className={styles.wrap}
       onClick={(event) => event.stopPropagation()}
     >
-      {/* Permanent chart legend */}
       <div className={styles.legend}>
         <div className={styles.legendItem}>
           <span className={styles.salesSwatch} />
@@ -200,7 +208,12 @@ export default function SalesRegionalChart({
           <ComposedChart
             data={chartData}
             layout="vertical"
-            margin={{ top: 8, right: 5, bottom: 12, left: 5 }}
+            margin={{
+              top: 8,
+              right: 5,
+              bottom: 12,
+              left: 5,
+            }}
             barCategoryGap="24%"
           >
             <CartesianGrid
@@ -213,7 +226,11 @@ export default function SalesRegionalChart({
               type="number"
               domain={[0, xAxisMax]}
               tickFormatter={(value) => `${value}%`}
-              tick={{ fill: '#6B7280', fontSize: 12, fontWeight: 600}}
+              tick={{
+                fill: '#6B7280',
+                fontSize: 12,
+                fontWeight: 600,
+              }}
               axisLine={false}
               tickLine={false}
             />
@@ -236,13 +253,16 @@ export default function SalesRegionalChart({
               type="category"
               dataKey="region"
               orientation="right"
-              width={85}
+              width={MARGIN_AXIS_WIDTH}
               axisLine={false}
               tickLine={false}
               tick={renderMarginTick}
             />
 
-            <ReferenceLine x={0} stroke="#9CA3AF" />
+            <ReferenceLine
+              x={0}
+              stroke="#9CA3AF"
+            />
 
             <Tooltip
               content={<CustomTooltip />}
@@ -258,32 +278,33 @@ export default function SalesRegionalChart({
             />
 
             <Bar
-  dataKey="salesContribution"
-  name="Sales Contribution"
-  fill={BAR_COLOR}
-  radius={[0, 5, 5, 0]}
-  barSize={28}
-  cursor="pointer"
-  label={<SalesContributionLabel />}
-  shape={(props) => (
-    <Rectangle
-      {...props}
-      fillOpacity={
-        selectedRegion && selectedRegion !== props.payload?.region
-          ? 0.35
-          : 1
-      }
-    />
-  )}
-  onClick={(entry, index) => {
-    const clickedRegion =
-      chartData[index] ?? entry?.payload ?? entry;
+              dataKey="salesContribution"
+              name="Sales Contribution"
+              fill={BAR_COLOR}
+              radius={[0, 5, 5, 0]}
+              barSize={28}
+              cursor="pointer"
+              label={<SalesContributionLabel />}
+              shape={(props) => (
+                <Rectangle
+                  {...props}
+                  fillOpacity={
+                    selectedRegion &&
+                    selectedRegion !== props.payload?.region
+                      ? 0.35
+                      : 1
+                  }
+                />
+              )}
+              onClick={(entry) => {
+                const clickedRegion =
+                  entry?.payload ?? entry;
 
-    if (clickedRegion?.region) {
-      onSelectRegion?.(clickedRegion.region);
-    }
-  }}
-/>
+                if (clickedRegion?.region) {
+                  onSelectRegion?.(clickedRegion.region);
+                }
+              }}
+            />
           </ComposedChart>
         </ResponsiveContainer>
       </div>

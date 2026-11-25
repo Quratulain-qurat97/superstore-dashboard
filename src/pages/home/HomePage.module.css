@@ -1,0 +1,45 @@
+
+.overviewPage {
+  position: relative;
+  width: 100%;
+  min-height: var(--frame-height);
+  background: #ffffff;
+}
+
+/* Preserve the original fixed desktop layout. */
+@media (max-width: 1459px) {
+  .overviewPage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 20px;
+    width: 100%;
+    min-height: 100vh;
+    padding-left: 68px;
+    padding-right: 24px;
+  }
+
+  .headerArea,
+  .overviewPage > :global(section[aria-label="Filters"]),
+  .overviewPage > :global(section[aria-label="Key metrics"]) {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+}
+
+/* Tablet: charts use one column; KPIs retain their two-column layout. */
+@media (max-width: 767px) {
+  .overviewPage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
+  }
+}
+
+/* Narrow mobile. */
+@media (max-width: 480px) {
+  .overviewPage {
+    gap: 14px;
+    padding: 14px;
+  }
+}

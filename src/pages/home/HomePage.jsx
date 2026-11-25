@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -36,7 +35,7 @@ import { useHomeData } from '../../state/useHomeData.js';
 // The Overview page displays key metrics, trends, and four interactive charts.
 export default function HomePage() {
   const { state, dispatch, effective } = useFilterState();
-  const { data } = useHomeData(effective);
+  const { data, status } = useHomeData(effective);
 
   const { updateSummaryContent } = useOutletContext();
 
@@ -118,104 +117,112 @@ export default function HomePage() {
 
       <FilterBar state={state} dispatch={dispatch} />
 
-      <KpiRow kpis={data ? data.kpis : null} />
+      {status === 'error' ? (
+        <div role="alert">
+          Unable to load dashboard data. Please refresh the page and try again.
+        </div>
+      ) : (
+        <>
+          <KpiRow kpis={data ? data.kpis : null} />
 
-      {/* Monthly Sales Trend */}
-      <ChartCard
-        title="Monthly Sales Trend"
-        left="var(--content-left)"
-        top={342}
-        layout={TREND_CARD_LAYOUT}
-        onBackgroundClick={() =>
-          dispatch({ type: ACTIONS.CLEAR_MONTH })
-        }
-      >
-        {trend && (
-          <MonthlyTrendChart
-            series={trend}
-            selectedMonth={state.month}
-            onSelectMonth={(month) =>
-              dispatch({ type: ACTIONS.SELECT_MONTH, month })
-            }
-            onClearMonth={() =>
+          {/* Monthly Sales Trend */}
+          <ChartCard
+            title="Monthly Sales Trend"
+            left="var(--content-left)"
+            top={342}
+            layout={TREND_CARD_LAYOUT}
+            onBackgroundClick={() =>
               dispatch({ type: ACTIONS.CLEAR_MONTH })
             }
-          />
-        )}
-      </ChartCard>
+          >
+            {trend && (
+              <MonthlyTrendChart
+                series={trend}
+                selectedMonth={state.month}
+                onSelectMonth={(month) =>
+                  dispatch({ type: ACTIONS.SELECT_MONTH, month })
+                }
+                onClearMonth={() =>
+                  dispatch({ type: ACTIONS.CLEAR_MONTH })
+                }
+              />
+            )}
+          </ChartCard>
 
-      {/* Sales by Category */}
-      <ChartCard
-        title="Sales by Category"
-        left="calc(var(--content-left) + var(--chart-w) + 20px)"
-        top={342}
-        layout={CATEGORY_CARD_LAYOUT}
-        onBackgroundClick={clearCategory}
-      >
-        {categories && (
-          <CategoryRevenueChart
-            series={categories}
-            selectedCategory={effective.category}
-            onSelectCategory={(category) =>
-              dispatch({
-                type: ACTIONS.SELECT_ITEM,
-                dimension: 'category',
-                value: category,
-              })
-            }
-            onClearCategory={clearCategory}
-          />
-        )}
-      </ChartCard>
+          {/* Sales by Category */}
+          <ChartCard
+            title="Sales by Category"
+            left="calc(var(--content-left) + var(--chart-w) + 20px)"
+            top={342}
+            layout={CATEGORY_CARD_LAYOUT}
+            onBackgroundClick={clearCategory}
+          >
+            {categories && (
+              <CategoryRevenueChart
+                series={categories}
+                selectedCategory={effective.category}
+                onSelectCategory={(category) =>
+                  dispatch({
+                    type: ACTIONS.SELECT_ITEM,
+                    dimension: 'category',
+                    value: category,
+                  })
+                }
+                onClearCategory={clearCategory}
+              />
+            )}
+          </ChartCard>
 
-      {/* Regional Performance */}
-      <ChartCard
-        title="Regional Performance"
-        left="var(--content-left)"
-        top={680}
-        layout={REGIONAL_CARD_LAYOUT}
-        legend={<RegionalLegend />}
-        onBackgroundClick={clearRegion}
-      >
-        {regions && (
-          <RegionalPerformanceChart
-            series={regions}
-            selectedRegion={effective.region}
-            onSelectRegion={(region) =>
-              dispatch({
-                type: ACTIONS.SELECT_ITEM,
-                dimension: 'region',
-                value: region,
-              })
-            }
-            onClearRegion={clearRegion}
-          />
-        )}
-      </ChartCard>
+          {/* Regional Performance */}
+          <ChartCard
+            title="Regional Performance"
+            left="var(--content-left)"
+            top={680}
+            layout={REGIONAL_CARD_LAYOUT}
+            legend={<RegionalLegend />}
+            onBackgroundClick={clearRegion}
+          >
+            {regions && (
+              <RegionalPerformanceChart
+                series={regions}
+                selectedRegion={effective.region}
+                onSelectRegion={(region) =>
+                  dispatch({
+                    type: ACTIONS.SELECT_ITEM,
+                    dimension: 'region',
+                    value: region,
+                  })
+                }
+                onClearRegion={clearRegion}
+              />
+            )}
+          </ChartCard>
 
-      {/* Sales by Segment */}
-      <ChartCard
-        title="Sales by Segment"
-        left="calc(var(--content-left) + var(--chart-w) + 20px)"
-        top={680}
-        layout={SEGMENT_CARD_LAYOUT}
-        onBackgroundClick={clearSegment}
-      >
-        {segments && (
-          <SalesBySegmentChart
-            series={segments}
-            selectedSegment={effective.segment}
-            onSelectSegment={(segment) =>
-              dispatch({
-                type: ACTIONS.SELECT_ITEM,
-                dimension: 'segment',
-                value: segment,
-              })
-            }
-            onClearSegment={clearSegment}
-          />
-        )}
-      </ChartCard>
+          {/* Sales by Segment */}
+          <ChartCard
+            title="Sales by Segment"
+            left="calc(var(--content-left) + var(--chart-w) + 20px)"
+            top={680}
+            layout={SEGMENT_CARD_LAYOUT}
+            onBackgroundClick={clearSegment}
+          >
+            {segments && (
+              <SalesBySegmentChart
+                series={segments}
+                selectedSegment={effective.segment}
+                onSelectSegment={(segment) =>
+                  dispatch({
+                    type: ACTIONS.SELECT_ITEM,
+                    dimension: 'segment',
+                    value: segment,
+                  })
+                }
+                onClearSegment={clearSegment}
+              />
+            )}
+          </ChartCard>
+        </>
+      )}
     </>
   );
 }

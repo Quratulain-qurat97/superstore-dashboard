@@ -24,7 +24,6 @@ import {
 import { useFilterState } from '../../state/useFilterState.js';
 import { useRegionalData } from '../../state/useRegionalData.js';
 
-// Full-width map card, spanning both existing chart columns.
 const REGIONAL_MAP_CARD_LAYOUT = {
   ...REGIONAL_CARD_LAYOUT,
   body: {
@@ -50,7 +49,6 @@ export default function RegionalAnalysisPage() {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
 
-  // Prevent chart-driven Region updates from clearing their own selection.
   const internalRegionUpdate = useRef(false);
 
   // Clear local chart selections when the user manually changes Region.
@@ -64,12 +62,12 @@ export default function RegionalAnalysisPage() {
     setSelectedState(null);
   }, [effective.region]);
 
-  // Calculate KPIs using the selected state or region.
+  // Calculate KPIs using the complete comparison dataset for local selections.
   const displayedKpis = useMemo(() => {
     if (!data) return null;
 
     if (selectedState) {
-      const stateData = data.states.filter(
+      const stateData = comparisonAllStates.filter(
         (item) => item.state === selectedState,
       );
 
@@ -77,7 +75,7 @@ export default function RegionalAnalysisPage() {
     }
 
     if (selectedRegion) {
-      const selectedStates = data.states.filter(
+      const selectedStates = comparisonAllStates.filter(
         (item) => item.region === selectedRegion,
       );
 
@@ -85,7 +83,12 @@ export default function RegionalAnalysisPage() {
     }
 
     return data.kpis;
-  }, [data, selectedRegion, selectedState]);
+  }, [
+    data,
+    comparisonAllStates,
+    selectedRegion,
+    selectedState,
+  ]);
 
   // Local region selection takes priority over the global Region filter.
   const highlightedRegion = selectedRegion ?? (
@@ -94,8 +97,7 @@ export default function RegionalAnalysisPage() {
       : null
   );
 
-  // Update the shared Executive Summary whenever filters,
-  // calculated data, or local chart selections change.
+  // Update the shared Executive Summary.
   useEffect(() => {
     if (!data) {
       updateSummaryContent(null);
@@ -125,7 +127,6 @@ export default function RegionalAnalysisPage() {
 
   // Handle region selection from the Loss Impact chart.
   function handleRegionSelect(region) {
-    // Restore the previous Region filter if a state was selected.
     if (selectedState && state.selections.region) {
       internalRegionUpdate.current = true;
 
@@ -142,9 +143,8 @@ export default function RegionalAnalysisPage() {
     );
   }
 
-  // Shared state-selection handler for the state chart and map.
+  // Shared state-selection handler for the chart and map.
   function handleStateSelect(stateName, region) {
-    // Clicking the selected state clears its selection.
     if (selectedState === stateName) {
       setSelectedState(null);
 
@@ -163,8 +163,6 @@ export default function RegionalAnalysisPage() {
     setSelectedRegion(null);
     setSelectedState(stateName);
 
-    // Avoid toggling off a Region that is already selected manually.
-    // Also preserve an existing chart selection's original restore value.
     if (state.dropdowns.region !== region) {
       internalRegionUpdate.current = true;
 
@@ -187,7 +185,6 @@ export default function RegionalAnalysisPage() {
 
       <RegionalKpiRow kpis={displayedKpis} />
 
-      {/* Existing chart 1 */}
       <ChartCard
         title="Loss Impact by Region"
         left="var(--content-left)"
@@ -203,7 +200,6 @@ export default function RegionalAnalysisPage() {
         )}
       </ChartCard>
 
-      {/* Existing chart 2 */}
       <ChartCard
         title="Loss-Making States"
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
@@ -220,7 +216,6 @@ export default function RegionalAnalysisPage() {
         )}
       </ChartCard>
 
-      {/* Full-width US State Profitability Map */}
       <ChartCard
         title="US State Profitability Map"
         left="var(--content-left)"

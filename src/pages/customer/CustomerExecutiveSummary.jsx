@@ -397,7 +397,7 @@ export default function CustomerExecutiveSummary({ data }) {
 
         <Narrative>
           {top10SalesShare != null
-            ? `The ten highest-sales customers contribute ${formatRate(top10SalesShare)} of total sales, indicating that sales are distributed across a broad customer base rather than concentrated among these ten customers.`
+            ? `The ten highest-sales customers contribute ${formatRate(top10SalesShare)} of total sales. The remaining sales come from customers outside this top ten; this metric alone does not show how evenly those sales are distributed.`
             : 'Customer sales concentration cannot be calculated for this selection.'}
           {' '}
           {highestProfitCustomer

@@ -32,7 +32,7 @@ export default function SalesAnalysisPage() {
   const { updateSummaryContent } = useOutletContext();
 
   const { state, dispatch, effective } = useFilterState();
-  const { data } = useSalesData(effective);
+  const { data, status, error } = useSalesData(effective);
 
   const regionalSeries = useMemo(
     () => (data ? buildSalesRegionalSeries(data.regions) : null),
@@ -157,6 +157,12 @@ export default function SalesAnalysisPage() {
           />
         )}
       </ChartCard>
+
+      {status === 'error' && (
+        <p role="alert">
+          Unable to load Sales Analysis data: {error?.message}
+        </p>
+      )}
     </>
   );
 }

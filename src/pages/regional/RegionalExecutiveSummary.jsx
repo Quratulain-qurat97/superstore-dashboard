@@ -37,6 +37,8 @@ export default function RegionalExecutiveSummary({
     (state) => state.state === selectedState,
   );
 
+  const hasSelectedState = Boolean(selectedState);
+
   const globalRegion = effective?.region;
 
   const activeRegion =
@@ -52,8 +54,10 @@ export default function RegionalExecutiveSummary({
 
   let selectedStates = comparisonAllStates;
 
-  if (selectedStateData) {
-    selectedStates = [selectedStateData];
+  if (hasSelectedState) {
+    selectedStates = selectedStateData
+      ? [selectedStateData]
+      : [];
   } else if (activeRegion) {
     selectedStates = comparisonAllStates.filter(
       (state) => state.region === activeRegion,
@@ -114,9 +118,11 @@ export default function RegionalExecutiveSummary({
 
   const selectedLabel = selectedStateData
     ? selectedStateData.state
-    : activeRegion
-      ? activeRegion
-      : 'All regions';
+    : hasSelectedState
+      ? selectedState
+      : activeRegion
+        ? activeRegion
+        : 'All regions';
 
   const hasSelectedData = selectedStates.length > 0;
 
@@ -187,7 +193,15 @@ export default function RegionalExecutiveSummary({
                 {selectedKpis.worstStateName ?? 'N/A'}
               </strong>
               {' '}with profit of{' '}
-              <strong className={styles.negative}>
+              <strong
+                className={
+                  selectedKpis.worstStateProfit === null
+                    ? styles.neutral
+                    : selectedKpis.worstStateProfit < 0
+                      ? styles.negative
+                      : styles.positive
+                }
+              >
                 {selectedKpis.worstStateProfit === null
                   ? 'N/A'
                   : formatCurrency(selectedKpis.worstStateProfit)}

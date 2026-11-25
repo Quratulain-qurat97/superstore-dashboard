@@ -167,35 +167,44 @@ export default function SalesExecutiveSummary({ data }) {
               </strong>.
             </p>
 
-            {largestIncrease && (
-              <p className={styles.insightText}>
-                Compared with the same month in {selectedYear - 1},
-                sales in {largestIncrease.month} increased by{' '}
-                <strong className={styles.positive}>
-                  {formatSignedPercent(
-                    largestIncrease.percentageChange,
-                  ).replace('+', '')}
-                </strong>.
-              </p>
-            )}
-
-            {largestDecrease && (
-              <p className={styles.insightText}>
-                Compared with the same month in {selectedYear - 1},
-                sales in {largestDecrease.month} decreased by{' '}
-                <strong className={styles.negative}>
-                  {formatSignedPercent(
-                    largestDecrease.percentageChange,
-                  ).replace('-', '')}
-                </strong>.
-              </p>
-            )}
-
-            {!largestIncrease && !largestDecrease && (
+            {selectedYear <= 2014 ? (
               <p className={styles.empty}>
-                No non-zero year-over-year percentage changes are
-                available for this selection.
+                Year-over-year comparisons are unavailable because
+                the dataset contains no preceding year for {selectedYear}.
               </p>
+            ) : (
+              <>
+                {largestIncrease && (
+                  <p className={styles.insightText}>
+                    Compared with the same month in {selectedYear - 1},
+                    sales in {largestIncrease.month} increased by{' '}
+                    <strong className={styles.positive}>
+                      {formatSignedPercent(
+                        largestIncrease.percentageChange,
+                      ).replace('+', '')}
+                    </strong>.
+                  </p>
+                )}
+
+                {largestDecrease && (
+                  <p className={styles.insightText}>
+                    Compared with the same month in {selectedYear - 1},
+                    sales in {largestDecrease.month} decreased by{' '}
+                    <strong className={styles.negative}>
+                      {formatSignedPercent(
+                        largestDecrease.percentageChange,
+                      ).replace('-', '')}
+                    </strong>.
+                  </p>
+                )}
+
+                {!largestIncrease && !largestDecrease && (
+                  <p className={styles.empty}>
+                    No non-zero year-over-year percentage changes are
+                    available for this selection.
+                  </p>
+                )}
+              </>
             )}
           </>
         ) : (

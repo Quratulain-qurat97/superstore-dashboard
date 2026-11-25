@@ -1,275 +1,335 @@
-# Superstore Analytics Dashboard --- Validated Key Findings
+﻿# Superstore Analytics Dashboard â€” Validated Key Findings
 
-**Purpose:** Preserve the validated profitability findings from the
-Superstore analysis so they can guide the Product Analysis, Sales
-Analysis, and Executive Summary pages.
+**Purpose:** Central evidence reference for the Sales Analysis, Product Analysis, and Executive Summary pages.
 
-**Dataset:** `superstores_cleared.superstore_cleaned_python`\
-**Analysis period:** 2014--2017\
-**Profit margin formula:** `SUM(Profit) / SUM(Sales) * 100`
+**Dataset:** `superstores_cleared.superstore_cleaned_python`
+**Analysis period:** 2014â€“2017
+**Transaction records:** 9,994
+**Profit margin formula:** `SUM(Profit) / SUM(Sales) Ã— 100`
 
-------------------------------------------------------------------------
+---
 
-## 1. Dataset-wide discount profitability
+## 1. Dataset-Wide Discount Profitability
 
-The full-dataset discount analysis showed a clear separation in observed
-profitability:
+The full-dataset analysis identified a clear difference between the aggregated profitability of lower and higher discount tiers.
 
--   Discount tiers from **0% through 20%** were profitable in the
-    aggregated results.
--   Every observed discount tier from **30% through 80%** recorded a
-    negative profit margin.
--   The relationship was not perfectly monotonic: for example, the 45%
-    tier had a -45.45% margin, while the 50% tier had a -34.80% margin.
+- Discount tiers from **0% through 20%** generated positive aggregate profit margins.
+- Every observed discount tier from **30% through 80%** generated a negative aggregate profit margin.
+- The relationship was not perfectly linear. For example, the 45% discount tier had a -45.45% margin, while the 50% tier had a -34.80% margin.
 
-### High-discount financial impact
+### 1.1 Complete Discount-Level Results
 
-  Discount range     Order lines          Sales          Profit   Weighted margin
-  ---------------- ------------- -------------- --------------- -----------------
-  30%--80%                 1,393   \$362,770.15   -\$135,376.07           -37.32%
-  60%--80%                   856    \$64,228.74    -\$76,559.06          -119.20%
+| Discount | Order Lines | Units Sold | Sales | Profit | Profit Margin |
+|---:|---:|---:|---:|---:|---:|
+| 0% | 4,798 | 18,267 | $1,087,908.47 | $320,987.60 | 29.51% |
+| 10% | 94 | 373 | $54,369.35 | $9,029.18 | 16.61% |
+| 15% | 52 | 198 | $27,558.52 | $1,418.99 | 5.15% |
+| 20% | 3,657 | 13,660 | $764,594.37 | $90,337.31 | 11.82% |
+| 30% | 227 | 849 | $103,226.66 | -$10,369.28 | -10.05% |
+| 32% | 27 | 105 | $14,493.46 | -$2,391.14 | -16.50% |
+| 40% | 206 | 786 | $116,417.78 | -$23,057.05 | -19.81% |
+| 45% | 11 | 45 | $5,484.97 | -$2,493.11 | -45.45% |
+| 50% | 66 | 241 | $58,918.54 | -$20,506.43 | -34.80% |
+| 60% | 138 | 501 | $6,644.70 | -$5,944.66 | -89.46% |
+| 70% | 418 | 1,660 | $40,620.28 | -$40,075.36 | -98.66% |
+| 80% | 300 | 1,188 | $16,963.76 | -$30,539.04 | -180.03% |
 
-The 60%--80% weighted margin is calculated as combined profit divided by
-combined sales. These tiers generated losses substantially larger than
-their sales base.
+### 1.2 Financial Impact of High Discounts
 
-**Interpretation:** The observed high-discount tiers represent a major
-profitability risk in this dataset. This is an association, not proof
-that discounting alone caused the losses.
+| Discount Range | Order Lines | Sales | Combined Profit | Weighted Profit Margin |
+|---|---:|---:|---:|---:|
+| 30%â€“80% | 1,393 | $362,770.15 | -$135,376.07 | -37.32% |
+| 60%â€“80% | 856 | $64,228.74 | -$76,559.06 | -119.20% |
 
-------------------------------------------------------------------------
+Additional findings:
 
-## 2. West region: Home Office year-over-year profitability
+- The 70% and 80% discount groups together generated $70,614.40 in losses.
+- The 30%â€“80% discount groups accounted for approximately 13.9% of transaction lines.
+- Their combined weighted profit margin was -37.32%.
 
-West + Home Office remained profitable in every year, but its profit
-margin weakened significantly.
+**Interpretation:** The observed high-discount tiers represent a substantial profitability risk in this dataset. This is an association, not proof that discounting alone caused the losses.
 
-  Year           Sales       Profit   Profit margin
-  ------ ------------- ------------ ---------------
-  2014     \$21,708.92   \$3,690.42          17.00%
-  2015     \$20,478.85   \$2,774.07          13.55%
-  2016     \$37,943.41   \$3,696.97           9.74%
-  2017     \$56,590.59   \$6,368.95          11.25%
+---
 
-**Interpretation:**
+## 2. West Region â€” Home Office Year-over-Year Profitability
 
--   Margin declined from 17.00% in 2014 to 9.74% in 2016.
--   It recovered partially to 11.25% in 2017, but remained below the
-    2014 level.
--   Sales increased substantially, but the margin did not keep pace.
--   The segment was never loss-making overall in the years shown;
-    describe this as profitability deterioration, not an overall loss.
+West + Home Office remained profitable in every year from 2014 to 2017, but its profit margin weakened considerably.
 
-### West segment comparison
+| Year | Sales | Profit | Profit Margin |
+|---|---:|---:|---:|
+| 2014 | $21,708.92 | $3,690.42 | 17.00% |
+| 2015 | $20,478.85 | $2,774.07 | 13.55% |
+| 2016 | $37,943.41 | $3,696.97 | 9.74% |
+| 2017 | $56,590.59 | $6,368.95 | 11.25% |
 
-In 2016, Home Office margin was 9.74% and Corporate margin was 9.95%,
-while Consumer improved to 16.54%. In 2017, Consumer reached 20.21%,
-Corporate recovered to 18.27%, and Home Office remained lower at 11.25%.
+### Interpretation
 
-**Interpretation:** The 2016 pressure was not exclusive to Home Office,
-but Home Office had the weakest recovery in 2017.
-
-------------------------------------------------------------------------
-
-## 3. West region: Tables and Machines
-
-### West + Home Office subcategory results
-
-  Year   Subcategory          Sales        Profit   Profit margin
-  ------ ------------- ------------ ------------- ---------------
-  2014   Tables          \$2,448.41      \$401.79          16.41%
-  2014   Machines        \$1,279.97      \$415.99          32.50%
-  2015   Tables          \$2,918.38      \$225.94           7.74%
-  2015   Machines           No rows           ---             ---
-  2016   Tables          \$3,401.65   -\$1,378.97         -40.54%
-  2016   Machines        \$4,072.87     -\$556.79         -13.67%
-  2017   Tables          \$7,240.75      \$637.67           8.81%
-  2017   Machines        \$5,888.37   -\$3,631.78         -61.68%
-
-**Interpretation:**
-
--   Home Office Tables moved from a substantial loss in 2016 to a
-    positive result in 2017.
--   Home Office Machines deteriorated further in 2017, recording a
-    \$3,631.78 loss at a -61.68% margin.
--   There were no West + Home Office Machines rows in 2015; this must
-    not be represented as zero sales or zero profit.
+- Margin declined from 17.00% in 2014 to 9.74% in 2016.
+- It recovered partially to 11.25% in 2017 but remained below its 2014 level.
+- Sales increased substantially, but profitability did not improve at the same rate.
+- Home Office was never loss-making overall in the years shown.
 
-### Discount-level pattern in West Tables and Machines
-
-In the observed West segment/year combinations:
-
--   Every listed 50% discount Tables group was loss-making.
--   Every listed 70% discount Machines group was loss-making.
--   Some 20% discount Tables groups were also loss-making, while other
-    20% groups remained profitable.
-
-**Interpretation:** High discounts are an important risk signal, but a
-20% discount does not guarantee profitability. The product and
-transaction context also matter. Sample sizes in many groups are small.
-
-------------------------------------------------------------------------
-
-## 4. Product-level loss examples
-
-The following examples show why product-level analysis is useful. They
-are individual transaction or small-group observations, not universal
-product rules.
-
-  -------------------------------------------------------------------------------
-  Product             Region /           Discount           Sales          Profit
-                      year /                                      
-                      segment                                     
-  ------------------- ----------- --------------- --------------- ---------------
-  Lexmark MX611dhe    West, 2017,             70%      \$2,549.99     -\$3,399.98
-  Monochrome Laser    Home Office                                 
-  Printer                                                         
-
-  Zebra GK420t Direct West, 2016,             70%        \$703.71       -\$938.28
-  Thermal/Thermal     Home Office                                 
-  Transfer Printer                                                
-
-  Swingline SM12-08   West, 2017,             70%        \$599.99       -\$479.99
-  MicroCut Jam Free   Home Office                                 
-  Shredder                                                        
-
-  Bush Advantage      West, 2016,             50%      \$1,272.63       -\$814.48
-  Collection          Home Office                                 
-  Racetrack                                                       
-  Conference Table                                                
-
-  Bevis Boat-Shaped   West, 2015,             50%        \$393.17       -\$204.45
-  Conference Table    Consumer                                    
-
-  Bevis Boat-Shaped   West, 2016,             50%        \$393.17       -\$204.45
-  Conference Table    Consumer                                    
-
-  Bretford "Just In   West, 2016,             20%      \$3,339.20       -\$542.62
-  Time"               Consumer                                    
-  Height-Adjustable                                               
-  Multi-Task Work                                                 
-  Tables                                                          
-  -------------------------------------------------------------------------------
-
-### Product performance varies across regions and transactions
-
-The cross-region comparison showed that several products with losses in
-West also had losses elsewhere:
-
--   **Bevis Boat-Shaped Conference Table:** losses appeared in East and
-    West; a Central 2017 Home Office transaction was profitable.
--   **Bush Advantage Collection Racetrack Conference Table:** losses
-    appeared in Central, East, South, and West. A West 2015 Corporate
-    transaction at 0% discount was profitable (+\$610.86), while a West
-    2016 Home Office transaction at 50% discount lost \$814.48.
--   **Hon 5100 Series Wood Tables:** losses appeared in East, South, and
-    West, while some 0% discount transactions in Central and South were
-    profitable.
--   **Lexmark MX611dhe Printer:** losses appeared in Central and West. A
-    Central 2017 Corporate transaction at 10% discount was profitable
-    (+\$680.00), while the West 2017 Home Office transaction at 70%
-    discount lost \$3,399.98.
--   **Swingline SM12-08 Shredder:** losses appeared in East and West. A
-    West 2014 Home Office transaction at 20% discount was profitable
-    (+\$415.99), while 70% discount transactions in East and West were
-    loss-making.
--   **Zebra GK420t Printer:** the supplied comparison showed a severe
-    loss in West in 2016; no conclusion about other regions should be
-    drawn from this result alone.
-
-**Interpretation:** Product profitability varies by region, year,
-segment, and discount. Do not label a product universally unprofitable
-based on one transaction or one region.
-
-------------------------------------------------------------------------
-
-## 5. Product-level net losses over the full West period
-
-A separate query grouped products across 2014--2017 in West and retained
-products where total profit was negative. It returned 29 products.
-
-Important distinction: `HAVING SUM(Profit) < 0` identifies products with
-a negative **net total** over the selected period. It does not mean
-every transaction for that product was loss-making.
-
-Examples of products with repeated observations included:
-
--   KI Conference Tables: 5 lines across 4 years observed, net profit
-    -\$136.11.
--   Bevis Boat-Shaped Conference Table: 3 lines across 3 years observed,
-    net profit -\$377.44.
--   Hon 61000 Series Interactive Training Tables: 4 lines across 3 years
-    observed, net profit -\$6.22.
--   Hon 94000 Series Round Tables: 3 lines across 3 years observed, net
-    profit -\$53.31.
--   Bretford "Just In Time" Height-Adjustable Multi-Task Work Tables: 3
-    lines across 2 years observed, net profit -\$425.75.
-
-Some products had both profitable and unprofitable transactions. For
-example, the transaction history showed positive and negative outcomes
-for Bretford, Bush Advantage, Hon 5100, Hon 94000, KI Adjustable-Height,
-and Swingline products.
-
-------------------------------------------------------------------------
-
-## 6. Recommended dashboard placement
-
-### Sales Analysis page --- financial impact
-
-Use: - Discount-tier sales, profit, and margin. - Financial impact of
-high-discount tiers. - Year-over-year profitability trends. - The West +
-Home Office deterioration as a focused regional/segment example, if the
-page's filters or narrative make that context clear.
-
-### Product Analysis page --- product contributors
-
-Use: - Product and subcategory profitability. - Ranked loss-making
-products. - Product performance by region and segment. - Product-level
-discount and transaction context. - Clear distinction between a
-product's net loss over a period and an individual loss-making
-transaction.
-
-### Executive Summary --- concise decision-level insights
-
-Potential insight themes: 1. High-discount profitability risk. 2. West +
-Home Office margin deterioration. 3. 2017 West + Home Office Machines
-loss. 4. Home Office Tables recovery in 2017. 5. Product profitability
-differs across regions and discount conditions.
-
-The Executive Summary should show only the strongest 3--5 insights for
-the currently selected filters.
-
-------------------------------------------------------------------------
-
-## 7. Validation and interpretation rules
-
-1.  Use weighted profit margin: `SUM(Profit) / SUM(Sales) * 100`. Do not
-    average row-level percentages to calculate an aggregate margin.
-2.  Keep the analysis period and filter context visible.
-3.  Do not claim discounts caused losses; the analysis establishes
-    association, not causation.
-4.  Treat groups with one or a few order lines as limited evidence.
-5.  Distinguish no rows from zero sales/profit.
-6.  Distinguish product net loss across multiple years from every
-    transaction being loss-making.
-7.  All findings displayed in the dashboard should recalculate from the
-    active global filters: Region, Category, Segment, and Year.
-8.  Use the validated figures in this document as baseline checks when
-    implementing and testing the dashboard. If the filters differ, the
-    displayed result should differ accordingly.
-
-------------------------------------------------------------------------
-
-## 8. SQL source and reproducibility
-
-Database and table used: - Database: `superstores_cleared` - Table:
-`superstore_cleaned_python`
-
-Relevant fields: - `Region` - `Segment` - `Sub-Category` -
-`Product Name` - `Sales` - `Profit` - `Discount` - `Quantity` -
-`Order ID` - `Order Date` - `Row ID`
-
-The SQL query outputs were supplied during the analysis conversation.
-This document preserves the findings and interpretation; it is not a
-substitute for retaining the actual SQL query scripts and source
-dataset.
+### 2.1 West Segment Comparison
+
+In 2016:
+
+- Home Office margin: 9.74%.
+- Corporate margin: 9.95%.
+- Consumer margin: 16.54%.
+
+In 2017:
+
+- Home Office margin: 11.25%.
+- Corporate margin: 18.27%.
+- Consumer margin: 20.21%.
+
+**Interpretation:** The 2016 profitability pressure was not exclusive to Home Office. However, Home Office had the weakest recovery among the three segments in 2017.
+
+---
+
+## 3. West Region â€” Home Office Tables and Machines
+
+The subcategory analysis identified different profitability outcomes for Tables and Machines.
+
+### 3.1 West + Home Office Subcategory Results
+
+| Year | Subcategory | Sales | Profit | Profit Margin |
+|---|---|---:|---:|---:|
+| 2014 | Tables | $2,448.41 | $401.79 | 16.41% |
+| 2014 | Machines | $1,279.97 | $415.99 | 32.50% |
+| 2015 | Tables | $2,918.38 | $225.94 | 7.74% |
+| 2015 | Machines | No rows | â€” | â€” |
+| 2016 | Tables | $3,401.65 | -$1,378.97 | -40.54% |
+| 2016 | Machines | $4,072.87 | -$556.79 | -13.67% |
+| 2017 | Tables | $7,240.75 | $637.67 | 8.81% |
+| 2017 | Machines | $5,888.37 | -$3,631.78 | -61.68% |
+
+### Interpretation
+
+- Tables recovered from a $1,378.97 loss in 2016 to a $637.67 profit in 2017.
+- Machines deteriorated further in 2017, recording a $3,631.78 loss at a -61.68% margin.
+- There were no West + Home Office Machines records in 2015. This must not be represented as zero sales or zero profit.
+
+### 3.2 Discount-Level Pattern
+
+Within the observed West segment and year combinations:
+
+- Every listed 50% discount Tables group was loss-making.
+- Every listed 70% discount Machines group was loss-making.
+- Some 20% discount Tables groups were also loss-making, while others remained profitable.
+
+**Interpretation:** Higher discounts are an important profitability risk signal, but discount percentage alone does not determine the outcome. Product and transaction context also matter. Some groups contain very few observations.
+
+---
+
+## 4. Product-Level Loss Examples
+
+The following examples illustrate why product-level investigation is useful. They are individual transaction or small-group observations, not universal product performance rules.
+
+| Product | Region / Year / Segment | Discount | Sales | Profit |
+|---|---|---:|---:|---:|
+| Lexmark MX611dhe Monochrome Laser Printer | West / 2017 / Home Office | 70% | $2,549.99 | -$3,399.98 |
+| Zebra GK420t Direct Thermal/Thermal Transfer Printer | West / 2016 / Home Office | 70% | $703.71 | -$938.28 |
+| Swingline SM12-08 MicroCut Jam Free Shredder | West / 2017 / Home Office | 70% | $599.99 | -$479.99 |
+| Bush Advantage Collection Racetrack Conference Table | West / 2016 / Home Office | 50% | $1,272.63 | -$814.48 |
+| Bevis Boat-Shaped Conference Table | West / 2015 / Consumer | 50% | $393.17 | -$204.45 |
+| Bevis Boat-Shaped Conference Table | West / 2016 / Consumer | 50% | $393.17 | -$204.45 |
+| Bretford "Just In Time" Height-Adjustable Multi-Task Work Tables | West / 2016 / Consumer | 20% | $3,339.20 | -$542.62 |
+
+### 4.1 Cross-Region and Segment Comparisons
+
+**Bevis Boat-Shaped Conference Table**
+
+- Losses appeared in East and West.
+- A Central 2017 Home Office transaction was profitable.
+
+**Bush Advantage Collection Racetrack Conference Table**
+
+- Losses appeared in Central, East, South, and West.
+- A West 2015 Corporate transaction at 0% discount generated a $610.86 profit.
+- A West 2016 Home Office transaction at 50% discount generated an $814.48 loss.
+
+**Hon 5100 Series Wood Tables**
+
+- Losses appeared in East, South, and West.
+- Some 0% discount transactions in Central and South were profitable.
+
+**Lexmark MX611dhe Printer**
+
+- Losses appeared in Central and West.
+- A Central 2017 Corporate transaction at 10% discount generated a $680.00 profit.
+- A West 2017 Home Office transaction at 70% discount generated a $3,399.98 loss.
+
+**Swingline SM12-08 Shredder**
+
+- Losses appeared in East and West.
+- A West 2014 Home Office transaction at 20% discount generated a $415.99 profit.
+- Transactions at 70% discount in East and West were loss-making.
+
+**Zebra GK420t Printer**
+
+- The supplied comparison showed a severe loss in West in 2016.
+- The available comparison does not establish its performance in other regions or at other discount levels.
+
+**Interpretation:** Product profitability varies by region, year, segment, and discount. A product must not be labelled universally unprofitable based on one transaction or one region.
+
+---
+
+## 5. Product-Level Net Losses Across the West Region
+
+A separate analysis grouped products across 2014â€“2017 in West and retained products where total profit was negative.
+
+The query returned 29 products.
+
+Important distinction: `HAVING SUM(Profit) < 0` identifies products with a negative net total over the selected period. It does not mean every transaction for that product was loss-making.
+
+Examples included:
+
+| Product | Observations | Net Profit |
+|---|---|---:|
+| KI Conference Tables | 5 lines across 4 years | -$136.11 |
+| Bevis Boat-Shaped Conference Table | 3 lines across 3 years | -$377.44 |
+| Hon 61000 Series Interactive Training Tables | 4 lines across 3 years | -$6.22 |
+| Hon 94000 Series Round Tables | 3 lines across 3 years | -$53.31 |
+| Bretford "Just In Time" Height-Adjustable Multi-Task Work Tables | 3 lines across 2 years | -$425.75 |
+
+Some products had both profitable and unprofitable transactions. The transaction history showed mixed outcomes for Bretford, Bush Advantage, Hon 5100, Hon 94000, KI Adjustable-Height, and Swingline products.
+
+**Interpretation:** Net losses over a multi-year period should be evaluated alongside transaction-level profitability before making product-wide conclusions.
+
+---
+
+## 6. West Home Office Machines â€” Detailed High-Discount Investigation
+
+The initial investigation focused on West, Home Office, Machines, where three transactions at a 70% discount were identified.
+
+| Product | Units | Sales | Profit | Profit Margin |
+|---|---:|---:|---:|---:|
+| Lexmark MX611dhe Monochrome Laser Printer | 5 | $2,549.99 | -$3,399.98 | -133.33% |
+| Zebra GK420t Direct Thermal/Thermal Transfer Printer | 6 | $703.71 | -$938.28 | -133.33% |
+| Swingline SM12-08 MicroCut Jam Free Shredder | 5 | $599.99 | -$479.99 | -80.00% |
+| **Combined** | **16** | **$3,853.68** | **-$4,818.25** | â€” |
+
+These three order lines account for the full loss in the West + Home Office + Machines 70%-discount group.
+
+### 6.1 Product Comparison
+
+**Lexmark MX611dhe Printer**
+
+- Central / Corporate at 10% discount: +22.22% margin.
+- Central / Consumer at 40% discount: -16.67% margin.
+- Central / Corporate at 40% discount: -16.67% margin.
+- West / Home Office at 70% discount: -133.33% margin.
+
+**Swingline SM12-08 Shredder**
+
+- West / Home Office at 20% discount: +32.50% margin.
+- East / Consumer at 70% discount: -80.00% margin.
+- West / Home Office at 70% discount: -80.00% margin.
+
+**Zebra GK420t Printer**
+
+- The observed West / Home Office transaction at 70% discount had a -133.33% margin.
+- The available comparison does not establish performance at other discount levels.
+
+### Interpretation
+
+- The high-discount losses are not exclusive to one product or one region.
+- The same Lexmark product had different profitability outcomes across discount levels and business contexts.
+- Swingline was profitable at 20% discount but loss-making at 70% in the observed records.
+- The three transactions are a focused example of the broader dataset-wide discount pattern, not a representation of all high-discount losses.
+
+---
+
+## 7. Recommended Dashboard Placement
+
+### Sales Analysis Page â€” Financial Impact
+
+Use the findings for:
+
+- Discount-tier sales, profit, and margin.
+- Financial impact of high-discount tiers.
+- Year-over-year profitability trends.
+- West + Home Office margin deterioration as a focused regional and segment example, provided the context is clearly labelled.
+
+### Product Analysis Page â€” Product Contributors
+
+Use the findings for:
+
+- Product and subcategory profitability.
+- Ranked loss-making products.
+- Product performance by region and segment.
+- Product-level discount and transaction context.
+- Distinguishing net product losses over a period from individual loss-making transactions.
+
+### Executive Summary â€” Decision-Level Insights
+
+Potential insight themes:
+
+1. High-discount profitability risk.
+2. West + Home Office margin deterioration.
+3. 2017 West + Home Office Machines loss.
+4. Home Office Tables recovery in 2017.
+5. Product profitability variation across regions and discount conditions.
+
+The Executive Summary should display only the strongest 3â€“5 insights for the currently selected filters.
+
+---
+
+## 8. Validation and Interpretation Rules
+
+1. **Use weighted profit margin:** `SUM(Profit) / SUM(Sales) Ã— 100`. Do not average individual transaction margins to calculate an aggregate margin.
+2. **Preserve filter context:** Identify the relevant region, category, segment, year, and date range when reporting a finding.
+3. **Avoid causal claims:** The observed relationship between high discounts and negative profit is an association, not proof that discounts alone caused the losses.
+4. **Respect sample size:** Treat groups with one or a few order lines as limited evidence.
+5. **Distinguish missing groups from zero:** No matching rows do not mean zero sales or zero profit.
+6. **Distinguish net losses from transaction losses:** A product with negative net profit over several years may still have profitable individual transactions.
+7. **Use dynamic calculations:** Dashboard findings should recalculate from the active global filters: Region, Category, Segment, and Year.
+8. **Validate against baseline figures:** The numbers in this document represent the specified unfiltered or explicitly scoped baseline. Results should change when the selected filters change.
+9. **Avoid universal product conclusions:** Product-level outcomes must be interpreted in their transaction, region, year, segment, and discount context.
+
+---
+
+## 9. Data Source and Reproducibility
+
+**Database used for analytical reference:** `superstores_cleared`
+**Table used for analytical reference:** `superstore_cleaned_python`
+**Dashboard data source:** `data/superstore.json`
+**Original cleaned dataset:** `Superstore_Cleaned.csv`
+
+Relevant analytical fields include:
+
+- `Region`
+- `Segment`
+- `Category`
+- `Sub-Category`
+- `Product Name`
+- `Product ID`
+- `Sales`
+- `Profit`
+- `Discount`
+- `Quantity`
+- `Order ID`
+- `Order Date`
+- `Row ID`
+
+The SQL query results were used during the analysis and validation process. The SQL scripts themselves are not included in this dashboard repository.
+
+This document preserves the reported analytical findings, baseline figures, and interpretation rules. It is not a substitute for the original dataset or executable query scripts.
+
+---
+
+## Final Conclusion
+
+The Superstore analysis identifies a substantial association between higher discount tiers and negative profitability, alongside specific regional, segment, subcategory, and product-level pressure points.
+
+The most significant findings include:
+
+- Discount tiers from 30% to 80% generated $135,376.07 in combined losses.
+- Discount tiers from 60% to 80% generated $76,559.06 in combined losses.
+- West + Home Office margin declined from 17.00% in 2014 to 9.74% in 2016, followed by a partial recovery to 11.25% in 2017.
+- West + Home Office Machines recorded a $3,631.78 loss in 2017.
+- West + Home Office Tables recovered from a $1,378.97 loss in 2016 to a $637.67 profit in 2017.
+- Product profitability varied considerably across regions, segments, years, and discount levels.
+
+These findings support further investigation of discount exposure, product profitability, and regional performance. They should guide dashboard interpretation without implying unsupported causal relationships.

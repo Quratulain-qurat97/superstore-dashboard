@@ -1,114 +1,117 @@
-# Superstore Analytics Dashboard --- Findings Documentation
+# Superstore Analytics — Findings Documentation
 
-This folder contains three reference documents that preserve the
-validated profitability analysis and explain how to use it when
-developing the dashboard.
+This folder contains the analytical findings and business insights derived from the Superstore retail dataset. These documents provide evidence and reference material for the dashboard's analytical pages and executive summaries.
 
-## Files
+## Documentation Files
 
 ### 1. `KEY_FINDINGS.md`
 
-The detailed evidence reference: - Dataset-wide discount
-profitability. - West + Home Office year-over-year performance. - Tables
-and Machines performance. - Product-level loss examples. - Cross-region
-product comparisons. - Interpretation caveats and dashboard placement.
+The detailed evidence reference containing:
 
-Use this file when building or validating the Product Analysis and Sales
-Analysis pages.
+- Dataset-wide discount profitability.
+- West and Home Office year-over-year performance.
+- Tables and Machines performance.
+- Product-level loss examples.
+- Cross-region product comparisons.
+- Analytical interpretation caveats.
+- Recommended dashboard placement.
+
+Use this document when developing or validating the Sales Analysis, Product Analysis, and Profitability Analysis pages.
 
 ### 2. `EXECUTIVE_SUMMARY.md`
 
-The concise decision-level reference: - Five key finding themes. -
-Suggested titles and dynamic insight wording. - Current baseline
-values. - Recommended insight priority. - Rules for dynamically updating
-the panel.
+The concise, decision-level reference containing:
 
-Use this file when implementing the collapsible Executive Summary panel.
+- Key business finding themes.
+- Suggested insight titles and dynamic wording.
+- Validated baseline values.
+- Recommended insight priorities.
+- Guidelines for dynamically updating executive insights.
 
-### 3. `README.md`
+Use this document when developing or validating executive summary content.
 
-This guide explains the purpose of the documentation and how to maintain
-it.
+### 3. `OVERVIEW_INSIGHTS.md`
 
-## Dataset reference
+Contains findings related to overall business performance, including key metrics and insights that support the Home dashboard.
 
--   Database: `superstores_cleared`
--   Table: `superstore_cleaned_python`
--   Period analyzed: 2014--2017
--   Profit margin: `SUM(Profit) / SUM(Sales) * 100`
+Use this document when developing or validating the Home page.
 
-## Dashboard structure
+### 4. `Product-Analysis-Insights.md`
 
-  -----------------------------------------------------------------------
-  Dashboard page          Primary question        Findings to use
-  ----------------------- ----------------------- -----------------------
-  Sales Analysis          How did sales,          Discount-tier impact,
-                          discounts, and          high-discount losses,
-                          profitability change?   year-over-year trends
+Contains product-level findings, including product and subcategory performance, profitability, and relevant comparisons.
 
-  Product Analysis        Which products and      Product-level losses,
-                          subcategories           Tables/Machines, region
-                          contribute to profit or and segment comparisons
-                          loss?                   
+Use this document when developing or validating the Product Analysis page.
 
-  Executive Summary       What are the most       The strongest 3--5
-                          important things to     dynamic insights from
-                          know right now?         the active filters
-  -----------------------------------------------------------------------
+### 5. `Regional-Analysis-Insights.md`
 
-## Global filter requirements
+Contains regional and state-level findings, including sales and profitability comparisons.
 
-All findings displayed in the dashboard must respect the four global
-filters: - Region - Category - Segment - Year
+Use this document when developing or validating the Regional Analysis page.
 
-The figures in these documents are validated baseline results for the
-specific filter scopes described. They are not fixed values to hardcode
-into the UI.
+### 6. `customer-analysis-insights.md`
 
-## Important analytical safeguards
+Contains customer-related findings and insights supporting the Customer Analysis page.
 
--   Use weighted margin, not the average of individual row margins.
--   Do not infer causation from the observed discount/profit
-    relationship.
--   Small groups and single-line transactions are examples, not broad
-    proof.
--   A product with negative net profit over several years may still have
-    profitable transactions.
--   No matching rows is not the same as zero sales or zero profit.
--   Keep region- and segment-specific findings clearly labelled.
+Use this document when developing or validating customer performance and purchasing analysis.
 
-## Updating these documents
+## Dataset Reference
 
-When new SQL results are validated: 1. Record the exact filter scope and
-date range. 2. Preserve the SQL query used, ideally in a
-version-controlled `sql/` folder. 3. Update the relevant tables and
-interpretation in `KEY_FINDINGS.md`. 4. Update `EXECUTIVE_SUMMARY.md`
-only when the new evidence changes the strongest insight themes or
-baseline values. 5. Keep this README aligned with the current file
-contents and dashboard page responsibilities.
+| Property | Value |
+|---|---|
+| Database used for analytical reference | `superstores_cleared` |
+| Table used for analytical reference | `superstore_cleaned_python` |
+| Dashboard data source | `data/superstore.json` |
+| Analysis period | 2014–2017 |
+| Transaction records | 9,994 |
+| Profit margin formula | `SUM(Profit) / SUM(Sales) × 100` |
 
-## Recommended project placement
+## Dashboard Page Mapping
 
-You can keep these files in a project documentation folder such as:
+| Dashboard Page | Primary Question | Relevant Documentation |
+|---|---|---|
+| Home | What is the overall business performance? | `OVERVIEW_INSIGHTS.md`, `EXECUTIVE_SUMMARY.md` |
+| Sales Analysis | How did sales, discounts, and profitability change? | `KEY_FINDINGS.md`, `EXECUTIVE_SUMMARY.md` |
+| Regional Analysis | Which regions and states perform best? | `Regional-Analysis-Insights.md`, `KEY_FINDINGS.md` |
+| Product Analysis | Which products and subcategories contribute to profit or loss? | `Product-Analysis-Insights.md`, `KEY_FINDINGS.md` |
+| Customer Analysis | Who are the customers and how do they purchase? | `customer-analysis-insights.md` |
+| Profitability Analysis | Where does the business generate or lose profit? | `KEY_FINDINGS.md`, `EXECUTIVE_SUMMARY.md` |
 
-``` text
-docs/
-  findings/
-    KEY_FINDINGS.md
-    EXECUTIVE_SUMMARY.md
-    README.md
-```
+## Global Filter Requirements
 
-Keep the SQL scripts separately, for example:
+Dashboard insights must respect the applicable global filters:
 
-``` text
-sql/
-  discount_profitability.sql
-  west_home_office_yearly_profitability.sql
-  west_tables_machines_by_segment.sql
-  product_loss_transaction_history.sql
-  cross_region_product_comparison.sql
-```
+- Region
+- Category
+- Segment
+- Year
 
-The filenames above are suggested organization only. They do not imply
-that those SQL scripts have already been created.
+The figures in these documents represent validated baseline results for their specified filter scopes. They must not be hardcoded into dashboard components when the values should respond dynamically to filters.
+
+## Important Analytical Safeguards
+
+- Use weighted profit margin, not the average of individual transaction margins.
+- Do not infer causation from an observed discount-profit relationship.
+- Small groups and individual transactions are examples, not broad evidence.
+- A product with negative net profit over several years may still have profitable individual transactions.
+- No matching rows is not the same as zero sales or zero profit.
+- Keep region-specific and segment-specific findings clearly labelled.
+- Always identify the filter scope and date range when reporting analytical findings.
+
+## Updating These Documents
+
+When new analytical results are validated:
+
+1. Record the exact filter scope and date range.
+2. Preserve the query or calculation methodology used, where practical.
+3. Update the relevant evidence and interpretations in `KEY_FINDINGS.md`.
+4. Update the relevant page-specific insight document when new evidence affects its findings.
+5. Update `EXECUTIVE_SUMMARY.md` only when new evidence changes the strongest insight themes or baseline values.
+6. Keep this README aligned with the actual documentation files and dashboard responsibilities.
+
+## SQL Reference
+
+SQL queries were used during the analysis and independent validation of the Superstore dataset. However, SQL scripts are not currently included in this dashboard repository.
+
+The dashboard itself uses the cleaned JSON dataset at `data/superstore.json` as its data source. MySQL was used as an analytical reference for validating calculations and baseline results.
+
+The absence of SQL scripts from this repository does not mean SQL was not used during the analytical process.

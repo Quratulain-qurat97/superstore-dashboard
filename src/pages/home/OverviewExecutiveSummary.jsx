@@ -1,3 +1,4 @@
+
 import styles from './OverviewExecutiveSummary.module.css';
 
 const currency = (value) =>
@@ -6,7 +7,7 @@ const currency = (value) =>
     currency: 'USD',
     notation: 'compact',
     maximumFractionDigits: 1,
-  }).format(value ?? 0);
+  }).format(Number.isFinite(Number(value)) ? Number(value) : 0);
 
 const percentage = (value) =>
   value == null || !Number.isFinite(Number(value))
@@ -15,15 +16,25 @@ const percentage = (value) =>
 
 const percentageChange = (current, previous) => {
   if (
-    previous == null ||
-    previous === 0 ||
     current == null ||
-    !Number.isFinite(current / previous)
+    previous == null ||
+    !Number.isFinite(Number(current)) ||
+    !Number.isFinite(Number(previous)) ||
+    Number(previous) === 0
   ) {
     return null;
   }
 
-  return ((current - previous) / Math.abs(previous)) * 100;
+  current = Number(current);
+  previous = Number(previous);
+
+  // A conventional percentage change is misleading when
+  // the starting value is negative.
+  if (previous < 0) {
+    return null;
+  }
+
+  return ((current - previous) / previous) * 100;
 };
 
 function Metric({ value, type = 'neutral' }) {
@@ -96,10 +107,7 @@ export default function OverviewExecutiveSummary({ data }) {
             </>
           )}
 
-          <Metric
-            value={currency(leader.sales)}
-            type="positive"
-          />
+          <Metric value={currency(leader.sales)} type="positive" />
 
           {salesShare !== null && (
             <> ({percentage(salesShare)} of regional sales)</>
@@ -134,11 +142,13 @@ export default function OverviewExecutiveSummary({ data }) {
   const combinations = data.regionCategoryProfitability ?? [];
 
   const lossMaking = combinations.filter(
-    (item) => item.profit < 0,
+    (item) => Number.isFinite(Number(item.profit)) && item.profit < 0,
   );
 
   if (lossMaking.length > 0) {
-    const worst = lossMaking[0];
+    const worst = lossMaking.reduce((lowest, item) =>
+      item.profit < lowest.profit ? item : lowest,
+    );
 
     insights.push({
       id: 'loss-making',
@@ -211,10 +221,7 @@ export default function OverviewExecutiveSummary({ data }) {
             </>
           )}
 
-          <Metric
-            value={currency(leader.sales)}
-            type="positive"
-          />
+          <Metric value={currency(leader.sales)} type="positive" />
 
           {share !== null && (
             <> ({percentage(share)} of segment sales)</>
@@ -256,9 +263,12 @@ export default function OverviewExecutiveSummary({ data }) {
     );
 
     const marginChange =
-      first.margin == null || latest.margin == null
+      first.margin == null ||
+      latest.margin == null ||
+      !Number.isFinite(Number(first.margin)) ||
+      !Number.isFinite(Number(latest.margin))
         ? null
-        : latest.margin - first.margin;
+        : Number(latest.margin) - Number(first.margin);
 
     const growthText = (value) => {
       if (value === null) {

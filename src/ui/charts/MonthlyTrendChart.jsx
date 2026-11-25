@@ -114,7 +114,7 @@ export default function MonthlyTrendChart({
     ...point,
     salesLabel:
       point.hasData &&
-      (points.length <= 12 || index % 4 === 0)
+      index % labelStep === 0
         ? point.sales
         : null,
   }));
@@ -196,9 +196,7 @@ export default function MonthlyTrendChart({
         fill={selected ? COLORS.line : '#ffffff'}
         stroke={COLORS.line}
         strokeWidth={2}
-        opacity={
-          selectedMonth && !selected ? DIM_OPACITY : 1
-        }
+        opacity={selectedMonth && !selected ? DIM_OPACITY : 1}
       />
     );
   };
@@ -228,9 +226,7 @@ export default function MonthlyTrendChart({
   };
 
   const onChartClick = (state, event) => {
-    if (event?.stopPropagation) {
-      event.stopPropagation();
-    }
+    event?.stopPropagation?.();
 
     const action = resolveChartClick(state, points);
 

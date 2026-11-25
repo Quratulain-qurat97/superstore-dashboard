@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -16,7 +15,7 @@ export default function ProductAnalysisPage() {
   const { updateSummaryContent } = useOutletContext();
 
   const { state, dispatch, effective } = useFilterState();
-  const { data } = useProductData(effective);
+  const { data, status } = useProductData(effective);
 
   const marginSeries = data?.subCategoryProfitMargins ?? [];
 
@@ -103,20 +102,28 @@ export default function ProductAnalysisPage() {
         dispatch={dispatch}
       />
 
-      <ProductKpiRow
-        kpis={data?.kpis ?? null}
-        selectedSubCategory={selectedSubCategoryData}
-      />
+      {status === 'error' ? (
+        <div role="alert">
+          Unable to load dashboard data. Please refresh the page and try again.
+        </div>
+      ) : (
+        <>
+          <ProductKpiRow
+            kpis={data?.kpis ?? null}
+            selectedSubCategory={selectedSubCategoryData}
+          />
 
-      <ProductAnalysisCharts
-        data={data}
-        selectedCategory={effective.category}
-        selectedSubCategory={selectedSubCategory}
-        onSelectSubCategory={handleSelectSubCategory}
-        selectedDiscountGroup={selectedDiscountGroup}
-        onSelectDiscountGroup={handleSelectDiscountGroup}
-        onSelectCategory={handleSelectCategory}
-      />
+          <ProductAnalysisCharts
+            data={data}
+            selectedCategory={effective.category}
+            selectedSubCategory={selectedSubCategory}
+            onSelectSubCategory={handleSelectSubCategory}
+            selectedDiscountGroup={selectedDiscountGroup}
+            onSelectDiscountGroup={handleSelectDiscountGroup}
+            onSelectCategory={handleSelectCategory}
+          />
+        </>
+      )}
     </>
   );
 }

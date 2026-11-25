@@ -1,4 +1,4 @@
-
+﻿
 import {
   sumBy,
   groupBy,
@@ -7,8 +7,7 @@ import {
 } from './aggregations.js';
 
 /**
- * Calculates the Regional Analysis KPIs from an array
- * of already-aggregated state records.
+ * Calculates Regional Analysis KPIs from aggregated state records.
  */
 export function buildRegionalKpisFromStates(states = []) {
   const lossMakingStates = states.filter(
@@ -122,7 +121,14 @@ export function buildRegionalData(rows, effective = {}) {
           : (lossAmount / profitableStateProfit) * 100,
       };
     })
-    .sort((a, b) => b.lossImpact - a.lossImpact);
+
+    .sort((a, b) => {
+      if (a.lossImpact === null && b.lossImpact === null) return 0;
+      if (a.lossImpact === null) return 1;
+      if (b.lossImpact === null) return -1;
+
+      return b.lossImpact - a.lossImpact;
+    });
 
   const kpis = buildRegionalKpisFromStates(states);
 

@@ -12,3 +12,10 @@
   --kpi-w: calc((var(--content-w) - 60px) / 4);
   --chart-w: calc((var(--content-w) - 20px) / 2);
 }
+
+@media (max-width: 1459px) {
+  .frame {
+    height: auto;
+    min-height: 100vh;
+  }
+}

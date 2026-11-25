@@ -1,123 +1,202 @@
-# Superstore Retail Analytics
+# Superstore Retail Analytics Dashboard
 
-React + Vite + Recharts dashboard for the Superstore analysis (9,994 transactions, 2014-2017).
+An interactive retail analytics dashboard built with **React, Vite, and Recharts**, using the Superstore dataset to explore sales, profitability, regional performance, products, and customer behavior.
 
-**Status: checkpoint 5C of 7.** Core logic and tests, the dashboard shell (header, left navigation,
-profile badge, four working filter dropdowns), the four KPI cards and all four Home charts: Monthly Sales
-Trend, Revenue by Category, Regional Performance and Revenue by Segment (donut).
+## Dashboard Pages
 
-## Run it
+The dashboard contains six analytical pages:
 
-```
+1. **Home** — Overall business performance and key metrics.
+2. **Sales Analysis** — Sales trends, category performance, and sales comparisons.
+3. **Regional Analysis** — Regional and state-level sales and profitability.
+4. **Product Analysis** — Product and subcategory performance.
+5. **Customer Analysis** — Customer purchasing behavior and profitability.
+6. **Profitability Analysis** — Profit margins, discount impact, and profitability trends.
+
+## Technology Stack
+
+- React
+- Vite
+- JavaScript
+- Recharts
+- React Router
+- CSS Modules
+- Lucide React
+- MySQL for analytical reference and independent validation
+- Python for independent dataset validation
+
+## Dataset
+
+The dashboard uses a cleaned Superstore retail dataset.
+
+| Property | Value |
+|---|---:|
+| Transaction records | 9,994 |
+| Unique order IDs | 5,009 |
+| Unique customers | 793 |
+| Analysis period | 2014–2017 |
+| Retained fields | 17 |
+| Duplicate Row IDs | 0 |
+| Missing values across retained fields | 0 |
+
+The dashboard loads its data from:
+
+`data/superstore.json`
+
+The JSON dataset was generated from `Superstore_Cleaned.csv` using the project's data preparation script.
+
+## Getting Started
+
+### 1. Install Dependencies
+
+```bash
 npm install
-npm run dev        # opens the app (Vite prints the local address)
-npm test           # 182 tests: core logic, chart geometry vs the Figma, and full-page interactions
-npm run build      # production build
-npm run verify:data  # your original 67 data-contract checks (unchanged)
 ```
 
-Needs Node 22.12+ (you have 24).
+### 2. Prepare the Dashboard Dataset
 
-The layout is a 1460 x 1024 canvas: the Figma's 1440 plus 20px of extra space between the sidebar and the
-main column (every component keeps its exact Figma width). At exactly that size it is pixel-for-pixel the design.
-In a WIDER window the sidebar stays on the left and the main column (filter bar, KPI cards, chart
-cards) takes all the extra width; heights never change. In a smaller window (too narrow or too
-short) the whole canvas is scaled down uniformly so it fits without any scrollbar. Real tablet and
-mobile layouts come in checkpoint 7.
+Place `Superstore_Cleaned.csv` in the project root, then run:
 
-Click or hover the charts: a click on a month, a category bar, a region's column or a segment's slice filters the KPI cards
-and the other charts to it (and sets the matching dropdown); click it again, press Escape, or click empty
-chart space to clear.
-
-## Layout
-
-```
-data/superstore.json     transactions generated from Superstore_Cleaned.csv
-scripts/                 prepare-data.mjs (CSV -> JSON), verify.mjs (67 checks), both unchanged
-src/core/                pure JS: filters, aggregation, formatting. No React, no browser APIs
-src/core/__tests__/      node --test suites (+ a guard that keeps core/ free of browser code)
-src/data/                where data comes from (today: bundled JSON; later: the MySQL API)
-src/app/                 App (HashRouter), routes.js (the six navigation items)
-src/state/               React hooks around the core logic (useFilterState)
-src/pages/home/          the Home page
-src/ui/                  layout (nav, profile, header), filters, KPI cards, charts, generated Figma icons
-src/styles/              design tokens + global CSS
-src/main.jsx             entry point
+```bash
+npm run prepare:data
 ```
 
-## Notes for the future MySQL backend
+This command generates `data/superstore.json`.
 
-Revenue by Category needs this query (the Category filter is deliberately NOT applied, so the three
-categories can always be compared; the selected one is only highlighted):
+The preparation script:
+- Checks that all required columns exist.
+- Parses quoted CSV fields.
+- Validates ISO-formatted order dates.
+- Converts numeric fields without rounding.
+- Checks for exactly 9,994 transaction records.
+- Checks for duplicate Row IDs.
+- Checks for missing product identifiers and names.
 
-```sql
-SELECT Category, SUM(Sales) AS sales
-FROM sample_superstore
-WHERE (:region  IS NULL OR Region  = :region)
-  AND (:segment IS NULL OR Segment = :segment)
-  AND (:year    IS NULL OR YEAR(order_date) = :year)
-  AND (:month   IS NULL OR DATE_FORMAT(order_date, '%Y-%m') = :month)
-GROUP BY Category;
+**Note:** The cleaned CSV must be available in the project root before running this command. If the generated JSON dataset is already available, you do not need to regenerate it.
+
+### 3. Start the Development Server
+
+```bash
+npm run dev
 ```
 
-Unfiltered results to compare in MySQL: Furniture 741,999.80 / Office Supplies 719,047.03 /
-Technology 836,154.03 (total 2,297,200.86). The test suite checks the app against exactly this logic.
+### 4. Run Tests
 
-`jsdom` is a test-only dev dependency (it simulates a browser for the UI tests); it is not part of the app.
-
-Regional Performance needs this query (the Region filter is deliberately NOT applied, so the four
-regions can always be compared; the selected one is only highlighted):
-
-```sql
-SELECT Region, SUM(Sales) AS sales, SUM(Profit) AS profit,
-       SUM(Profit) / SUM(Sales) * 100 AS margin
-FROM sample_superstore
-WHERE (:category IS NULL OR Category = :category)
-  AND (:segment  IS NULL OR Segment  = :segment)
-  AND (:year     IS NULL OR YEAR(order_date) = :year)
-  AND (:month    IS NULL OR DATE_FORMAT(order_date, '%Y-%m') = :month)
-GROUP BY Region;
+```bash
+npm test
 ```
 
-Unfiltered results to compare in MySQL (Sales / Profit):
+### 5. Build for Production
 
-| Region  | Sales      | Profit     | Margin |
-|---------|-----------:|-----------:|-------:|
-| West    | 725,457.82 | 108,418.45 | 14.94% |
-| East    | 678,781.24 |  91,522.78 | 13.48% |
-| Central | 501,239.89 |  39,706.36 |  7.92% |
-| South   | 391,721.91 |  46,749.43 | 11.93% |
-| Total   | 2,297,200.86 | 286,397.02 |      |
-
-Profit is a SUM over transactions (it can be negative, e.g. Central / Furniture = -2,871.05); the margin is
-SUM(Profit) / SUM(Sales), never an average of row margins.
-
-Revenue by Segment needs this query (the Segment filter is deliberately NOT applied, so the three
-segments can always be compared; the selected one is only highlighted):
-
-```sql
-SELECT Segment, SUM(Sales) AS sales
-FROM sample_superstore
-WHERE (:region   IS NULL OR Region   = :region)
-  AND (:category IS NULL OR Category = :category)
-  AND (:year     IS NULL OR YEAR(order_date) = :year)
-  AND (:month    IS NULL OR DATE_FORMAT(order_date, '%Y-%m') = :month)
-GROUP BY Segment;
+```bash
+npm run build
 ```
 
-Unfiltered results to compare in MySQL (the data has 4 decimals; compare the raw value, or ROUND(..., 2)):
+### 6. Preview the Production Build
 
-| Segment     | SUM(Sales) raw | Displayed (2 decimals) | Share  |
-|-------------|---------------:|-----------------------:|-------:|
-| Consumer    | 1,161,401.3450 |           1,161,401.35 | 50.56% |
-| Corporate   |   706,146.3668 |             706,146.37 | 30.74% |
-| Home Office |   429,653.1485 |             429,653.15 | 18.70% |
-| Total       | 2,297,200.8603 |           2,297,200.86 |        |
+```bash
+npm run preview
+```
 
-### Money rounding
+## Project Structure
 
-Amounts are shown with 2 decimals, rounded half away from zero on the exact 4-decimal value, the same as
-MySQL's `ROUND()` on a DECIMAL column. (Plain floating-point `toFixed(2)` would show Consumer's
-1,161,401.3450 as .34.) Two of the headline figures are exact half-cents: Consumer sales 1,161,401.3450 and
-South sales 391,721.9050. If your Sales column is DOUBLE rather than DECIMAL, MySQL's own float sum may
-differ from these by a cent in such cases.
+```text
+superstore-dashboard/
+│
+├── data/
+│   └── superstore.json
+│
+├── docs/
+│   ├── Superstore_Dashboard_Audit_Results.md
+│   └── findings/
+│       ├── customer-analysis-insights.md
+│       ├── EXECUTIVE_SUMMARY.md
+│       ├── KEY_FINDINGS.md
+│       ├── OVERVIEW_INSIGHTS.md
+│       ├── Product-Analysis-Insights.md
+│       ├── Regional-Analysis-Insights.md
+│       └── README.md
+│
+├── public/
+│   └── images/
+│       ├── avatar.jfif
+│       └── avatar2.jfif
+│
+├── scripts/
+│   ├── contract-sample.json
+│   ├── prepare-data.mjs
+│   ├── verification-results.json
+│   ├── verify-regional.mjs
+│   └── verify.mjs
+│
+├── src/
+│   ├── app/
+│   ├── core/
+│   │   └── __tests__/
+│   ├── data/
+│   ├── pages/
+│   ├── state/
+│   ├── styles/
+│   ├── ui/
+│   └── main.jsx
+│
+├── index.html
+├── package.json
+├── package-lock.json
+└── vite.config.js
+```
+
+## Analytical Methodology
+
+The dashboard uses consistent aggregation rules:
+
+- **Total Sales:** `SUM(Sales)`
+- **Total Profit:** `SUM(Profit)`
+- **Profit Margin:** `SUM(Profit) / SUM(Sales) × 100`
+- **Average Order Value:** `Total Sales / Distinct Orders`
+- **Total Orders:** Distinct count of Order IDs.
+- **Total Customers:** Distinct count of Customer IDs.
+
+Profit margins use weighted aggregation rather than averaging individual transaction margins.
+
+Empty results are distinguished from zero sales or zero profit.
+
+## Data Validation
+
+The dashboard dataset was independently compared against the cleaned CSV source.
+
+Validation confirmed:
+
+- 9,994 transaction records.
+- No duplicate records in the dashboard JSON.
+- No missing values across the 17 retained fields.
+- All 17 shared fields matched the source CSV across all 9,994 records.
+- Core business totals matched independently calculated reference values.
+
+Additional calculation and filter scenarios were tested.
+
+Detailed validation results and testing limitations are documented in:
+
+`docs/Superstore_Dashboard_Audit_Results.md`
+
+## Additional Documentation
+
+Detailed analytical findings are available in `docs/findings/`:
+
+- **KEY_FINDINGS.md** — Detailed findings, profitability evidence, discount analysis, and supporting comparisons.
+- **EXECUTIVE_SUMMARY.md** — Key business insights and executive narrative guidance.
+- **OVERVIEW_INSIGHTS.md** — Overall business performance findings.
+- **customer-analysis-insights.md** — Customer analysis findings.
+- **Product-Analysis-Insights.md** — Product and subcategory findings.
+- **Regional-Analysis-Insights.md** — Regional and state-level findings.
+- **README.md** — Guide to the findings documentation.
+
+## Project Status
+
+The dashboard includes six analytical pages, a shared filtering system, data validation, and automated tests.
+
+Refer to the audit documentation and current project implementation for detailed testing and verification results.
+
+## Author
+
+Qurat Ul Ain Tariq
