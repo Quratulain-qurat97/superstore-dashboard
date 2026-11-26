@@ -5,6 +5,8 @@ import SideNav from './SideNav.jsx';
 import ScaleToFit from './ScaleToFit.jsx';
 import ExecutiveSummaryPanel from './ExecutiveSummaryPanel.jsx';
 
+import RouteErrorBoundary from '../../app/RouteErrorBoundary.jsx';
+
 import { useMediaQuery } from '../hooks/useMediaQuery.js';
 import { DESIGN_HEIGHT, DESIGN_WIDTH } from './designCanvas.js';
 
@@ -24,13 +26,14 @@ export default function AppShell() {
 
   const { pathname } = useLocation();
 
-    // Opening the phone menu closes the Executive Summary panel (and vice versa).
+  // Opening the phone menu closes the Executive Summary panel (and vice versa).
   const toggleMobileNav = useCallback(() => {
     setMobileNavOpen((open) => !open);
     setActivePanel((current) =>
       current === 'executiveSummary' ? null : current
     );
   }, []);
+
   const closeMobileNav = useCallback(() => setMobileNavOpen(false), []);
 
   // Close the phone menu after navigating, when leaving phone size, or on Escape.
@@ -40,10 +43,13 @@ export default function AppShell() {
 
   useEffect(() => {
     if (!mobileNavOpen) return undefined;
+
     const onKeyDown = (event) => {
       if (event.key === 'Escape') setMobileNavOpen(false);
     };
+
     document.addEventListener('keydown', onKeyDown);
+
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [mobileNavOpen]);
 
@@ -57,7 +63,7 @@ export default function AppShell() {
     }
   }, [activePanel, navExpanded]);
 
-    const toggleExecutiveSummary = useCallback(() => {
+  const toggleExecutiveSummary = useCallback(() => {
     if (activePanel === 'executiveSummary') {
       setActivePanel(null);
     } else {
@@ -66,6 +72,7 @@ export default function AppShell() {
       setActivePanel('executiveSummary');
     }
   }, [activePanel]);
+
   const closeExecutiveSummary = useCallback(() => {
     setActivePanel((current) =>
       current === 'executiveSummary' ? null : current
@@ -77,17 +84,19 @@ export default function AppShell() {
   }, []);
 
   const outlet = (
-    <Outlet
-      context={{
-        activePanel,
-        toggleExecutiveSummary,
-        closeExecutiveSummary,
-        updateSummaryContent,
-        isMobile,
-        mobileNavOpen,
-        toggleMobileNav,
-      }}
-    />
+    <RouteErrorBoundary key={pathname}>
+      <Outlet
+        context={{
+          activePanel,
+          toggleExecutiveSummary,
+          closeExecutiveSummary,
+          updateSummaryContent,
+          isMobile,
+          mobileNavOpen,
+          toggleMobileNav,
+        }}
+      />
+    </RouteErrorBoundary>
   );
 
   return (

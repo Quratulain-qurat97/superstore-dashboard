@@ -1,4 +1,3 @@
-
 import { lazy, Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
@@ -10,6 +9,7 @@ const RegionalAnalysisPage = lazy(() => import('../pages/regional/RegionalAnalys
 const ProductAnalysisPage = lazy(() => import('../pages/product/ProductAnalysisPage.jsx'));
 const CustomerAnalysisPage = lazy(() => import('../pages/customer/CustomerAnalysisPage.jsx'));
 const ProfitabilityAnalysisPage = lazy(() => import('../pages/profitability/ProfitabilityAnalysisPage.jsx'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage.jsx'));
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ export default function App() {
               </Suspense>
             }
           />
+
           <Route
             path="sales"
             element={
@@ -32,6 +33,7 @@ export default function App() {
               </Suspense>
             }
           />
+
           <Route
             path="regional"
             element={
@@ -40,6 +42,7 @@ export default function App() {
               </Suspense>
             }
           />
+
           <Route
             path="product"
             element={
@@ -48,6 +51,7 @@ export default function App() {
               </Suspense>
             }
           />
+
           <Route
             path="customers"
             element={
@@ -56,11 +60,21 @@ export default function App() {
               </Suspense>
             }
           />
+
           <Route
             path="profitability"
             element={
               <Suspense fallback={null}>
                 <ProfitabilityAnalysisPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={null}>
+                <NotFoundPage />
               </Suspense>
             }
           />
