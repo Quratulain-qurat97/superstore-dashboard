@@ -47,6 +47,8 @@ The dashboard loads its data from:
 
 The JSON dataset was generated from `Superstore_Cleaned.csv` using the project's data preparation script.
 
+The cleaned CSV is stored separately from this repository and is not included in the GitHub project.
+
 ## Getting Started
 
 ### 1. Install Dependencies
@@ -55,12 +57,18 @@ The JSON dataset was generated from `Superstore_Cleaned.csv` using the project's
 npm install
 ```
 
-### 2. Prepare the Dashboard Dataset
+### 2. Prepare the Dashboard Dataset (Optional)
 
-Place `Superstore_Cleaned.csv` in the project root, then run:
+The dashboard already includes the generated JSON dataset at `data/superstore.json`.
+
+If you want to regenerate it, make sure the cleaned CSV is available at:
+
+`../data/processed/Superstore_Cleaned.csv`
+
+From the project root, run:
 
 ```bash
-npm run prepare:data
+node ./scripts/prepare-data.mjs "../data/processed/Superstore_Cleaned.csv" "data/superstore.json"
 ```
 
 This command generates `data/superstore.json`.
@@ -75,7 +83,7 @@ The preparation script:
 - Checks for duplicate Row IDs.
 - Checks for missing product identifiers and names.
 
-**Note:** The cleaned CSV must be available in the project root before running this command. If the generated JSON dataset is already available, you do not need to regenerate it.
+**Note:** The cleaned CSV is stored outside this repository and is not tracked by Git. Regenerating the JSON is optional because the existing dataset is already included.
 
 ### 3. Start the Development Server
 
@@ -205,7 +213,6 @@ Detailed analytical findings are available in `docs/findings/`:
 The dashboard includes six analytical pages, a shared filtering system, data validation, automated tests, and GitHub Pages deployment.
 
 Refer to the audit documentation and current project implementation for detailed testing and verification results.
-
 
 ## Data Source & Attribution
 
