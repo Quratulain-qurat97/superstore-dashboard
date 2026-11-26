@@ -206,11 +206,14 @@ The dashboard includes six analytical pages, a shared filtering system, data val
 
 Refer to the audit documentation and current project implementation for detailed testing and verification results.
 
+
 ## Data Source & Attribution
 
-This project uses the **Sample Superstore** dataset originally distributed by Tableau.
+This project uses Tableau's **Sample Superstore** dataset, publicly provided by Tableau as sample data for learning and visualization.
 
-**Original source:** [Tableau Sample Superstore – Salesforce Trailblazer Community](https://trailhead.salesforce.com/trailblazer-community/files/069KX000005GNmKYAW)
+**Original source:** [Tableau Public – Sample Data](https://public.tableau.com/app/resources/sample-data)
+
+The original dataset represents a fictitious retail company.
 
 ### Data Integrity & Preparation
 
@@ -222,7 +225,7 @@ This project uses the **Sample Superstore** dataset originally distributed by Ta
 
 The dataset was prepared for this project's analytical requirements. The original data has not been represented as my own.
 
-**Attribution:** Credit for the original Sample Superstore dataset belongs to Tableau and its original creators. This attribution does not imply that redistribution rights or a specific licence have been verified.
+**Attribution:** Credit for the original Sample Superstore dataset belongs to Tableau and its original creators. Public availability does not necessarily establish permission to redistribute the dataset. No specific redistribution licence has been verified.
 
 ## Author
 
