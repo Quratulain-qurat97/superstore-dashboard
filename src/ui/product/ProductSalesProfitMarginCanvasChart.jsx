@@ -34,6 +34,16 @@ function formatCompactCurrency(value) {
   }).format(value);
 }
 
+// Use multiple fields because productId is not unique in every dataset row.
+function getProductKey(item) {
+  return JSON.stringify([
+    item.productId ?? null,
+    item.productName ?? null,
+    item.category ?? null,
+    item.subCategory ?? null,
+  ]);
+}
+
 function getDataBounds(items) {
   const positiveSales = items
     .filter((item) => item.sales > 0)
@@ -103,7 +113,13 @@ function getDomains(dataBounds, view) {
   };
 }
 
-function drawChart(canvas, chartData, domains, dimensions) {
+function drawChart(
+  canvas,
+  chartData,
+  domains,
+  dimensions,
+  selectedProductKey,
+) {
   if (
     !canvas ||
     !domains ||
@@ -147,13 +163,13 @@ function drawChart(canvas, chartData, domains, dimensions) {
   const logMin = Math.log10(domains.x[0]);
   const logMax = Math.log10(domains.x[1]);
 
- const xToPixel = (value) => {
-  const ratio =
-    (Math.log10(value) - logMin) /
-    (logMax - logMin);
+  const xToPixel = (value) => {
+    const ratio =
+      (Math.log10(value) - logMin) /
+      (logMax - logMin);
 
-  return plotLeft + ratio * plotWidth;
-};
+    return plotLeft + ratio * plotWidth;
+  };
 
   const yToPixel = (value) => {
     const ratio =
@@ -256,17 +272,33 @@ function drawChart(canvas, chartData, domains, dimensions) {
       return;
     }
 
+    const isSelected =
+      selectedProductKey !== null &&
+      getProductKey(item) === selectedProductKey;
+
+    const radius = isSelected ? 5.2 : 3;
+
     context.beginPath();
-    context.arc(x, y, 3, 0, Math.PI * 2);
+    context.arc(x, y, radius, 0, Math.PI * 2);
 
     context.fillStyle =
       item.profitMargin < 0
         ? NEGATIVE_COLOR
         : POSITIVE_COLOR;
 
-    context.globalAlpha = item.isMuted ? 0.2 : 0.5;
+    context.globalAlpha =
+      selectedProductKey !== null
+        ? isSelected ? 1 : 0.2
+        : item.isMuted ? 0.2 : 0.5;
+
     context.fill();
     context.globalAlpha = 1;
+
+    if (isSelected) {
+      context.strokeStyle = '#FFFFFF';
+      context.lineWidth = 1.4;
+      context.stroke();
+    }
 
     positions.push({
       x,
@@ -365,6 +397,8 @@ export default function ProductSalesProfitMarginCanvasChart({
   const [isDragging, setIsDragging] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
 
+  const [selectedProductKey, setSelectedProductKey] = useState(null);
+
   const [tooltipPosition, setTooltipPosition] = useState({
     x: 8,
     y: 8,
@@ -400,6 +434,19 @@ export default function ProductSalesProfitMarginCanvasChart({
             : false,
       }));
   }, [series, selectedCategory, selectedSubCategory]);
+
+  // Clear the point selection if filtering removes that product.
+  useEffect(() => {
+    if (selectedProductKey === null) return;
+
+    const selectedProductStillExists = chartData.some(
+      (item) => getProductKey(item) === selectedProductKey,
+    );
+
+    if (!selectedProductStillExists) {
+      setSelectedProductKey(null);
+    }
+  }, [chartData, selectedProductKey]);
 
   const dataBounds = useMemo(
     () => getDataBounds(chartData),
@@ -470,15 +517,21 @@ export default function ProductSalesProfitMarginCanvasChart({
     setHoveredItem(null);
   }, [series, selectedSubCategory]);
 
-  // Redraw when data, zoom, or chart dimensions change.
+  // Redraw when data, selection, zoom, or chart dimensions change.
   useEffect(() => {
     positionsRef.current = drawChart(
       canvasRef.current,
       chartData,
       domains,
       dimensions,
+      selectedProductKey,
     );
-  }, [chartData, domains, dimensions]);
+  }, [
+    chartData,
+    domains,
+    dimensions,
+    selectedProductKey,
+  ]);
 
   function zoomAtPoint(factor, mouseX = null, mouseY = null) {
     if (
@@ -822,6 +875,17 @@ export default function ProductSalesProfitMarginCanvasChart({
 
     if (!clickedItem) return;
 
+    const clickedProductKey = getProductKey(clickedItem);
+
+    // Clicking the selected dot again clears its selection.
+    // Clicking another dot transfers the selection to that dot.
+    setSelectedProductKey((current) =>
+      current === clickedProductKey
+        ? null
+        : clickedProductKey,
+    );
+
+    // Preserve the existing parent selection behavior.
     if (clickedItem.category && clickedItem.subCategory) {
       onSelectSubCategory?.(
         clickedItem.category,

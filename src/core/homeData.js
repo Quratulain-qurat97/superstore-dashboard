@@ -119,9 +119,11 @@ export function buildHomeData(rows, effective) {
     ...rest,
   }));
 
-  // Preserve the original regions output contract.
+  // Calculate regional rows once and reuse them.
+  const regionRows = rowsFor('regions');
+
   const regions = breakdown(
-    rowsFor('regions'),
+    regionRows,
     (row) => row.region,
     (group) => ({
       orderCount: countDistinct(group, 'orderId'),
@@ -222,7 +224,7 @@ export function buildHomeData(rows, effective) {
 
   const regionalCustomerCounts = [
     ...groupBy(
-      rowsFor('regions'),
+      regionRows,
       (row) => row.region,
     ).entries(),
   ].map(([region, group]) => ({

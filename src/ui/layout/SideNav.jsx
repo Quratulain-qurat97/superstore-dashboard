@@ -25,7 +25,7 @@ import styles from './SideNav.module.css';
 
 const PROFILE_NAME = 'Qurat Ul Ain Tariq';
 const PROFILE_INITIALS = 'QT';
-const PROFILE_IMAGE = '/images/avatar2.jfif';
+const PROFILE_IMAGE = `${import.meta.env.BASE_URL}images/avatar2.jfif`;
 
 function Glyph({ name }) {
   const sharedProps = {
