@@ -2,6 +2,8 @@
 
 An interactive retail analytics dashboard built with **React, Vite, and Recharts**, using the Superstore dataset to explore sales, profitability, regional performance, products, and customer behavior.
 
+**Live Dashboard:** [View Superstore Retail Analytics Dashboard](https://quratulain-qurat97.github.io/superstore-dashboard/)
+
 ## Dashboard Pages
 
 The dashboard contains six analytical pages:
@@ -64,6 +66,7 @@ npm run prepare:data
 This command generates `data/superstore.json`.
 
 The preparation script:
+
 - Checks that all required columns exist.
 - Parses quoted CSV fields.
 - Validates ISO-formatted order dates.
@@ -103,6 +106,10 @@ npm run preview
 ```text
 superstore-dashboard/
 │
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
 ├── data/
 │   └── superstore.json
 │
@@ -118,8 +125,8 @@ superstore-dashboard/
 │       └── README.md
 │
 ├── public/
+│   ├── favicon.png
 │   └── images/
-│       ├── avatar.jfif
 │       └── avatar2.jfif
 │
 ├── scripts/
@@ -163,14 +170,16 @@ Empty results are distinguished from zero sales or zero profit.
 
 ## Data Validation
 
-The dashboard dataset was independently compared against the cleaned CSV source.
+The dashboard dataset was independently validated against the original Tableau Sample Superstore Excel workbook.
 
 Validation confirmed:
 
-- 9,994 transaction records.
-- No duplicate records in the dashboard JSON.
+- 9,994 transaction records in both datasets.
+- 9,994 unique Row IDs in both datasets.
+- No duplicate Row IDs in the dashboard JSON.
 - No missing values across the 17 retained fields.
-- All 17 shared fields matched the source CSV across all 9,994 records.
+- All 17 retained fields matched the original Excel workbook across all 9,994 records.
+- **Zero differences** between the original workbook and the project JSON across the retained fields.
 - Core business totals matched independently calculated reference values.
 
 Additional calculation and filter scenarios were tested.
@@ -193,9 +202,27 @@ Detailed analytical findings are available in `docs/findings/`:
 
 ## Project Status
 
-The dashboard includes six analytical pages, a shared filtering system, data validation, and automated tests.
+The dashboard includes six analytical pages, a shared filtering system, data validation, automated tests, and GitHub Pages deployment.
 
 Refer to the audit documentation and current project implementation for detailed testing and verification results.
+
+## Data Source & Attribution
+
+This project uses the **Sample Superstore** dataset originally distributed by Tableau.
+
+**Original source:** [Tableau Sample Superstore – Salesforce Trailblazer Community](https://trailhead.salesforce.com/trailblazer-community/files/069KX000005GNmKYAW)
+
+### Data Integrity & Preparation
+
+- Original dataset: 9,994 records and 21 columns.
+- Project dataset: 9,994 records and 17 columns.
+- Four columns excluded during preparation: `Ship Date`, `Country`, `City`, and `Postal Code`.
+- All 17 retained fields were programmatically compared against the original Excel workbook.
+- Verification result: **9,994 records matched, with zero differences across all 17 retained fields.**
+
+The dataset was prepared for this project's analytical requirements. The original data has not been represented as my own.
+
+**Attribution:** Credit for the original Sample Superstore dataset belongs to Tableau and its original creators. This attribution does not imply that redistribution rights or a specific licence have been verified.
 
 ## Author
 
