@@ -43,7 +43,6 @@ export default function RegionalAnalysisPage() {
     comparisonStates,
     comparisonAllStates,
     status,
-    error,
   } = useRegionalData(effective);
 
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -236,7 +235,7 @@ export default function RegionalAnalysisPage() {
 
       {status === 'error' && (
         <p role="alert">
-          Unable to load Regional Analysis data: {error?.message}
+          Unable to load dashboard data. Please refresh the page and try again.
         </p>
       )}
     </>

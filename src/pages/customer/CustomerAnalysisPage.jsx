@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -20,7 +19,7 @@ export default function CustomerAnalysisPage() {
 
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
 
-  const { data, status, error } = useCustomerData(
+  const { data, status } = useCustomerData(
     effective,
     selectedCustomerId,
   );
@@ -85,7 +84,7 @@ export default function CustomerAnalysisPage() {
 
       {status === 'error' && (
         <p role="alert">
-          Unable to load Customer Analysis data: {error?.message}
+          Unable to load dashboard data. Please refresh the page and try again.
         </p>
       )}
     </>
