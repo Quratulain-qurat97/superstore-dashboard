@@ -8,3 +8,7 @@ node_modules/
 
 # Temporary local analysis files
 profitability-*.txt
+
+
+# Local Claude review bundle
+dashboard.zip
