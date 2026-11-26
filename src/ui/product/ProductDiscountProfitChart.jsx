@@ -15,6 +15,8 @@ import {
 
 import { formatCurrency } from '../../core/index.js';
 
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
+
 import styles from './ProductDiscountProfitChart.module.css';
 
 const POSITIVE_COLOR = '#16A34A';
@@ -91,63 +93,13 @@ function CustomTooltip({ active, payload }) {
   );
 }
 
-// Uses the same direct Bar label pattern as ProductProfitMarginChart.
-
-function DiscountProfitLabel({
-  x,
-  y,
-  width,
-  height,
-  value,
-}) {
-  if (value == null || x == null || y == null) return null;
-
-  const label = labelCurrencyFormatter.format(value);
-  const labelWidth = label.length * 7 + 12;
-  const isNegative = value < 0;
-
-  const barHeight = height ?? 24;
-  const centerY = y + barHeight / 2;
-
-  const labelX = isNegative
-    ? x - 10
-    : x + width + 10;
-
-  return (
-    <g
-      transform={`translate(${labelX}, ${centerY})`}
-      pointerEvents="none"
-    >
-      <rect
-        x={isNegative ? -labelWidth : 0}
-        y={-10}
-        width={labelWidth}
-        height={20}
-        rx={4}
-        fill="#E5E7EB"
-        fillOpacity={0.9}
-      />
-
-      <text
-        x={isNegative ? -labelWidth / 2 : labelWidth / 2}
-        y={0}
-        fill="#111827"
-        fontSize={11}
-        fontWeight={700}
-        textAnchor="middle"
-        dominantBaseline="middle"
-      >
-        {label}
-      </text>
-    </g>
-  );
-}
-
 export default function ProductDiscountProfitChart({
   series,
   selectedDiscountGroup,
   onSelectDiscountGroup,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
+
   const chartData = useMemo(
     () =>
       (series ?? []).map((item) => ({
@@ -262,17 +214,17 @@ export default function ProductDiscountProfitChart({
             />
 
             <Tooltip
-  content={<CustomTooltip />}
-  cursor={{
-    fill: '#F3F4F6',
-    fillOpacity: 0.7,
-  }}
-  isAnimationActive={false}
-  wrapperStyle={{
-    outline: 'none',
-    zIndex: 10,
-  }}
-/>
+              content={<CustomTooltip />}
+              cursor={{
+                fill: '#F3F4F6',
+                fillOpacity: 0.7,
+              }}
+              isAnimationActive={false}
+              wrapperStyle={{
+                outline: 'none',
+                zIndex: 10,
+              }}
+            />
 
             <Bar
               dataKey="chartValue"
@@ -311,34 +263,36 @@ export default function ProductDiscountProfitChart({
                       fillOpacity={isMuted ? 0.35 : 1}
                     />
 
-                    <g
-                      transform={`translate(${
-                        isNegative ? x - 8 : x + width + 8
-                      }, ${centerY})`}
-                      pointerEvents="none"
-                    >
-                      <rect
-                        x={isNegative ? -labelWidth : 0}
-                        y={-10}
-                        width={labelWidth}
-                        height={20}
-                        rx={4}
-                        fill="#E5E7EB"
-                        fillOpacity={0.9}
-                      />
-
-                      <text
-                        x={isNegative ? -labelWidth / 2 : labelWidth / 2}
-                        y={0}
-                        fill="#111827"
-                        fontSize={11}
-                        fontWeight={700}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
+                    {!isPhone && (
+                      <g
+                        transform={`translate(${
+                          isNegative ? x - 8 : x + width + 8
+                        }, ${centerY})`}
+                        pointerEvents="none"
                       >
-                        {label}
-                      </text>
-                    </g>
+                        <rect
+                          x={isNegative ? -labelWidth : 0}
+                          y={-10}
+                          width={labelWidth}
+                          height={20}
+                          rx={4}
+                          fill="#E5E7EB"
+                          fillOpacity={0.9}
+                        />
+
+                        <text
+                          x={isNegative ? -labelWidth / 2 : labelWidth / 2}
+                          y={0}
+                          fill="#111827"
+                          fontSize={11}
+                          fontWeight={700}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                        >
+                          {label}
+                        </text>
+                      </g>
+                    )}
                   </g>
                 );
               }}

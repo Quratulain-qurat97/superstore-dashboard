@@ -1,16 +1,24 @@
 
 .wrap {
-  position: relative;
+   position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   outline: none;
+  overflow: visible;
   font-family: var(--font-inter);
 }
 
 .wrap :global(.recharts-wrapper) {
   outline: none;
+  overflow: visible !important;
+}
+
+.wrap :global(.recharts-tooltip-wrapper) {
+  z-index: 1000 !important;
+  pointer-events: none;
 }
 
 .wrap :global(.recharts-surface),
@@ -68,9 +76,11 @@
 }
 
 .plot {
+  position: relative;
   flex: 1;
   min-height: 0;
   width: 100%;
+  overflow: visible;
 }
 
 .tooltip {
@@ -122,4 +132,34 @@
   color: #6B7280;
   font: 500 14px/20px var(--font-inter);
   text-align: center;
+}
+
+
+@media (max-width: 767px) {
+  .tooltip {
+    min-width: 0;
+    width: max-content;
+    max-width: min(210px, calc(100vw - 24px));
+    padding: 7px 9px;
+    font-size: 10px;
+    line-height: 13px;
+  }
+
+  .tooltipTitle {
+    margin-bottom: 5px;
+    font-size: 11px;
+    line-height: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .tooltipRow {
+    gap: 8px;
+    font-size: 10px;
+    line-height: 13px;
+  }
+
+  .tooltipValue {
+    font-size: 10px;
+    white-space: nowrap;
+  }
 }

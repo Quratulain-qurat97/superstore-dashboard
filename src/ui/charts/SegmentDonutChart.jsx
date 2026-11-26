@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { Pie, PieChart, Sector, Tooltip } from 'recharts';
 
@@ -21,6 +20,7 @@ import {
 } from './segmentGeometry.js';
 
 import styles from './SegmentDonutChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const DESIGN_WIDTH = 660;
 
@@ -70,6 +70,7 @@ export default function SegmentDonutChart({
   onClearSegment,
   fallbackWidth = DESIGN_WIDTH,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const wrapRef = useRef(null);
 
   const width = useElementWidth(wrapRef, fallbackWidth);
@@ -201,7 +202,7 @@ export default function SegmentDonutChart({
           strokeWidth={DONUT.gap}
           isAnimationActive={false}
           shape={renderSlice}
-          label={renderLabel}
+          label={isPhone ? false : renderLabel}
           labelLine={false}
           rootTabIndex={-1}
         />

@@ -36,7 +36,7 @@
 
 .legend {
   position: absolute;
-  left: 50%;
+  left: 55%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -205,5 +205,27 @@
 
   .legendItem {
     gap: 5px;
+  }
+}
+
+/* Phones: zoom buttons on the first row, legend on its own row below (no overlap) */
+@media (max-width: 767px) {
+  .toolbar {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 6px;
+    min-height: 0;
+  }
+
+  .zoomControls {
+    order: 1;
+  }
+
+  .legend {
+    position: static;
+    transform: none;
+    order: 2;
+    flex: 0 0 100%;
+    gap: 14px;
   }
 }

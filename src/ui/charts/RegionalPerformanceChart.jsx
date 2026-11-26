@@ -21,6 +21,7 @@ import {
 } from '../../core/index.js';
 
 import { useElementWidth } from '../hooks/useElementWidth.js';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 import {
   AXIS_COLOR,
@@ -109,6 +110,7 @@ export default function RegionalPerformanceChart({
   onClearRegion,
   fallbackWidth = DESIGN_WIDTH,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const wrapRef = useRef(null);
   const width = useElementWidth(wrapRef, fallbackWidth);
   const [hoverIndex, setHoverIndex] = useState(null);
@@ -153,8 +155,6 @@ export default function RegionalPerformanceChart({
     </text>
   );
 
-
-  
   // One bar: rounded outer corners with a 1px white outline.
   // Positive bars round the top; negative bars round the bottom.
   const renderBar = (measure) =>
@@ -206,7 +206,6 @@ export default function RegionalPerformanceChart({
         />
       );
     };
-
 
   const onChartClick = (state, event) => {
     if (event && event.stopPropagation) {
@@ -308,54 +307,56 @@ export default function RegionalPerformanceChart({
           isAnimationActive={false}
           shape={renderBar('sales')}
         >
-          <LabelList
-            dataKey="salesLabel"
-            position="top"
-            content={({ x, y, width: barWidth, height: barHeight, value }) => {
-              if (
-                value == null ||
-                x == null ||
-                y == null ||
-                barWidth == null ||
-                barHeight == null
-              ) {
-                return null;
-              }
+          {!isPhone && (
+            <LabelList
+              dataKey="salesLabel"
+              position="top"
+              content={({ x, y, width: barWidth, height: barHeight, value }) => {
+                if (
+                  value == null ||
+                  x == null ||
+                  y == null ||
+                  barWidth == null ||
+                  barHeight == null
+                ) {
+                  return null;
+                }
 
-              const label = formatCompactCurrency(value);
-              const labelWidth = label.length * 7 + 10;
-              const labelHeight = 20;
-              const centerX = x + barWidth / 2;
-              const labelY =
-                value < 0
-                  ? Math.max(y, y + barHeight) + 12
-                  : Math.min(y, y + barHeight) - 12;
+                const label = formatCompactCurrency(value);
+                const labelWidth = label.length * 7 + 10;
+                const labelHeight = 20;
+                const centerX = x + barWidth / 2;
+                const labelY =
+                  value < 0
+                    ? Math.max(y, y + barHeight) + 12
+                    : Math.min(y, y + barHeight) - 12;
 
-              return (
-                <g transform={`translate(${centerX}, ${labelY})`}>
-                  <rect
-                    x={-labelWidth / 2}
-                    y={-labelHeight / 2}
-                    width={labelWidth}
-                    height={labelHeight}
-                    rx={4}
-                    fill="#E5E7EB"
-                    fillOpacity={0.45}
-                  />
+                return (
+                  <g transform={`translate(${centerX}, ${labelY})`}>
+                    <rect
+                      x={-labelWidth / 2}
+                      y={-labelHeight / 2}
+                      width={labelWidth}
+                      height={labelHeight}
+                      rx={4}
+                      fill="#E5E7EB"
+                      fillOpacity={0.45}
+                    />
 
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="#000000"
-                    fontSize={14}
-                    fontWeight={700}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            }}
-          />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill="#000000"
+                      fontSize={14}
+                      fontWeight={700}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+          )}
         </Bar>
 
         <Bar
@@ -364,54 +365,56 @@ export default function RegionalPerformanceChart({
           isAnimationActive={false}
           shape={renderBar('profit')}
         >
-          <LabelList
-            dataKey="profitLabel"
-            position="top"
-            content={({ x, y, width: barWidth, height: barHeight, value }) => {
-              if (
-                value == null ||
-                x == null ||
-                y == null ||
-                barWidth == null ||
-                barHeight == null
-              ) {
-                return null;
-              }
+          {!isPhone && (
+            <LabelList
+              dataKey="profitLabel"
+              position="top"
+              content={({ x, y, width: barWidth, height: barHeight, value }) => {
+                if (
+                  value == null ||
+                  x == null ||
+                  y == null ||
+                  barWidth == null ||
+                  barHeight == null
+                ) {
+                  return null;
+                }
 
-              const label = formatCompactCurrency(value);
-              const labelWidth = label.length * 7 + 10;
-              const labelHeight = 20;
-              const centerX = x + barWidth / 2;
-              const labelY =
-                value < 0
-                  ? Math.max(y, y + barHeight) + 12
-                  : Math.min(y, y + barHeight) - 12;
+                const label = formatCompactCurrency(value);
+                const labelWidth = label.length * 7 + 10;
+                const labelHeight = 20;
+                const centerX = x + barWidth / 2;
+                const labelY =
+                  value < 0
+                    ? Math.max(y, y + barHeight) + 12
+                    : Math.min(y, y + barHeight) - 12;
 
-              return (
-                <g transform={`translate(${centerX}, ${labelY})`}>
-                  <rect
-                    x={-labelWidth / 2}
-                    y={-labelHeight / 2}
-                    width={labelWidth}
-                    height={labelHeight}
-                    rx={4}
-                    fill="#E5E7EB"
-                    fillOpacity={0.45}
-                  />
+                return (
+                  <g transform={`translate(${centerX}, ${labelY})`}>
+                    <rect
+                      x={-labelWidth / 2}
+                      y={-labelHeight / 2}
+                      width={labelWidth}
+                      height={labelHeight}
+                      rx={4}
+                      fill="#E5E7EB"
+                      fillOpacity={0.45}
+                    />
 
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill={isNegativeValue(value) ? '#EF4444' : '#000000'}
-                    fontSize={14}
-                    fontWeight={700}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            }}
-          />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill={isNegativeValue(value) ? '#EF4444' : '#000000'}
+                      fontSize={14}
+                      fontWeight={700}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+          )}
         </Bar>
 
         {/* The black zero line (Figma's x axis line). */}

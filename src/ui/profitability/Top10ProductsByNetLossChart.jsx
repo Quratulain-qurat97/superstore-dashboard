@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import {
   Bar,
@@ -19,6 +19,8 @@ import {
   formatPercent,
   formatCompactCurrency,
 } from '../../core/index.js';
+
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 import styles from './Top10ProductsByNetLossChart.module.css';
 
@@ -104,7 +106,6 @@ function ProductTick({ x, y, payload }) {
   );
 }
 
-
 function LossLabel({ x, y, height, width, value }) {
   if (
     !Number.isFinite(value) ||
@@ -151,12 +152,13 @@ function LossLabel({ x, y, height, width, value }) {
   );
 }
 
-
 export default function Top10ProductsByNetLossChart({
   products,
   selectedProductId,
   onProductSelect,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
+
   const chartData = useMemo(
     () =>
       (products ?? [])
@@ -188,7 +190,7 @@ export default function Top10ProductsByNetLossChart({
 
   return (
     <div
-      className={styles.wrap}
+      className={`${styles.wrap} net-loss-chart`}
       onClick={(event) => event.stopPropagation()}
     >
       <div className={styles.plot}>
@@ -236,21 +238,18 @@ export default function Top10ProductsByNetLossChart({
               strokeWidth={1.5}
             />
 
-            
-
-<Tooltip
+            <Tooltip
   content={<CustomTooltip />}
   cursor={false}
   shared={false}
   trigger="hover"
-  offset={8}
+  offset={isPhone ? 2 : 8}
   wrapperStyle={{
-    marginLeft: '-228px',
+    ...(isPhone ? {} : { marginLeft: '-228px' }),
     pointerEvents: 'none',
+    zIndex: 1000,
   }}
 />
-
-
 
             <Bar
               dataKey="profit"
@@ -283,7 +282,9 @@ export default function Top10ProductsByNetLossChart({
                 }
               }}
             >
-              <LabelList content={<LossLabel />} />
+              {!isPhone && (
+                <LabelList content={<LossLabel />} />
+              )}
             </Bar>
           </BarChart>
         </ResponsiveContainer>

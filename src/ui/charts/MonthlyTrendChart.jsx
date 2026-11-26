@@ -1,4 +1,3 @@
-
 import { useId, useRef, useState } from 'react';
 import {
   Area,
@@ -22,6 +21,7 @@ import {
 } from '../../core/index.js';
 
 import { useElementWidth } from '../hooks/useElementWidth.js';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 import {
   CHART_BOX,
@@ -104,6 +104,7 @@ export default function MonthlyTrendChart({
 }) {
   const wrapRef = useRef(null);
   const width = useElementWidth(wrapRef, fallbackWidth);
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const [hoverIndex, setHoverIndex] = useState(null);
   const gradientId = useId().replace(/:/g, '');
 
@@ -114,7 +115,7 @@ export default function MonthlyTrendChart({
     ...point,
     salesLabel:
       point.hasData &&
-      index % labelStep === 0
+      (points.length <= 12 || index % 4 === 0)
         ? point.sales
         : null,
   }));
@@ -196,7 +197,9 @@ export default function MonthlyTrendChart({
         fill={selected ? COLORS.line : '#ffffff'}
         stroke={COLORS.line}
         strokeWidth={2}
-        opacity={selectedMonth && !selected ? DIM_OPACITY : 1}
+        opacity={
+          selectedMonth && !selected ? DIM_OPACITY : 1
+        }
       />
     );
   };
@@ -226,7 +229,9 @@ export default function MonthlyTrendChart({
   };
 
   const onChartClick = (state, event) => {
-    event?.stopPropagation?.();
+    if (event?.stopPropagation) {
+      event.stopPropagation();
+    }
 
     const action = resolveChartClick(state, points);
 
@@ -357,43 +362,45 @@ export default function MonthlyTrendChart({
           dot={renderDot}
           activeDot={renderActiveDot}
         >
-          <LabelList
-            dataKey="salesLabel"
-            position="top"
-            content={({ x, y, value }) => {
-              if (value == null || x == null || y == null) {
-                return null;
-              }
+          {!isPhone && (
+            <LabelList
+              dataKey="salesLabel"
+              position="top"
+              content={({ x, y, value }) => {
+                if (value == null || x == null || y == null) {
+                  return null;
+                }
 
-              const label = formatCompactCurrency(value);
-              const labelWidth = label.length * 7 + 10;
-              const labelHeight = 20;
+                const label = formatCompactCurrency(value);
+                const labelWidth = label.length * 7 + 10;
+                const labelHeight = 20;
 
-              return (
-                <g transform={`translate(${x}, ${y - 14})`}>
-                  <rect
-                    x={-labelWidth / 2}
-                    y={-labelHeight / 2}
-                    width={labelWidth}
-                    height={labelHeight}
-                    rx={4}
-                    fill="#E5E7EB"
-                    fillOpacity={0.45}
-                  />
+                return (
+                  <g transform={`translate(${x}, ${y - 14})`}>
+                    <rect
+                      x={-labelWidth / 2}
+                      y={-labelHeight / 2}
+                      width={labelWidth}
+                      height={labelHeight}
+                      rx={4}
+                      fill="#E5E7EB"
+                      fillOpacity={0.45}
+                    />
 
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="#000000"
-                    fontSize={14}
-                    fontWeight={700}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            }}
-          />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill="#000000"
+                      fontSize={14}
+                      fontWeight={700}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+          )}
         </Area>
       </AreaChart>
 

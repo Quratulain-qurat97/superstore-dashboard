@@ -69,7 +69,13 @@ function Glyph({ name }) {
   }
 }
 
-export default function SideNav({ isExpanded, onToggle }) {
+export default function SideNav({
+  isExpanded,
+  onToggle,
+  onNavigate,
+  isMobile = false,
+  mobileOpen = false,
+}) {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileAreaRef = useRef(null);
 
@@ -103,11 +109,17 @@ export default function SideNav({ isExpanded, onToggle }) {
 
   return (
     <aside
-      className={`${styles.sidebar} ${
-        isExpanded ? styles.expanded : styles.collapsed
-      }`}
-      aria-label="Dashboard navigation"
-    >
+  className={[
+    styles.sidebar,
+    isExpanded ? styles.expanded : styles.collapsed,
+    isMobile ? styles.mobile : '',
+    isMobile && mobileOpen ? styles.mobileOpen : '',
+  ]
+    .filter(Boolean)
+    .join(' ')}
+  inert={isMobile && !mobileOpen}
+  aria-label="Dashboard navigation"
+>
       {/* Top section */}
 
       <div className={styles.topArea}>
@@ -116,11 +128,36 @@ export default function SideNav({ isExpanded, onToggle }) {
           className={styles.toggleButton}
           onClick={onToggle}
           aria-label={
-            isExpanded ? 'Collapse navigation' : 'Expand navigation'
+            isMobile
+              ? 'Close menu'
+              : isExpanded
+                ? 'Collapse navigation'
+                : 'Expand navigation'
           }
-          aria-expanded={isExpanded}
+          aria-expanded={isMobile ? mobileOpen : isExpanded}
         >
-          {isExpanded ? (
+          {isMobile ? (
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 4L16 16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+              <path
+                d="M16 4L4 16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          ) : isExpanded ? (
             <PanelLeftClose size={18} strokeWidth={1.8} />
           ) : (
             <PanelLeft size={18} strokeWidth={1.8} />
@@ -163,6 +200,7 @@ export default function SideNav({ isExpanded, onToggle }) {
                     to={item.path}
                     end={item.path === '/'}
                     className={itemClass}
+                    onClick={onNavigate}
                   >
                     <Glyph name={item.glyph} />
 

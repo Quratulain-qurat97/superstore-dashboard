@@ -16,6 +16,7 @@ import {
 } from '../../core/index.js';
 
 import { useElementWidth } from '../hooks/useElementWidth.js';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 import {
   AXIS_COLOR,
@@ -76,6 +77,7 @@ export default function ProfitMarginByCategoryChart({
 }) {
   const wrapRef = useRef(null);
   const width = useElementWidth(wrapRef, fallbackWidth);
+  const isPhone = useMediaQuery('(max-width: 767px)');
 
   const { bars, axis, hasAnyData } = series;
 
@@ -257,55 +259,57 @@ export default function ProfitMarginByCategoryChart({
           isAnimationActive={false}
           shape={renderBar}
         >
-          <LabelList
-            dataKey="marginLabel"
-            content={({ x, y, width: barWidth, value }) => {
-              if (
-                value == null ||
-                x == null ||
-                y == null ||
-                barWidth == null
-              ) {
-                return null;
-              }
+          {!isPhone && (
+            <LabelList
+              dataKey="marginLabel"
+              content={({ x, y, width: barWidth, value }) => {
+                if (
+                  value == null ||
+                  x == null ||
+                  y == null ||
+                  barWidth == null
+                ) {
+                  return null;
+                }
 
-              const label = formatPercent(value);
-              const labelWidth = label.length * 7 + 10;
-              const labelHeight = 20;
-              const centerX = x + barWidth / 2;
+                const label = formatPercent(value);
+                const labelWidth = label.length * 7 + 10;
+                const labelHeight = 20;
+                const centerX = x + barWidth / 2;
 
-              // Keep every label above its bar, including negative values.
-              const barTop = yPx(Math.abs(value));
-              const labelY = Math.max(
-                barTop - 12,
-                labelHeight / 2 + 2,
-              );
+                // Keep every label above its bar, including negative values.
+                const barTop = yPx(Math.abs(value));
+                const labelY = Math.max(
+                  barTop - 12,
+                  labelHeight / 2 + 2,
+                );
 
-              return (
-                <g transform={`translate(${centerX}, ${labelY})`}>
-                  <rect
-                    x={-labelWidth / 2}
-                    y={-labelHeight / 2}
-                    width={labelWidth}
-                    height={labelHeight}
-                    rx={4}
-                    fill="#E5E7EB"
-                    fillOpacity={0.45}
-                  />
+                return (
+                  <g transform={`translate(${centerX}, ${labelY})`}>
+                    <rect
+                      x={-labelWidth / 2}
+                      y={-labelHeight / 2}
+                      width={labelWidth}
+                      height={labelHeight}
+                      rx={4}
+                      fill="#E5E7EB"
+                      fillOpacity={0.45}
+                    />
 
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill={value < 0 ? '#DC2626' : '#000000'}
-                    fontSize={14}
-                    fontWeight={700}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            }}
-          />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill={value < 0 ? '#DC2626' : '#000000'}
+                      fontSize={14}
+                      fontWeight={700}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+          )}
         </Bar>
       </BarChart>
 

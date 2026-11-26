@@ -81,5 +81,40 @@
   min-height: 0;
   min-width: 0;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
+  z-index: 5;
+}
+
+.plot :global(.recharts-tooltip-wrapper) {
+  z-index: 1000 !important;
+}
+
+@media (max-width: 767px) {
+  .tooltip {
+    min-width: 0;
+    width: max-content;
+    max-width: 210px;
+    padding: 7px 9px;
+    border-radius: 7px;
+    font-size: 10px;
+  }
+
+  .tooltipTitle {
+    margin-bottom: 5px;
+    font-size: 11px;
+    line-height: 14px;
+    overflow-wrap: anywhere;
+  }
+
+  .tooltipRow {
+    gap: 7px;
+    margin-top: 3px;
+    font-size: 10px;
+    line-height: 13px;
+  }
+
+  .tooltipRow strong {
+    font-size: 10px;
+  }
 }

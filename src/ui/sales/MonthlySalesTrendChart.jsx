@@ -18,6 +18,8 @@ import {
   formatCurrency,
 } from '../../core/index.js';
 
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
+
 import styles from './MonthlySalesTrendChart.module.css';
 
 const PREVIOUS_COLOR = '#9333EA';
@@ -253,6 +255,7 @@ export default function MonthlySalesTrendChart({
   });
 
   const [activeYear, setActiveYear] = useState(null);
+  const isPhone = useMediaQuery('(max-width: 767px)');
 
   if (!series?.length) return null;
 
@@ -465,10 +468,12 @@ export default function MonthlySalesTrendChart({
               activeDot={false}
               connectNulls={false}
             >
-              <LabelList
-                dataKey="previousSales"
-                content={PreviousYearLabel}
-              />
+              {!isPhone && (
+                <LabelList
+                  dataKey="previousSales"
+                  content={PreviousYearLabel}
+                />
+              )}
             </Line>
 
             <Line
@@ -489,10 +494,12 @@ export default function MonthlySalesTrendChart({
               activeDot={false}
               connectNulls={false}
             >
-              <LabelList
-                dataKey="sales"
-                content={CurrentYearLabel}
-              />
+              {!isPhone && (
+                <LabelList
+                  dataKey="sales"
+                  content={CurrentYearLabel}
+                />
+              )}
             </Line>
 
             {/* Previous-year interactive hit area */}

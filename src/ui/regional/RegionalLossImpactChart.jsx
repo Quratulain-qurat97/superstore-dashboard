@@ -19,6 +19,7 @@ import {
 } from '../../core/index.js';
 
 import styles from './RegionalLossImpactChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const BAR_COLOR = '#EF4444';
 
@@ -98,6 +99,7 @@ export default function RegionalLossImpactChart({
   selectedRegion,
   onRegionSelect,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const chartData = useMemo(
     () =>
       (regions ?? [])
@@ -213,7 +215,9 @@ export default function RegionalLossImpactChart({
                 }
               }}
             >
-              <LabelList content={<LossImpactLabel />} />
+              {!isPhone && (
+                <LabelList content={<LossImpactLabel />} />
+              )}
             </Bar>
           </BarChart>
         </ResponsiveContainer>

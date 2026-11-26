@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { X } from 'lucide-react';
 
 import styles from './ExecutiveSummaryPanel.module.css';
@@ -8,12 +8,23 @@ export default function ExecutiveSummaryPanel({
   onClose,
   children,
 }) {
+  const panelRef = useRef(null);
+
+  const handleClose = useCallback(() => {
+    // Remove focus from elements inside the panel before hiding it.
+    if (panelRef.current?.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     if (!isOpen) return undefined;
 
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     }
 
@@ -22,10 +33,11 @@ export default function ExecutiveSummaryPanel({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   return (
     <aside
+      ref={panelRef}
       id="executive-summary-panel"
       className={`${styles.panel} ${
         isOpen ? styles.open : ''
@@ -39,7 +51,7 @@ export default function ExecutiveSummaryPanel({
         <button
           type="button"
           className={styles.closeButton}
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Close Executive Summary"
           tabIndex={isOpen ? 0 : -1}
         >

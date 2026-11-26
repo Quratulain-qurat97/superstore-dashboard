@@ -1,4 +1,3 @@
-
 import { useMemo, useRef } from 'react';
 import { Pie, PieChart, Sector, Tooltip } from 'recharts';
 
@@ -18,6 +17,7 @@ import {
 } from './segmentGeometry.js';
 
 import styles from './SalesBySegmentChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const DESIGN_WIDTH = 660;
 const RADIAN = Math.PI / 180;
@@ -118,6 +118,7 @@ export default function SalesBySegmentChart({
   onClearSegment,
   fallbackWidth = DESIGN_WIDTH,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const wrapRef = useRef(null);
 
   const width = useElementWidth(wrapRef, fallbackWidth);
@@ -187,7 +188,7 @@ export default function SalesBySegmentChart({
           strokeWidth={1}
           isAnimationActive={false}
           onClick={handlePieClick}
-          label={renderSegmentLabel}
+          label={isPhone ? false : renderSegmentLabel}
           labelLine={false}
           shape={(props) => {
   const selected =

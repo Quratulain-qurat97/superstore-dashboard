@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 
 import {
@@ -21,6 +20,7 @@ import {
 } from '../../core/index.js';
 
 import styles from './RegionalLossMakingStatesChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const BAR_COLOR = '#EF4444';
 
@@ -117,6 +117,7 @@ export default function RegionalLossMakingStatesChart({
   selectedState,
   onStateSelect,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const chartData = useMemo(
     () =>
       (states ?? [])
@@ -203,11 +204,11 @@ export default function RegionalLossMakingStatesChart({
     fill: '#F3F4F6',
     fillOpacity: 0.7,
   }}
-  offset={8}
+  offset={isPhone ? 2 : 8}
   wrapperStyle={{
-    zIndex: 9999,
-    marginLeft: '-228px',
+    ...(isPhone ? {} : { marginLeft: '-228px' }),
     pointerEvents: 'none',
+    zIndex: 1000,
   }}
 />
 
@@ -248,7 +249,9 @@ export default function RegionalLossMakingStatesChart({
                 }
               }}
             >
-              <LabelList content={<LossLabel />} />
+              {!isPhone && (
+                <LabelList content={<LossLabel />} />
+              )}
             </Bar>
           </BarChart>
         </ResponsiveContainer>

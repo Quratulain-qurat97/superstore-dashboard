@@ -692,6 +692,53 @@
   }
 }
 
+/* ---------- Phone: slide-in drawer (85% of the screen, the dashboard peeks out on the right) ---------- */
 
+.sidebar.mobile {
+  width: var(--nav-w, 85vw) !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform: translateX(-102%);
+  visibility: hidden;
+  box-shadow: none;
+  will-change: transform;
+  transition:
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 320ms,
+    box-shadow 320ms ease;
+}
+
+.sidebar.mobile.mobileOpen {
+  transform: none;
+  visibility: visible;
+  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.14);
+  transition:
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s,
+    box-shadow 320ms ease;
+}
+
+/* Mobile navbar close button */
+.sidebar.mobile .toggleButton {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--color-card-border);
+  border-radius: 50%;
+  background: #f1f2f4;
+  color: #111111;
+}
+
+.sidebar.mobile .toggleButton:hover {
+  background: #e4e6ea;
+  color: #111111;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar.mobile,
+  .sidebar.mobile.mobileOpen {
+    transition: none;
+  }
+}
 
 

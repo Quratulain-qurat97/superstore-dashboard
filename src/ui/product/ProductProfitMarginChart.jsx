@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 
 import {
@@ -16,6 +15,7 @@ import {
 import { formatCurrency } from '../../core/index.js';
 
 import styles from './ProductProfitMarginChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const POSITIVE_COLOR = '#16A34A';
 const NEGATIVE_COLOR = '#EF4444';
@@ -130,6 +130,7 @@ export default function ProductProfitMarginChart({
   selectedSubCategory,
   onSelectSubCategory,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const chartData = useMemo(
     () =>
       (series ?? []).map((item) => ({
@@ -250,7 +251,7 @@ export default function ProductProfitMarginChart({
               barSize={9}
               cursor="pointer"
               isAnimationActive={false}
-              label={<MarginLabel />}
+              label={isPhone ? false : <MarginLabel />}
               shape={(props) => {
                 const item = props.payload;
                 const isNegative = item?.profitMargin < 0;

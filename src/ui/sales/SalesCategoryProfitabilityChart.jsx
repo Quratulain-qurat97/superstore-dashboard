@@ -19,6 +19,7 @@ import {
 } from '../../core/index.js';
 
 import styles from './SalesCategoryProfitabilityChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const POSITIVE_COLOR = '#3B82F6';
 const NEGATIVE_COLOR = '#EF4444';
@@ -112,6 +113,7 @@ export default function SalesCategoryProfitabilityChart({
   selectedSubCategory,
   onSelectSubCategory,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const chartData = useMemo(() => {
     return (series?.categories ?? []).flatMap((category) =>
       category.subCategories.map((item, index) => ({
@@ -201,17 +203,18 @@ export default function SalesCategoryProfitabilityChart({
             />
 
             <Tooltip
-              content={<CustomTooltip />}
-              cursor={{
-                fill: '#F3F4F6',
-                fillOpacity: 0.7,
-              }}
-              isAnimationActive={false}
-              wrapperStyle={{
-                outline: 'none',
-                zIndex: 10,
-              }}
-            />
+  content={<CustomTooltip />}
+  cursor={{
+    fill: '#F3F4F6',
+    fillOpacity: 0.7,
+  }}
+  isAnimationActive={false}
+  wrapperStyle={{
+    outline: 'none',
+    pointerEvents: 'none',
+    zIndex: 1000,
+  }}
+/>
 
             <Bar
               dataKey="profit"
@@ -219,7 +222,7 @@ export default function SalesCategoryProfitabilityChart({
               radius={[4, 4, 4, 4]}
               barSize={9}
               cursor="pointer"
-              label={<ProfitLabel />}
+              label={isPhone ? false : <ProfitLabel />}
               shape={(props) => {
                 const item = props.payload;
                 const isNegative = item?.profit < 0;
@@ -240,7 +243,8 @@ export default function SalesCategoryProfitabilityChart({
                 );
               }}
               onClick={(entry, index) => {
-                const clickedItem = entry?.payload ?? entry ?? chartData[index];
+                const clickedItem =
+                  chartData[index] ?? entry?.payload ?? entry;
 
                 if (clickedItem?.category && clickedItem?.subCategory) {
                   onSelectSubCategory?.(

@@ -110,3 +110,11 @@
   margin: 7px 0;
   background: var(--color-card-border);
 }
+
+/* Small phones: keep the two legend items inside the card */
+@media (max-width: 420px) {
+  .legend {
+    gap: 10px;
+    font-size: 10.5px;
+  }
+}

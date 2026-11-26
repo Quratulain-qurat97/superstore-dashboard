@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import {
   Bar,
@@ -33,6 +32,7 @@ import {
 } from './categoryGeometry.js';
 
 import styles from './CategoryRevenueChart.module.css';
+import { useMediaQuery } from '../hooks/useMediaQuery.js';
 
 const DESIGN_WIDTH = 660;
 const TEXT_STYLE = {
@@ -86,6 +86,7 @@ export default function CategoryRevenueChart({
   onClearCategory,
   fallbackWidth = DESIGN_WIDTH,
 }) {
+  const isPhone = useMediaQuery('(max-width: 767px)');
   const wrapRef = useRef(null);
   const width = useElementWidth(wrapRef, fallbackWidth);
 
@@ -115,17 +116,38 @@ export default function CategoryRevenueChart({
     </text>
   );
 
-  const renderXTick = ({ x, payload }) => (
-    <text
-      key={payload.value}
-      x={x}
-      y={plotBottom + CATEGORY_X_LABEL.baselineOffset}
-      textAnchor="middle"
-      style={TEXT_STYLE}
-    >
-      {payload.value}
-    </text>
-  );
+  // On narrow cards the category names would collide, so they get a smaller
+  // font and long names ("Office Supplies") wrap onto two lines.
+  const compactTicks = width < 460;
+
+  const renderXTick = ({ x, payload }) => {
+    const words = compactTicks
+      ? String(payload.value).split(' ')
+      : [String(payload.value)];
+
+    return (
+      <text
+        key={payload.value}
+        x={x}
+        y={
+          plotBottom +
+          (compactTicks ? 15 : CATEGORY_X_LABEL.baselineOffset)
+        }
+        textAnchor="middle"
+        style={
+          compactTicks
+            ? { ...TEXT_STYLE, font: '600 11.5px var(--font-inter)' }
+            : TEXT_STYLE
+        }
+      >
+        {words.map((word, index) => (
+          <tspan key={`${word}-${index}`} x={x} dy={index === 0 ? 0 : 13}>
+            {word}
+          </tspan>
+        ))}
+      </text>
+    );
+  };
 
   // One bar: a rectangle in the category's colour with Figma's 1px white outline.
   const renderBar = ({
@@ -241,50 +263,52 @@ export default function CategoryRevenueChart({
           isAnimationActive={false}
           shape={renderBar}
         >
-          <LabelList
-            dataKey="salesLabel"
-            position="top"
-            content={({ x, y, width: barWidth, value }) => {
-              if (
-                value == null ||
-                x == null ||
-                y == null ||
-                barWidth == null
-              ) {
-                return null;
-              }
+          {!isPhone && (
+            <LabelList
+              dataKey="salesLabel"
+              position="top"
+              content={({ x, y, width: barWidth, value }) => {
+                if (
+                  value == null ||
+                  x == null ||
+                  y == null ||
+                  barWidth == null
+                ) {
+                  return null;
+                }
 
-              const label = formatCompactCurrency(value);
-              const labelWidth = label.length * 7 + 10;
-              const labelHeight = 20;
-              const centerX = x + barWidth / 2;
-              const labelY = Math.max(y - 12, labelHeight / 2 + 2);
+                const label = formatCompactCurrency(value);
+                const labelWidth = label.length * 7 + 10;
+                const labelHeight = 20;
+                const centerX = x + barWidth / 2;
+                const labelY = Math.max(y - 12, labelHeight / 2 + 2);
 
-              return (
-                <g transform={`translate(${centerX}, ${labelY})`}>
-                  <rect
-                    x={-labelWidth / 2}
-                    y={-labelHeight / 2}
-                    width={labelWidth}
-                    height={labelHeight}
-                    rx={4}
-                    fill="#E5E7EB"
-                    fillOpacity={0.45}
-                  />
+                return (
+                  <g transform={`translate(${centerX}, ${labelY})`}>
+                    <rect
+                      x={-labelWidth / 2}
+                      y={-labelHeight / 2}
+                      width={labelWidth}
+                      height={labelHeight}
+                      rx={4}
+                      fill="#E5E7EB"
+                      fillOpacity={0.45}
+                    />
 
-                  <text
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="#000000"
-                    fontSize={14}
-                    fontWeight={700}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            }}
-          />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill="#000000"
+                      fontSize={14}
+                      fontWeight={700}
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              }}
+            />
+          )}
         </Bar>
       </BarChart>
 
