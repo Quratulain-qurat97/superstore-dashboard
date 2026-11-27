@@ -1,4 +1,3 @@
-
 import ChartCard from '../charts/ChartCard.jsx';
 import ProfitTrendOverTimeChart from './ProfitTrendOverTimeChart.jsx';
 import ProfitMarginByCategoryChart from './ProfitMarginByCategoryChart.jsx';
@@ -24,6 +23,7 @@ export default function ProfitabilityAnalysisCharts({
   selectedMonth,
   selectedCategory,
   dispatch,
+  loading = false,
 }) {
   const clearCategory = () =>
     dispatch({
@@ -38,6 +38,7 @@ export default function ProfitabilityAnalysisCharts({
         left="var(--content-left)"
         top={342}
         layout={PROFITABILITY_CARD_LAYOUT}
+        loading={loading}
       >
         <ProfitTrendOverTimeChart
           series={profitTrend}
@@ -53,6 +54,7 @@ export default function ProfitabilityAnalysisCharts({
         top={342}
         layout={PROFITABILITY_CARD_LAYOUT}
         onBackgroundClick={clearCategory}
+        loading={loading}
       >
         {profitMarginByCategory && (
           <ProfitMarginByCategoryChart
@@ -75,6 +77,7 @@ export default function ProfitabilityAnalysisCharts({
         left="var(--content-left)"
         top={680}
         layout={PROFITABILITY_CARD_LAYOUT}
+        loading={loading}
       >
         {discountImpactHeatmap && (
           <DiscountImpactHeatmapChart
@@ -89,6 +92,7 @@ export default function ProfitabilityAnalysisCharts({
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={680}
         layout={PROFITABILITY_CARD_LAYOUT}
+        loading={loading}
       >
         <Top10ProductsByNetLossChart
           products={top10ProductsByNetLoss}

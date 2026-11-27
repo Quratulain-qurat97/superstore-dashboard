@@ -7,6 +7,7 @@ import styles from './ChartCard.module.css';
  * Optional props:
  * height: custom card height in pixels.
  * width: custom card width in pixels or CSS length.
+ * loading: displays a skeleton inside the chart body.
  */
 export default function ChartCard({
   title,
@@ -18,6 +19,7 @@ export default function ChartCard({
   layout,
   legend,
   onBackgroundClick,
+  loading = false,
   children,
 }) {
   return (
@@ -30,7 +32,8 @@ export default function ChartCard({
         ...(width !== undefined ? { width } : {}),
       }}
       aria-label={title}
-      onClick={onBackgroundClick}
+      aria-busy={loading}
+      onClick={loading ? undefined : onBackgroundClick}
     >
       <h2
         className={styles.title}
@@ -42,7 +45,7 @@ export default function ChartCard({
         {title}
       </h2>
 
-      {callout !== undefined && (
+      {!loading && callout !== undefined && (
         <p
           className={styles.callout}
           style={{
@@ -54,7 +57,7 @@ export default function ChartCard({
         </p>
       )}
 
-      {legend && (
+      {!loading && legend && (
         <div
           className={styles.legend}
           style={{
@@ -67,7 +70,14 @@ export default function ChartCard({
       )}
 
       <div className={styles.body} style={layout.body}>
-        {children}
+        {loading ? (
+          <div className={styles.loadingSkeleton} aria-hidden="true">
+            <span className={styles.loadingLongBar} />
+            <span className={styles.loadingShortBar} />
+          </div>
+        ) : (
+          children
+        )}
       </div>
     </section>
   );

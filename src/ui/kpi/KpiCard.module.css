@@ -63,3 +63,56 @@
   position: absolute;
   display: block;
 }
+
+
+
+
+/* KPI loading placeholders */
+.loadingBars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.loadingValue {
+  position: absolute;
+  left: 13px;
+  top: 65px;
+  width: 110px;
+  max-width: 65%;
+  height: 13px;
+  border-radius: 4px;
+  background: #D1D5DB;
+}
+
+.loadingSupportingText {
+  position: absolute;
+  left: 13px;
+  top: 99px;
+  width: 85px;
+  max-width: calc(100% - 26px);
+  height: 8px;
+  border-radius: 4px;
+  background: #D1D5DB;
+}
+
+
+/* Keep KPI text mounted while loading to prevent font/layout changes */
+.loadingTextHidden {
+  visibility: hidden;
+}
+
+
+/* Compact KPI cards on tablet and mobile */
+@media (max-width: 767px) {
+  .loadingSupportingText {
+    display: none;
+  }
+
+  .loadingValue {
+    top: 78%;
+    height: 8px;
+  }
+}

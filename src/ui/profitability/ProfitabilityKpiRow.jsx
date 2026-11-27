@@ -28,7 +28,10 @@ const TILES = {
 
 const PLACEHOLDER = '—';
 
-export default function ProfitabilityKpiRow({ kpis }) {
+export default function ProfitabilityKpiRow({
+  kpis,
+  loading = false,
+}) {
   const cards = kpis
     ? buildProfitabilityKpiCards(kpis)
     : [
@@ -62,6 +65,7 @@ export default function ProfitabilityKpiRow({ kpis }) {
           supportingText={card.supportingText}
           Tile={TILES[card.id]}
           left={cardLeft(index)}
+          loading={loading}
           {...SLOTS[index]}
         />
       ))}

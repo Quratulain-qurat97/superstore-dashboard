@@ -18,6 +18,7 @@ export default function CustomerAnalysisCharts({
   onSelectCustomer,
   selectedYear,
   onSelectYear,
+  loading = false,
 }) {
   return (
     <>
@@ -26,6 +27,7 @@ export default function CustomerAnalysisCharts({
         left={LEFT_COLUMN}
         top={342}
         layout={CUSTOMER_CARD_LAYOUT}
+        loading={loading}
       >
         <CustomerSalesProfitMarginCanvasChart
           series={data?.customerSalesProfitMargins}
@@ -39,6 +41,7 @@ export default function CustomerAnalysisCharts({
         left={RIGHT_COLUMN}
         top={342}
         layout={CUSTOMER_CARD_LAYOUT}
+        loading={loading}
       >
         <CustomerActiveCustomersChart
           series={data?.activeCustomersByYear}
@@ -52,6 +55,7 @@ export default function CustomerAnalysisCharts({
         left={LEFT_COLUMN}
         top={680}
         layout={CUSTOMER_CARD_LAYOUT}
+        loading={loading}
       >
         <CustomerConcentrationChart
           series={data?.customerConcentration}
@@ -65,6 +69,7 @@ export default function CustomerAnalysisCharts({
         left={RIGHT_COLUMN}
         top={680}
         layout={CUSTOMER_CARD_LAYOUT}
+        loading={loading}
       >
         <CustomerTop10CustomersChart
           series={data?.top10Customers}

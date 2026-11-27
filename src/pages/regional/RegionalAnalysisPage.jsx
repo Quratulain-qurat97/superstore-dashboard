@@ -183,13 +183,17 @@ export default function RegionalAnalysisPage() {
 
       <FilterBar state={state} dispatch={dispatch} />
 
-      <RegionalKpiRow kpis={displayedKpis} />
+      <RegionalKpiRow
+        kpis={displayedKpis}
+        loading={status === 'loading'}
+      />
 
       <ChartCard
         title="Loss Impact by Region"
         left="var(--content-left)"
         top={342}
         layout={REGIONAL_CARD_LAYOUT}
+        loading={status === 'loading'}
       >
         {data && (
           <RegionalLossImpactChart
@@ -205,6 +209,7 @@ export default function RegionalAnalysisPage() {
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={342}
         layout={REGIONAL_CARD_LAYOUT}
+        loading={status === 'loading'}
       >
         {data && (
           <RegionalLossMakingStatesChart
@@ -223,6 +228,7 @@ export default function RegionalAnalysisPage() {
         width="calc(var(--chart-w) * 2 + 20px)"
         height={330}
         layout={REGIONAL_MAP_CARD_LAYOUT}
+        loading={status === 'loading'}
       >
         {data && (
           <USStateProfitabilityMap

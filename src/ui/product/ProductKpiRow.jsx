@@ -211,6 +211,7 @@ function buildCards(kpis, selectedSubCategory) {
 export default function ProductKpiRow({
   kpis = null,
   selectedSubCategory = null,
+  loading = false,
 }) {
   const cards = buildCards(kpis, selectedSubCategory);
 
@@ -218,17 +219,18 @@ export default function ProductKpiRow({
     <>
       {cards.map((card, index) => (
         <KpiCard
-          key={card.id}
-          label={card.label}
-          value={card.value}
-          numericValue={card.numericValue}
-          title={card.exact}
-          supportingText={card.supportingText}
-          supportingTextColor={card.supportingTextColor}
-          Tile={TILES[card.id]}
-          left={cardLeft(index)}
-          {...SLOTS[index]}
-        />
+  key={card.id}
+  label={card.label}
+  value={card.value}
+  numericValue={card.numericValue}
+  title={card.exact}
+  supportingText={card.supportingText}
+  supportingTextColor={card.supportingTextColor}
+  Tile={TILES[card.id]}
+  left={cardLeft(index)}
+  loading={loading}
+  {...SLOTS[index]}
+/>
       ))}
     </>
   );

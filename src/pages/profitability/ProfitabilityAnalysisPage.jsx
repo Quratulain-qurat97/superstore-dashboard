@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -16,7 +15,6 @@ export default function ProfitabilityAnalysisPage() {
 
   const { state, dispatch, effective } = useFilterState();
 
-  // Product selection belongs only to this page.
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const { data, status, retry } = useProfitabilityData(
@@ -60,7 +58,10 @@ export default function ProfitabilityAnalysisPage() {
         </div>
       ) : (
         <>
-          <ProfitabilityKpiRow kpis={data ? data.kpis : null} />
+          <ProfitabilityKpiRow
+            kpis={data ? data.kpis : null}
+            loading={status === 'loading'}
+          />
 
           <ProfitabilityAnalysisCharts
             profitTrend={data ? data.profitTrend : []}
@@ -79,6 +80,7 @@ export default function ProfitabilityAnalysisPage() {
             selectedMonth={effective.month}
             selectedCategory={effective.category}
             dispatch={dispatch}
+            loading={status === 'loading'}
           />
         </>
       )}

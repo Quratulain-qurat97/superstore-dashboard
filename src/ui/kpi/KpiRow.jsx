@@ -21,7 +21,7 @@ const TILES = {
 
 const PLACEHOLDER = '—';
 
-export default function KpiRow({ kpis }) {
+export default function KpiRow({ kpis, loading = false }) {
   const cards = kpis
     ? buildKpiCards(kpis)
     : [
@@ -42,6 +42,7 @@ export default function KpiRow({ kpis }) {
           title={card.exact}
           Tile={TILES[card.id]}
           left={cardLeft(index)}
+          loading={loading}
           {...SLOTS[index]}
         />
       ))}

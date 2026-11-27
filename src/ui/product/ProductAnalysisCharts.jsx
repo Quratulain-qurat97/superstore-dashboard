@@ -1,3 +1,4 @@
+
 import ChartCard from '../charts/ChartCard.jsx';
 import { PRODUCT_CARD_LAYOUT } from '../charts/cardLayouts.js';
 
@@ -14,6 +15,7 @@ export default function ProductAnalysisCharts({
   selectedDiscountGroup,
   onSelectDiscountGroup,
   onSelectCategory,
+  loading = false,
 }) {
   return (
     <>
@@ -22,6 +24,7 @@ export default function ProductAnalysisCharts({
         left="var(--content-left)"
         top={342}
         layout={PRODUCT_CARD_LAYOUT}
+        loading={loading}
       >
         <ProductProfitMarginChart
           series={data?.subCategoryProfitMargins}
@@ -36,6 +39,7 @@ export default function ProductAnalysisCharts({
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={342}
         layout={PRODUCT_CARD_LAYOUT}
+        loading={loading}
       >
         <ProductSalesProfitMarginCanvasChart
           series={data?.productSalesProfitMargins}
@@ -50,6 +54,7 @@ export default function ProductAnalysisCharts({
         left="var(--content-left)"
         top={680}
         layout={PRODUCT_CARD_LAYOUT}
+        loading={loading}
       >
         <ProductDiscountProfitChart
           series={data?.discountProfitImpact}
@@ -63,6 +68,7 @@ export default function ProductAnalysisCharts({
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={680}
         layout={PRODUCT_CARD_LAYOUT}
+        loading={loading}
       >
         <ProductSalesByCategoryPerYearChart
           series={data?.salesByCategoryPerYear}

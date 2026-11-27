@@ -128,7 +128,10 @@ export default function HomePage() {
         </div>
       ) : (
         <>
-          <KpiRow kpis={data ? data.kpis : null} />
+          <KpiRow
+            kpis={data ? data.kpis : null}
+            loading={status === 'loading'}
+          />
 
           {/* Monthly Sales Trend */}
           <ChartCard
@@ -136,6 +139,7 @@ export default function HomePage() {
             left="var(--content-left)"
             top={342}
             layout={TREND_CARD_LAYOUT}
+            loading={status === 'loading'}
             onBackgroundClick={() =>
               dispatch({ type: ACTIONS.CLEAR_MONTH })
             }
@@ -160,6 +164,7 @@ export default function HomePage() {
             left="calc(var(--content-left) + var(--chart-w) + 20px)"
             top={342}
             layout={CATEGORY_CARD_LAYOUT}
+            loading={status === 'loading'}
             onBackgroundClick={clearCategory}
           >
             {categories && (
@@ -184,6 +189,7 @@ export default function HomePage() {
             left="var(--content-left)"
             top={680}
             layout={REGIONAL_CARD_LAYOUT}
+            loading={status === 'loading'}
             legend={<RegionalLegend />}
             onBackgroundClick={clearRegion}
           >
@@ -209,6 +215,7 @@ export default function HomePage() {
             left="calc(var(--content-left) + var(--chart-w) + 20px)"
             top={680}
             layout={SEGMENT_CARD_LAYOUT}
+            loading={status === 'loading'}
             onBackgroundClick={clearSegment}
           >
             {segments && (

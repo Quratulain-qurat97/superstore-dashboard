@@ -1,7 +1,9 @@
+
 import { lazy, Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import AppShell from '../ui/layout/AppShell.jsx';
+import PageSpinner from '../ui/layout/PageSpinner.jsx';
 
 const HomePage = lazy(() => import('../pages/home/HomePage.jsx'));
 const SalesAnalysisPage = lazy(() => import('../pages/sales/SalesAnalysisPage.jsx'));
@@ -19,7 +21,7 @@ export default function App() {
           <Route
             index
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <HomePage />
               </Suspense>
             }
@@ -28,7 +30,7 @@ export default function App() {
           <Route
             path="sales"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <SalesAnalysisPage />
               </Suspense>
             }
@@ -37,7 +39,7 @@ export default function App() {
           <Route
             path="regional"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <RegionalAnalysisPage />
               </Suspense>
             }
@@ -46,7 +48,7 @@ export default function App() {
           <Route
             path="product"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <ProductAnalysisPage />
               </Suspense>
             }
@@ -55,7 +57,7 @@ export default function App() {
           <Route
             path="customers"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <CustomerAnalysisPage />
               </Suspense>
             }
@@ -64,7 +66,7 @@ export default function App() {
           <Route
             path="profitability"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <ProfitabilityAnalysisPage />
               </Suspense>
             }
@@ -73,7 +75,7 @@ export default function App() {
           <Route
             path="*"
             element={
-              <Suspense fallback={null}>
+              <Suspense fallback={<PageSpinner />}>
                 <NotFoundPage />
               </Suspense>
             }

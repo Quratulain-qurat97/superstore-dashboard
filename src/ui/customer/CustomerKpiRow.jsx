@@ -1,3 +1,4 @@
+
 import { buildCustomerKpiCards } from '../../core/index.js';
 
 import {
@@ -64,7 +65,7 @@ const TILES = {
 
 const PLACEHOLDER = '—';
 
-export default function CustomerKpiRow({ kpis }) {
+export default function CustomerKpiRow({ kpis, loading = false }) {
   const cards = kpis
     ? buildCustomerKpiCards(kpis)
     : [
@@ -101,6 +102,7 @@ export default function CustomerKpiRow({ kpis }) {
           title={card.exact}
           Tile={TILES[card.id]}
           left={cardLeft(index)}
+          loading={loading}
           {...SLOTS[index]}
         />
       ))}

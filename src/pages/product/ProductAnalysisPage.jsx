@@ -42,11 +42,8 @@ export default function ProductAnalysisPage() {
     return () => updateSummaryContent(null);
   }, [data, effective, updateSummaryContent]);
 
-  // Clear the selection if Region, Segment, Year, Month,
-  // or Discount Group filters remove the selected sub-category.
   useEffect(() => {
     const selection = state.subCategorySelection;
-
     if (!selection || !data) return;
 
     const stillAvailable = marginSeries.some(
@@ -69,18 +66,11 @@ export default function ProductAnalysisPage() {
   ]);
 
   function handleSelectSubCategory(category, subCategory) {
-    dispatch({
-      type: 'SELECT_SUBCATEGORY',
-      category,
-      subCategory,
-    });
+    dispatch({ type: 'SELECT_SUBCATEGORY', category, subCategory });
   }
 
   function handleSelectDiscountGroup(discountGroup) {
-    dispatch({
-      type: 'SELECT_DISCOUNT_GROUP',
-      discountGroup,
-    });
+    dispatch({ type: 'SELECT_DISCOUNT_GROUP', discountGroup });
   }
 
   function handleSelectCategory(category) {
@@ -98,10 +88,7 @@ export default function ProductAnalysisPage() {
         subtitle="Explore product profitability, discount impact, and performance."
       />
 
-      <FilterBar
-        state={state}
-        dispatch={dispatch}
-      />
+      <FilterBar state={state} dispatch={dispatch} />
 
       {status === 'error' ? (
         <div role="alert">
@@ -116,6 +103,7 @@ export default function ProductAnalysisPage() {
           <ProductKpiRow
             kpis={data?.kpis ?? null}
             selectedSubCategory={selectedSubCategoryData}
+            loading={status === 'loading'}
           />
 
           <ProductAnalysisCharts
@@ -126,6 +114,7 @@ export default function ProductAnalysisPage() {
             selectedDiscountGroup={selectedDiscountGroup}
             onSelectDiscountGroup={handleSelectDiscountGroup}
             onSelectCategory={handleSelectCategory}
+            loading={status === 'loading'}
           />
         </>
       )}

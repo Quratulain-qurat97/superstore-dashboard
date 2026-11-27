@@ -21,13 +21,15 @@ export default function KpiCard({
   width,
   labelMaxWidth,
   labelFontSize,
+  loading = false,
 }) {
   return (
     <article
       className={styles.card}
       style={{ left, width, borderRadius: radius }}
-      title={title}
+      title={loading ? undefined : title}
       aria-label={label}
+      aria-busy={loading}
     >
       <p
         className={styles.label}
@@ -42,18 +44,29 @@ export default function KpiCard({
       <p
         className={`${styles.value} ${
           supportingText ? styles.valueWithSupportingText : ''
-        } ${isNegativeValue(numericValue) ? 'negative-value' : ''}`}
+        } ${isNegativeValue(numericValue) ? 'negative-value' : ''} ${
+          loading ? styles.loadingTextHidden : ''
+        }`}
       >
         {value}
       </p>
 
       {supportingText && (
         <p
-          className={styles.supportingText}
+          className={`${styles.supportingText} ${
+            loading ? styles.loadingTextHidden : ''
+          }`}
           style={{ color: supportingTextColor }}
         >
           {supportingText}
         </p>
+      )}
+
+      {loading && (
+        <div className={styles.loadingBars} aria-hidden="true">
+          <span className={styles.loadingValue} />
+          <span className={styles.loadingSupportingText} />
+        </div>
       )}
 
       <Tile

@@ -73,6 +73,7 @@ export default function CustomerAnalysisPage() {
 
       <CustomerKpiRow
         kpis={data ? data.displayedKpis : null}
+        loading={status === 'loading'}
       />
 
       <CustomerAnalysisCharts
@@ -81,6 +82,7 @@ export default function CustomerAnalysisPage() {
         onSelectCustomer={handleSelectCustomer}
         selectedYear={effective.year}
         onSelectYear={handleSelectYear}
+        loading={status === 'loading'}
       />
 
       {status === 'error' && (

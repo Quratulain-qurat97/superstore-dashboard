@@ -89,13 +89,17 @@ export default function SalesAnalysisPage() {
 
       <FilterBar state={state} dispatch={dispatch} />
 
-      <SalesKpiRow kpis={data ? data.kpis : null} />
+      <SalesKpiRow
+        kpis={data ? data.kpis : null}
+        loading={status === 'loading'}
+      />
 
       <ChartCard
         title="Monthly Sales Trend"
         left="var(--content-left)"
         top={342}
         layout={TREND_CARD_LAYOUT}
+        loading={status === 'loading'}
       >
         {data && data.monthlyTrend.length > 0 && (
           <MonthlySalesTrendChart
@@ -117,6 +121,7 @@ export default function SalesAnalysisPage() {
         left="calc(var(--content-left) + var(--chart-w) + 20px)"
         top={342}
         layout={REGIONAL_CARD_LAYOUT}
+        loading={status === 'loading'}
         onBackgroundClick={clearRegion}
       >
         {regionalSeries && (
@@ -140,6 +145,7 @@ export default function SalesAnalysisPage() {
         top={680}
         width="calc(var(--chart-w) + var(--chart-w) + 20px)"
         layout={SALES_CATEGORY_CARD_LAYOUT}
+        loading={status === 'loading'}
         onBackgroundClick={clearCategory}
       >
         {categorySeries && (
