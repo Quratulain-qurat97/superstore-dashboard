@@ -118,7 +118,7 @@ const transactions = body.map((r) => {
     category: r[col['Category']],
     subCategory: r[col['Sub-Category']],
     productId: r[col['Product ID']],
-    productName: r[col['Product Name']],
+    productName: r[col['Product Name']].trim(),
     sales: toNumber(r[col['Sales']], 'Sales', rowId),
     quantity: toNumber(r[col['Quantity']], 'Quantity', rowId),
     discount: toNumber(r[col['Discount']], 'Discount', rowId),

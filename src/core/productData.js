@@ -15,7 +15,12 @@ function aggregateProducts(rows) {
   const groups = new Map();
 
   for (const row of rows) {
-    const key = row.productId;
+    const key = JSON.stringify([
+      row.productId ?? null,
+      row.productName ?? null,
+      row.category ?? null,
+      row.subCategory ?? null,
+    ]);
 
     if (!groups.has(key)) {
       groups.set(key, {

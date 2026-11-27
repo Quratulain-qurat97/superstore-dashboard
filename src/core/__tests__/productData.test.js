@@ -17,6 +17,15 @@ const none = {
 const near = (a, b) => Math.abs(a - b) < 1e-6;
 const nearCurrency = (a, b) => Math.abs(a - b) < 0.005;
 
+function productIdentity(product) {
+  return JSON.stringify([
+    product.productId ?? null,
+    product.productName ?? null,
+    product.category ?? null,
+    product.subCategory ?? null,
+  ]);
+}
+
 function manuallyFilterRows(source, filters = {}) {
   return source.filter((row) => {
     if (filters.region && row.region !== filters.region) return false;
@@ -145,10 +154,16 @@ test('Product Analysis KPIs respond to Month and Sub-Category filters', () => {
   assert.ok(near(actual.averageDiscount, expected.averageDiscount));
 });
 
-test('product aggregation produces 1,862 distinct products', () => {
+test('product aggregation produces 1,894 distinct product identities', () => {
   const data = buildProductData(rows, none);
 
-  assert.equal(data.products.length, 1862);
+  assert.equal(data.products.length, 1894);
+
+  const uniqueIdentities = new Set(
+    data.products.map(productIdentity),
+  );
+
+  assert.equal(uniqueIdentities.size, 1894);
 
   const uniqueIds = new Set(
     data.products.map((product) => product.productId),
@@ -231,11 +246,17 @@ test('Chart 1 aggregates sub-category profit margins', () => {
   )));
 });
 
-test('Chart 2 aggregates product sales and profit margins', () => {
+test('Chart 2 aggregates 1,894 distinct product identities', () => {
   const data = buildProductData(rows, none);
   const chartData = data.productSalesProfitMargins;
 
-  assert.equal(chartData.length, 1862);
+  assert.equal(chartData.length, 1894);
+
+  const uniqueIdentities = new Set(
+    chartData.map(productIdentity),
+  );
+
+  assert.equal(uniqueIdentities.size, 1894);
 
   const uniqueIds = new Set(
     chartData.map((product) => product.productId),
