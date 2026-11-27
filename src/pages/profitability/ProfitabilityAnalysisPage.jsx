@@ -19,7 +19,7 @@ export default function ProfitabilityAnalysisPage() {
   // Product selection belongs only to this page.
   const [selectedProductId, setSelectedProductId] = useState(null);
 
-  const { data } = useProfitabilityData(
+  const { data, status, retry } = useProfitabilityData(
     effective,
     selectedProductId,
   );
@@ -50,26 +50,38 @@ export default function ProfitabilityAnalysisPage() {
 
       <FilterBar state={state} dispatch={dispatch} />
 
-      <ProfitabilityKpiRow kpis={data ? data.kpis : null} />
+      {status === 'error' ? (
+        <div role="alert">
+          Unable to load dashboard data. Please refresh the page and try again.
+          {' '}
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
+        </div>
+      ) : (
+        <>
+          <ProfitabilityKpiRow kpis={data ? data.kpis : null} />
 
-      <ProfitabilityAnalysisCharts
-        profitTrend={data ? data.profitTrend : []}
-        profitMarginByCategory={
-          data ? data.profitMarginByCategory : null
-        }
-        discountImpactHeatmap={
-          data ? data.discountImpactHeatmap : null
-        }
-        top10ProductsByNetLoss={
-          data ? data.top10ProductsByNetLoss : []
-        }
-        selectedProductId={selectedProductId}
-        onSelectProduct={handleProductSelect}
-        selectedYear={effective.year}
-        selectedMonth={effective.month}
-        selectedCategory={effective.category}
-        dispatch={dispatch}
-      />
+          <ProfitabilityAnalysisCharts
+            profitTrend={data ? data.profitTrend : []}
+            profitMarginByCategory={
+              data ? data.profitMarginByCategory : null
+            }
+            discountImpactHeatmap={
+              data ? data.discountImpactHeatmap : null
+            }
+            top10ProductsByNetLoss={
+              data ? data.top10ProductsByNetLoss : []
+            }
+            selectedProductId={selectedProductId}
+            onSelectProduct={handleProductSelect}
+            selectedYear={effective.year}
+            selectedMonth={effective.month}
+            selectedCategory={effective.category}
+            dispatch={dispatch}
+          />
+        </>
+      )}
     </>
   );
 }

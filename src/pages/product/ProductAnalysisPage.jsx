@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ export default function ProductAnalysisPage() {
   const { updateSummaryContent } = useOutletContext();
 
   const { state, dispatch, effective } = useFilterState();
-  const { data, status } = useProductData(effective);
+  const { data, status, retry } = useProductData(effective);
 
   const marginSeries = data?.subCategoryProfitMargins ?? [];
 
@@ -105,6 +106,10 @@ export default function ProductAnalysisPage() {
       {status === 'error' ? (
         <div role="alert">
           Unable to load dashboard data. Please refresh the page and try again.
+          {' '}
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
         </div>
       ) : (
         <>

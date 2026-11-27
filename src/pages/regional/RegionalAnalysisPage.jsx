@@ -43,6 +43,7 @@ export default function RegionalAnalysisPage() {
     comparisonStates,
     comparisonAllStates,
     status,
+    retry,
   } = useRegionalData(effective);
 
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -236,6 +237,10 @@ export default function RegionalAnalysisPage() {
       {status === 'error' && (
         <p role="alert">
           Unable to load dashboard data. Please refresh the page and try again.
+          {' '}
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
         </p>
       )}
     </>

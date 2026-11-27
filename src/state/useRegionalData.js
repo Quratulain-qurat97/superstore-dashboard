@@ -1,5 +1,5 @@
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { dataSource } from '../data/dataSource.js';
 import { buildRegionalData } from '../core/index.js';
@@ -7,6 +7,13 @@ import { buildRegionalData } from '../core/index.js';
 export function useRegionalData(effective) {
   const [rows, setRows] = useState(null);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const retry = useCallback(() => {
+    setRows(null);
+    setError(null);
+    setRetryCount((count) => count + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -14,16 +21,20 @@ export function useRegionalData(effective) {
     dataSource
       .getTransactions()
       .then((loaded) => {
-        if (!cancelled) setRows(loaded);
+        if (!cancelled) {
+          setRows(loaded);
+        }
       })
       .catch((e) => {
-        if (!cancelled) setError(e);
+        if (!cancelled) {
+          setError(e);
+        }
       });
 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
   // Main dataset: respects all four global filters.
   const data = useMemo(() => {
@@ -59,5 +70,6 @@ export function useRegionalData(effective) {
     comparisonAllStates,
     status,
     error,
+    retry,
   };
 }

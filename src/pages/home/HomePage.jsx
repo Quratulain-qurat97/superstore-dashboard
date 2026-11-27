@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
@@ -35,7 +36,7 @@ import { useHomeData } from '../../state/useHomeData.js';
 // The Overview page displays key metrics, trends, and four interactive charts.
 export default function HomePage() {
   const { state, dispatch, effective } = useFilterState();
-  const { data, status } = useHomeData(effective);
+  const { data, status, retry } = useHomeData(effective);
 
   const { updateSummaryContent } = useOutletContext();
 
@@ -120,6 +121,10 @@ export default function HomePage() {
       {status === 'error' ? (
         <div role="alert">
           Unable to load dashboard data. Please refresh the page and try again.
+          {' '}
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
         </div>
       ) : (
         <>

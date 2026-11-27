@@ -32,7 +32,7 @@ export default function SalesAnalysisPage() {
   const { updateSummaryContent } = useOutletContext();
 
   const { state, dispatch, effective } = useFilterState();
-  const { data, status } = useSalesData(effective);
+  const { data, status, retry } = useSalesData(effective);
 
   const regionalSeries = useMemo(
     () => (data ? buildSalesRegionalSeries(data.regions) : null),
@@ -161,6 +161,10 @@ export default function SalesAnalysisPage() {
       {status === 'error' && (
         <p role="alert">
           Unable to load dashboard data. Please refresh the page and try again.
+          {' '}
+          <button type="button" onClick={retry}>
+            Retry
+          </button>
         </p>
       )}
     </>

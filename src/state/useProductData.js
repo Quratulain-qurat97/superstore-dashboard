@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { dataSource } from '../data/dataSource.js';
 
 import {
@@ -9,6 +11,13 @@ import {
 export function useProductData(effective) {
   const [rows, setRows] = useState(null);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const retry = useCallback(() => {
+    setRows(null);
+    setError(null);
+    setRetryCount((count) => count + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -16,16 +25,20 @@ export function useProductData(effective) {
     dataSource
       .getTransactions()
       .then((loaded) => {
-        if (!cancelled) setRows(loaded);
+        if (!cancelled) {
+          setRows(loaded);
+        }
       })
       .catch((e) => {
-        if (!cancelled) setError(e);
+        if (!cancelled) {
+          setError(e);
+        }
       });
 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
   const kpiData = useMemo(() => {
     if (!rows) return null;
@@ -73,5 +86,6 @@ export function useProductData(effective) {
     data,
     status,
     error,
+    retry,
   };
 }

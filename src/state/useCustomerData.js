@@ -1,5 +1,5 @@
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { dataSource } from '../data/dataSource.js';
 import {
@@ -11,11 +11,18 @@ import {
   buildTop10CustomersData,
 } from '../core/index.js';
 
-// Loads transactions once and recalculates data when filters or
+// Loads transactions and recalculates data when filters or
 // the selected customer change.
 export function useCustomerData(effective, selectedCustomerId = null) {
   const [rows, setRows] = useState(null);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const retry = useCallback(() => {
+    setRows(null);
+    setError(null);
+    setRetryCount((count) => count + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,7 +43,7 @@ export function useCustomerData(effective, selectedCustomerId = null) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
   // Chart 1: Rebuild scatter data only when transactions or
   // global filters change. Customer selection must not recreate
@@ -120,5 +127,5 @@ export function useCustomerData(effective, selectedCustomerId = null) {
 
   const status = error ? 'error' : rows ? 'ready' : 'loading';
 
-  return { data, status, error };
+  return { data, status, error, retry };
 }
