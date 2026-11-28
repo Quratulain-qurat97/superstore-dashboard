@@ -1,22 +1,35 @@
+
 // prepare-data.mjs
-// Converts "Superstore_Cleaned.csv" into superstore.json for the React dashboard.
-// Run:  node prepare-data.mjs Superstore_Cleaned.csv superstore.json
+// Converts "Superstore_Cleaned.csv" into both superstore.json and
+// superstore.compact.json for the React dashboard.
+//
+// Run:
+//   node prepare-data.mjs Superstore_Cleaned.csv superstore.json
 //
 // What it does:
 //   1. Decodes the file as UTF-8 (stops with an error on invalid UTF-8 bytes)
 //   2. Parses CSV, including quoted fields that contain commas
 //   3. Keeps only the columns the dashboard needs
-//   4. Validates that dates are ISO YYYY-MM-DD (the cleaned CSV already uses this format)
-//   5. Keeps Sales / Discount / Profit as full-precision numbers (no rounding)
-//   6. Stops with an error if anything looks wrong
-
+//   4. Validates that dates are ISO YYYY-MM-DD
+//   5. Keeps Sales / Discount / Profit as full-precision numbers
+//   6. Validates the dataset
+//   7. Writes the canonical JSON and compact JSON datasets
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const [inputPath = 'Superstore_Cleaned.csv', outputPath = 'superstore.json'] =
-  process.argv.slice(2);
+import {
+  encodeDataset,
+  serializeCompactDataset,
+} from './compact-codec.mjs';
 
-const text = new TextDecoder('utf-8', { fatal: true }).decode(readFileSync(inputPath));
+const [
+  inputPath = 'Superstore_Cleaned.csv',
+  outputPath = 'superstore.json',
+] = process.argv.slice(2);
+
+const text = new TextDecoder('utf-8', { fatal: true }).decode(
+  readFileSync(inputPath),
+);
 
 function parseCsv(input) {
   const rows = [];
@@ -145,16 +158,28 @@ const output = {
     dateField: 'orderDate (ISO, from Order Date)',
     firstOrderDate: transactions.reduce(
       (a, t) => (t.orderDate < a ? t.orderDate : a),
-      '9999-12-31'
+      '9999-12-31',
     ),
     lastOrderDate: transactions.reduce(
       (a, t) => (t.orderDate > a ? t.orderDate : a),
-      '0000-01-01'
+      '0000-01-01',
     ),
   },
   transactions,
 };
 
-writeFileSync(outputPath, JSON.stringify(output));
+// Generate both datasets from the same canonical object.
+const canonicalJson = JSON.stringify(output);
+const compactDataset = encodeDataset(output);
+const compactJson = serializeCompactDataset(compactDataset);
+
+const compactOutputPath = outputPath.replace(
+  /\.json$/i,
+  '.compact.json',
+);
+
+writeFileSync(outputPath, canonicalJson);
+writeFileSync(compactOutputPath, compactJson);
 
 console.log(`Wrote ${transactions.length} transactions to ${outputPath}`);
+console.log(`Wrote compact dataset to ${compactOutputPath}`);

@@ -1,25 +1,45 @@
-// staticJsonSource.js
-// Today's data source: the bundled superstore.json (generated from Superstore_Cleaned.csv).
-// It is loaded with a dynamic import, so Vite puts the 3 MB file in its own chunk and the
-// page loads the data asynchronously, exactly like a real API call would.
 
-let cache = null;
+ // staticJsonSource.js
+// Loads the compact Superstore dataset and decodes it into the existing
+// transaction format used by the dashboard.
 
-async function load() {
-  if (!cache) {
-    const module = await import('../../data/superstore.json');
-    cache = module.default;
+import { decodeCompactDataset } from './decodeCompactDataset.js';
+
+export function createStaticJsonSource(loadCompact) {
+  let cachePromise = null;
+
+  async function load() {
+    if (!cachePromise) {
+      const pending = Promise.resolve()
+        .then(loadCompact)
+        .then(decodeCompactDataset)
+        .catch((error) => {
+          if (cachePromise === pending) {
+            cachePromise = null;
+          }
+          throw error;
+        });
+
+      cachePromise = pending;
+    }
+
+    return cachePromise;
   }
-  return cache;
+
+  return {
+    /** @returns {Promise<Array<object>>} every transaction row */
+    async getTransactions() {
+      return (await load()).transactions;
+    },
+
+    /** @returns {Promise<object>} dataset metadata */
+    async getMeta() {
+      return (await load()).meta;
+    },
+  };
 }
 
-export const staticJsonSource = {
-  /** @returns {Promise<Array<object>>} every transaction row (fields: see data/superstore.json) */
-  async getTransactions() {
-    return (await load()).transactions;
-  },
-  /** @returns {Promise<object>} { source, rowCount, firstOrderDate, lastOrderDate, ... } */
-  async getMeta() {
-    return (await load()).meta;
-  },
-};
+export const staticJsonSource = createStaticJsonSource(async () => {
+  const module = await import('../../data/superstore.compact.json');
+  return module.default;
+});
